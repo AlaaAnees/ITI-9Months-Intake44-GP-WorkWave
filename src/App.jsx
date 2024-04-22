@@ -1,13 +1,26 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Navbar from "./Components/Navbar/Navbar";
+import BecomeSeller from "./Pages/Become a seller/BecomeSeller";
+import Explore from "./Pages/Explore/explore";
+import Home from "./Pages/Home/Home";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Registeration/Register";
+
 function App() {
   return (
-    <div className="container ">
-      <h1 className="text-4xl text-blue-500 mt-5 bg-danger text-center">
-        Hello, World!
-      </h1>
-      <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4">
-        Click me
-      </button>
-    </div>
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/become-seller" element={<BecomeSeller />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

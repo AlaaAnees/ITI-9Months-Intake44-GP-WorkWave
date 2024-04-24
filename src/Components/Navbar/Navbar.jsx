@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
@@ -11,14 +11,14 @@ function Navbar() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
+          <NavLink to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">WorkWave</span>
             <img
               className=" w-[133px]"
               src="/assets/imgs/logo-no-background 5.png"
               alt
             />
-          </Link>
+          </NavLink>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -46,25 +46,25 @@ function Navbar() {
         <div className="hidden lg:flex justify-evenly grow   items-center  ">
           <div className="hidden lg:flex lg:gap-x-12">
             <div className="relative">
-              <Link
+              <NavLink
                 to="/explore"
-                className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 text-sm font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
+                className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
               >
                 Explore
-              </Link>
+              </NavLink>
             </div>
-            <Link
-              to="#"
-              className="text-sm font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+            <NavLink
+              to="/any"
+              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
             >
               English
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="become-seller"
-              className="text-sm font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
             >
               Become a seller
-            </Link>
+            </NavLink>
           </div>
           <div className="hidden lg:block">
             <input
@@ -75,18 +75,18 @@ function Navbar() {
           </div>
         </div>
         <div className="hidden gap-[40px] lg:flex lg:flex-1 lg:justify-end items-center">
-          <Link
+          <NavLink
             to="/login"
-            className="text-sm font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
+            className=" font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
           >
             Sign in
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/register"
-            className="text-sm font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
+            className=" font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
           >
             Join
-          </Link>
+          </NavLink>
         </div>
       </nav>
       {/* Mobile menu, show/hide based on menu open state. */}
@@ -95,14 +95,14 @@ function Navbar() {
         <div className="fixed inset-0 z-10" />
         <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link to="/" className="-m-1.5 p-1.5">
+            <NavLink to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">WorkWave</span>
               <img
                 className="w-[133px]"
                 src="/assets/imgs/logo-no-background 5.png"
                 alt
               />
-            </Link>
+            </NavLink>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -131,27 +131,27 @@ function Navbar() {
                 <div className="-mx-3">
                   {/* 'Product' sub-menu, show/hide based on menu state. */}
                 </div>
-                <Link
+                <NavLink
                   className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
                   to="/explore"
                   onClick={() => setIsMobile(false)}
                 >
                   Explore
-                </Link>
-                <Link
-                  to="#"
+                </NavLink>
+                <NavLink
+                  to="/any"
                   onClick={() => setIsMobile(false)}
                   className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
                 >
                   English
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="become-seller"
                   onClick={() => setIsMobile(false)}
                   className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
                 >
                   Become a seller
-                </Link>
+                </NavLink>
               </div>
               <div>
                 <input
@@ -161,20 +161,20 @@ function Navbar() {
                 />
               </div>
               <div className="py-6 flex justify-center mt-3 gap-5 items-center">
-                <Link
+                <NavLink
                   to="login"
                   onClick={() => setIsMobile(false)}
                   className="text-sm font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
                 >
                   Sign in
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="register"
                   onClick={() => setIsMobile(false)}
                   className="text-sm font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
                 >
                   Join
-                </Link>
+                </NavLink>
               </div>
             </div>
           </div>

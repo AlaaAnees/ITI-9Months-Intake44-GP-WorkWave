@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { IoSearchOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
@@ -66,12 +67,13 @@ function Navbar() {
               Become a seller
             </NavLink>
           </div>
-          <div className="hidden lg:block">
+          <div className="hidden relative lg:block">
             <input
               type="text"
               placeholder="Anything"
-              className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
+              className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px] "
             />
+            <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
           </div>
         </div>
         <div className="hidden gap-[40px] lg:flex lg:flex-1 lg:justify-end items-center">
@@ -153,12 +155,13 @@ function Navbar() {
                   Become a seller
                 </NavLink>
               </div>
-              <div>
+              <div className="relative w-fit">
                 <input
                   type="text"
                   placeholder="Anything"
                   className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
                 />
+                <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
               </div>
               <div className="py-6 flex justify-center mt-3 gap-5 items-center">
                 <NavLink

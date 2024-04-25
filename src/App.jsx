@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import Footer from "./Components/Home-page-components/Footer";
 import Navbar from "./Components/Navbar/Navbar";
 import Loading from "./Pages/Loading/Loading";
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Routes>
         </Suspense>
+        <Footer />
       </BrowserRouter>
     </>
   );

@@ -1,6 +1,6 @@
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaPinterest, FaXTwitter } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -18,9 +18,9 @@ const Footer = () => {
               Categories
             </h3>
             <div className="flex flex-col gap-3">
-              <NavLink className="text-[#595959] text-lg hover:text-blue-500  transition-all duration-300">
+              <Link className="text-[#595959] text-lg hover:text-blue-500  transition-all duration-300">
                 Graphics & Design
-              </NavLink>
+              </Link>
               <NavLink className="text-[#595959] text-lg hover:text-blue-500  transition-all duration-300">
                 Digital Marketing
               </NavLink>

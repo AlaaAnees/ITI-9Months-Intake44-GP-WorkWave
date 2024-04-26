@@ -60,12 +60,9 @@ const PopularServices = () => {
       <div className="w-[90%] mx-auto mt-20">
         <Slider {...settings}>
           {popularServicesData.map((service, index) => (
-            <>
+            <div key={index}>
               <NavLink to={"/any"}>
-                <div
-                  key={index}
-                  className="relative text-white hover:text-blue-400 transition-all duration-300"
-                >
+                <div className="relative text-white hover:text-blue-400 transition-all duration-300">
                   <img
                     src={service.imgUrl}
                     alt={service.title}
@@ -77,7 +74,7 @@ const PopularServices = () => {
                   </p>
                 </div>
               </NavLink>
-            </>
+            </div>
           ))}
         </Slider>
       </div>

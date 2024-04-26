@@ -1,10 +1,30 @@
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 
+import { CgProfile } from "react-icons/cg";
+import { CiLogout } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+
+import { AuthContext } from "../../Context/authContext";
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
+  const [dropDownVisibility, setDropDownVisibility] = useState(false);
+  const { userData } = useContext(AuthContext);
+  const { setUserData } = useContext(AuthContext);
+  const dropdownRef = useRef(null);
+
+  const handleLogOut = () => {
+    localStorage.removeItem("user");
+    setUserData(null);
+  };
+  const handleDropDown = () => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropDownVisibility(false);
+    }
+  };
+  document.addEventListener("click", handleDropDown);
+  console.log(userData);
   return (
     <header className="bg-white">
       <nav
@@ -76,20 +96,77 @@ function Navbar() {
             <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
           </div>
         </div>
-        <div className="hidden gap-[40px] lg:flex lg:flex-1 lg:justify-end items-center">
-          <NavLink
-            to="/login"
-            className=" font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
+        {!userData ? (
+          <div className="hidden gap-[40px] lg:flex lg:flex-1 lg:justify-end items-center">
+            <NavLink
+              to="/login"
+              className=" font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
+            >
+              Sign in
+            </NavLink>
+            <NavLink
+              to="/register"
+              className=" font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
+            >
+              Join
+            </NavLink>
+          </div>
+        ) : (
+          <div
+            className="hidden lg:flex gap-2  justify-center items-center cursor-pointer relative"
+            ref={dropdownRef}
+            onClick={() => setDropDownVisibility((drop) => !drop)}
           >
-            Sign in
-          </NavLink>
-          <NavLink
-            to="/register"
-            className=" font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
-          >
-            Join
-          </NavLink>
-        </div>
+            <h2 className="sub-font-3  text-[#89898A]">{userData.username}</h2>
+            <img src={userData.img} alt="" className="w-10 h-10 rounded-full" />
+            <div
+              ref={dropdownRef}
+              className={`bg-white shadow-lg py-3 px-6 rounded-lg w-52 absolute top-16 z-10 ${
+                dropDownVisibility ? "" : "hidden"
+              }`}
+            >
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/profile"}
+              >
+                <CgProfile />
+                Profile
+              </Link>
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/gigs"}
+              >
+                Gigs
+              </Link>
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/newGig"}
+              >
+                Add New Gigs
+              </Link>
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/orders"}
+              >
+                Orderes
+              </Link>
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/orders"}
+              >
+                Messages
+              </Link>
+              <Link
+                to={"/"}
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                onClick={handleLogOut}
+              >
+                <CiLogout />
+                Log out
+              </Link>
+            </div>
+          </div>
+        )}
       </nav>
       {/* Mobile menu, show/hide based on menu open state. */}
       <div className={isMobile ? "" : "hidden"} role="dialog" aria-modal="true">
@@ -133,6 +210,65 @@ function Navbar() {
                 <div className="-mx-3">
                   {/* 'Product' sub-menu, show/hide based on menu state. */}
                 </div>
+                {userData && (
+                  <NavLink
+                    className="-mx-3 flex flex-col items-center rounded-lg justify-center it px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/profile"
+                    onClick={() => setIsMobile(false)}
+                  >
+                    <img
+                      src={userData.img}
+                      alt="user img"
+                      className="w-12 h-12 rounded-full "
+                    />{" "}
+                    {userData.username}
+                    {`'`}s Profile
+                  </NavLink>
+                )}
+                <div className="relative w-fit">
+                  <input
+                    type="text"
+                    placeholder="Anything"
+                    className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
+                  />
+                  <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
+                </div>
+                {userData && (
+                  <NavLink
+                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/gigs"
+                    onClick={() => setIsMobile(false)}
+                  >
+                    Gigs
+                  </NavLink>
+                )}
+                {userData && (
+                  <NavLink
+                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/newGig"
+                    onClick={() => setIsMobile(false)}
+                  >
+                    Add New Gigs
+                  </NavLink>
+                )}
+                {userData && (
+                  <NavLink
+                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/orders"
+                    onClick={() => setIsMobile(false)}
+                  >
+                    Orders
+                  </NavLink>
+                )}
+                {userData && (
+                  <NavLink
+                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/messages"
+                    onClick={() => setIsMobile(false)}
+                  >
+                    Messages
+                  </NavLink>
+                )}
                 <NavLink
                   className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
                   to="/explore"
@@ -154,31 +290,36 @@ function Navbar() {
                 >
                   Become a seller
                 </NavLink>
+                {userData && (
+                  <NavLink
+                    className="-mx-3 flex items-center gap-1 rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/"
+                    onClick={handleLogOut}
+                  >
+                    <CiLogout />
+                    Log out
+                  </NavLink>
+                )}
               </div>
-              <div className="relative w-fit">
-                <input
-                  type="text"
-                  placeholder="Anything"
-                  className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
-                />
-                <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
-              </div>
-              <div className="py-6 flex justify-center mt-3 gap-5 items-center">
-                <NavLink
-                  to="login"
-                  onClick={() => setIsMobile(false)}
-                  className="text-sm font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
-                >
-                  Sign in
-                </NavLink>
-                <NavLink
-                  to="register"
-                  onClick={() => setIsMobile(false)}
-                  className="text-sm font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
-                >
-                  Join
-                </NavLink>
-              </div>
+
+              {!userData && (
+                <div className="py-6 flex justify-center mt-3 gap-5 items-center">
+                  <NavLink
+                    to="login"
+                    onClick={() => setIsMobile(false)}
+                    className="text-sm font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
+                  >
+                    Sign in
+                  </NavLink>
+                  <NavLink
+                    to="register"
+                    onClick={() => setIsMobile(false)}
+                    className="text-sm font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
+                  >
+                    Join
+                  </NavLink>
+                </div>
+              )}
             </div>
           </div>
         </div>

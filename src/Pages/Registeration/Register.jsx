@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { FaFacebook, FaRegCheckCircle } from "react-icons/fa";
+import {
+  FaEye,
+  FaEyeSlash,
+  FaFacebook,
+  FaRegCheckCircle,
+} from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { MdErrorOutline } from "react-icons/md";
 import { NavLink } from "react-router-dom";
@@ -31,7 +36,9 @@ function Register() {
   const [isSeller, setIsSeller] = useState(false);
   const [regSuccess, setRegSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
+    useState(false);
   const matchPassword = useCallback(() => {
     setPasswordMatching(password === confirmPassword);
   }, [password, confirmPassword]);
@@ -247,29 +254,58 @@ function Register() {
                 {emailError}
               </span>
             )}
-            <input
-              type="text"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="outline-none border-b-2 w-full mt-4 p-2"
-            />
+            <div className="relative">
+              <input
+                type={!passwordVisibility ? "password" : "text"}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                className="outline-none border-b-2 w-full mt-4 p-2"
+              />
+              {/* Conditionally render eye icons based on password visibility */}
+              {!passwordVisibility ? (
+                <FaEyeSlash
+                  className="absolute top-1/2 right-2 cursor-pointer text-[#bbb]"
+                  onClick={() => setPasswordVisibility(true)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-1/2 right-2 cursor-pointer text-[#bbb]"
+                  onClick={() => setPasswordVisibility(false)}
+                />
+              )}
+            </div>
+
             {passwordError && (
               <span className="text-danger flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {passwordError}
               </span>
             )}
-            <input
-              type="text"
-              placeholder="Confirm Password"
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                matchPassword();
-              }}
-              value={confirmPassword}
-              className="outline-none border-b-2 w-full mt-4 p-2"
-            />
+            <div className="relative">
+              <input
+                type={!confirmPasswordVisibility ? "password" : "text"}
+                placeholder="Confirm Password"
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  matchPassword();
+                }}
+                value={confirmPassword}
+                className="outline-none border-b-2 w-full mt-4 p-2"
+              />
+              {!confirmPasswordVisibility ? (
+                <FaEyeSlash
+                  className="absolute top-1/2 right-2 cursor-pointer text-[#bbb]"
+                  onClick={() => setConfirmPasswordVisibility(true)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-1/2 right-2 cursor-pointer text-[#bbb]"
+                  onClick={() => setConfirmPasswordVisibility(false)}
+                />
+              )}
+            </div>
+
             {confirmPasswordError && (
               <span className="text-danger flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />

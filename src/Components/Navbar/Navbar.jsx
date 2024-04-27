@@ -68,17 +68,17 @@ function Navbar() {
           <div className="hidden lg:flex lg:gap-x-12">
             <div className="relative">
               <NavLink
-                to="/explore"
-                className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
+                to="/categories"
+                className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
               >
-                Explore
+                Categories
               </NavLink>
             </div>
             <NavLink
-              to="/any"
-              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+              to="/explore"
+              className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
             >
-              English
+              Explore
             </NavLink>
             <NavLink
               to="become-seller"

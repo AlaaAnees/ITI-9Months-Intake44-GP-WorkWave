@@ -9,7 +9,7 @@ function Cards() {
           $ 71,465
         </p>
       </Card>
-      <Card className="wrapper md:w-87 lg:w-full text-center max-w-xs rounded-xl outline outline-[#172554]  ">
+      <Card className="wrapper md:w-87 lg:w-full text-center max-w-xs rounded-xl outline outline-[#172554]">
         <h4 className="text-2xl text-[#172554]">Total Gigs</h4>
         <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong text-gray-600 text-xl">
           $ 71,465

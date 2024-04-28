@@ -33,30 +33,32 @@ const chartdata = [
 
 function Spark() {
   return (
-    <Card className="mx-auto mt-9 flex max-w-lg items-center justify-between px-4 py-3.5 ">
-      <div className="flex items-center space-x-2.5">
-        <p className="text-tremor-content-strong dark:text-dark-tremor-content-strong font-medium">
-          APPL
-        </p>
-        <span className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
-          Apple Inc.
-        </span>
-      </div>
-      <SparkAreaChart
-        data={chartdata}
-        categories={["Performance"]}
-        index={"month"}
-        className="h-8 w-20 sm:h-10 sm:w-36"
-      />
-      <div className="flex items-center space-x-2.5">
-        <span className="font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
-          179.26
-        </span>
-        <span className="rounded bg-blue-500 px-2 py-1 text-tremor-default font-medium text-white">
-          +1.72%
-        </span>
-      </div>
-    </Card>
+    <div className="">
+      <Card className="mx-auto  flex max-w-lg items-center justify-between px-4 py-3.5 ">
+        <div className="flex items-center space-x-2.5">
+          <p className="text-tremor-content-strong dark:text-dark-tremor-content-strong font-medium">
+            APPL
+          </p>
+          <span className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
+            Apple Inc.
+          </span>
+        </div>
+        <SparkAreaChart
+          data={chartdata}
+          categories={["Performance"]}
+          index={"month"}
+          className="h-8 w-20 sm:h-10 sm:w-36"
+        />
+        <div className="flex items-center space-x-2.5">
+          <span className="font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
+            179.26
+          </span>
+          <span className="rounded bg-blue-500 px-2 py-1 text-tremor-default font-medium text-white">
+            +1.72%
+          </span>
+        </div>
+      </Card>
+    </div>
   );
 }
 

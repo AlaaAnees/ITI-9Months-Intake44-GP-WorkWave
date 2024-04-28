@@ -1,0 +1,11 @@
+.categories__name {
+  @media (max-width: 1000px) {
+    display: none;
+  }
+}
+
+.donut {
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
+}

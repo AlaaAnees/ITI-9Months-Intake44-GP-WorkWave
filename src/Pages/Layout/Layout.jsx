@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
-// import Footer from "../../Components/Footer/Footer";
+import Footer from "../../Components/Home-page-components/Footer";
 
 function Layout() {
   return (
     <>
-      <Navbar />
+      <Navbar></Navbar>
       <div className="container">
-        {/* It may be changed or removed at the time of merging */}
         <Outlet></Outlet>
       </div>
-      {/* <Footer /> */}
+      <Footer></Footer>
     </>
   );
 }

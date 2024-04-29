@@ -4,6 +4,8 @@ import Error from "./Pages/Error/Error";
 import Home from "./Pages/Home/Home";
 import Chat from "./Pages/Chat/Chat";
 import Chats from "./Pages/Chats/Chats";
+import ConversationContextProvider from "./Context/ConversationContext";
+import ConversationsList from "./Pages/ConversationsList/ConversationsList";
 
 const routes = createBrowserRouter([
   // It may be changed or removed at the time of merging
@@ -28,6 +30,11 @@ const routes = createBrowserRouter([
         errorElement: <Error></Error>,
       },
       {
+        path: "/conversationlist",
+        element: <ConversationsList />,
+        errorElement: <Error></Error>,
+      },
+      {
         path: "*",
         element: <Error />,
         errorElement: <Error></Error>,
@@ -37,7 +44,11 @@ const routes = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={routes}></RouterProvider>;
+  return (
+    <ConversationContextProvider>
+      <RouterProvider router={routes}></RouterProvider>;
+    </ConversationContextProvider>
+  );
 }
 
 export default App;

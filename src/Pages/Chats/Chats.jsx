@@ -13,8 +13,6 @@ export default function Chats() {
   nobis praesentium placeat.`;
 
   const fontStyle = {
-    fontSize: "15px",
-    fontWeight: "bold",
     color: "#808080",
   };
 
@@ -40,7 +38,7 @@ export default function Chats() {
             {/* End table head */}
           </table>
           {/* Box 1 */}
-          <div className="box px-3 flex justify-between align-items-center bg-blue-100 border-1 border-gray-400 rounded-md shadow-sm">
+          <div className="box px-3 flex justify-between align-items-center bg-blue-100 border-1 border-gray-400 rounded-md shadow-sm mt-3">
             <div className="person flex align-items-center gap-2 p-2">
               <span className="main-font" style={fontStyle}>
                 Mahmoud Abdelaziz

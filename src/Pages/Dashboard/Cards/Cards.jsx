@@ -8,57 +8,33 @@ function Cards() {
   const [totalGigs, setTotalGigs] = useState(0);
 
   useEffect(() => {
-    fetchTotalUsers();
-    fetchTotalOrders();
-    fetchTotalGigs();
+    fetchData("users", setTotalUsers);
+    fetchData("orders/getallOrders", setTotalOrders);
+    fetchData("gigs?cat=design", setTotalGigs);
   }, []);
 
-  const fetchTotalUsers = () => {
-    fetch("https://workwave-vq08.onrender.com/api/users/", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJkMGRlOTNmMzBlNTBkZmU5Y2U0NzciLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0MjI4Nzg3fQ.hHQ7GjGjiBg8XDl1bf8CB1XP3D9IuPpxJMOR5ab4hek",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalUsers(data.data.allUsers.length);
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-      });
-  };
-
-  const fetchTotalOrders = () => {
-    fetch("https://workwave-vq08.onrender.com/api/orders//getAllOrders", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJkMGRlOTNmMzBlNTBkZmU5Y2U0NzciLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0MjI4Nzg3fQ.hHQ7GjGjiBg8XDl1bf8CB1XP3D9IuPpxJMOR5ab4hek",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalOrders(data.data.allOrders.length);
-      })
-      .catch((error) => {
-        console.error("Error fetching orders:", error);
-      });
-  };
-
-  const fetchTotalGigs = () => {
-    fetch("https://workwave-vq08.onrender.com/api/gigs?cat=design", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJkMGRlOTNmMzBlNTBkZmU5Y2U0NzciLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0MjI4Nzg3fQ.hHQ7GjGjiBg8XDl1bf8CB1XP3D9IuPpxJMOR5ab4hek",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalGigs(data.length);
-      })
-      .catch((error) => {
-        console.error("Error fetching gigs:", error);
-      });
+  const fetchData = async (endpoint, setter) => {
+    try {
+      const response = await fetch(
+        `https://workwave-vq08.onrender.com/api/${endpoint}`,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJkMGRlOTNmMzBlNTBkZmU5Y2U0NzciLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0MjI4Nzg3fQ.hHQ7GjGjiBg8XDl1bf8CB1XP3D9IuPpxJMOR5ab4hek",
+          },
+        }
+      );
+      const data = await response.json();
+      if (endpoint === "users") {
+        setter(data.data.allUsers.length);
+      } else if (endpoint === "orders/getallOrders") {
+        setter(data.data.allOrders.length);
+      } else {
+        setter(data.length);
+      }
+    } catch (error) {
+      console.error(`Error fetching ${endpoint}:`, error);
+    }
   };
 
   const renderCard = (title, value) => (

@@ -6,7 +6,7 @@ import Progress from "./Progress/Progress";
 
 function Dashboard() {
   return (
-    <div className="container mt-40">
+    <div className="container mt-24">
       <Cards />
       <div className="flex flex-col md:flex-row justify-around items-center ">
         <div className="flex flex-col mt-16 ">

@@ -29,6 +29,10 @@ const routes = createBrowserRouter([
         path: "/categories",
         element: <CategoriesPage></CategoriesPage>,
       },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
     ],
   },
 ]);

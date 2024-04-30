@@ -34,7 +34,8 @@ const Categories = ({ categoriesData }) => {
               <NavLink
                 to={`/categories?cat=${category.categoryName}`}
                 key={category.title}
-                className="bg-white flex flex-col justify-center items-center rounded-md shadow-lg p-3 hover:-translate-y-2 relative before:absolute  before:top-0 before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500 transition-all duration-300 before:transition-all before:duration-300"
+                className="bg-white flex flex-col justify-center items-center rounded-md shadow-lg p-3 hover:-translate-y-2 relative 
+                before:absolute  before:top-0 before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500 transition-all duration-300 before:transition-all before:duration-300"
               >
                 <img
                   src={category.imgURL}

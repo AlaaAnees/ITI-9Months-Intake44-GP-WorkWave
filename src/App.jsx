@@ -7,8 +7,6 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
-// render as we fetch
-import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
 import GigContextProvider from "./Context/GigsContext";
 const routes = createBrowserRouter([
   {
@@ -19,7 +17,6 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: <Home></Home>,
-        loader: categoriesLoader,
       },
       {
         path: "/login",
@@ -37,11 +34,11 @@ const routes = createBrowserRouter([
 
 function App() {
   return (
-    <AuthProvider>
-      <GigContextProvider>
+    <GigContextProvider>
+      <AuthProvider>
         <RouterProvider router={routes}></RouterProvider>
-      </GigContextProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </GigContextProvider>
   );
   // return (
   //   <AuthProvider>

@@ -2,22 +2,21 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Loading from "../../Pages/Loading/Loading";
 
-const Categories = () => {
-  const [categoriesData, setCategoriesData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    async function fetchCategories() {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/categories`
-      );
-      const data = await res.json();
-      setCategoriesData(data);
-      setIsLoading(false);
-    }
-    fetchCategories();
-  }, []);
-  if (isLoading) return <Loading></Loading>;
+const Categories = ({ categoriesData }) => {
+  // const [categoriesData, setCategoriesData] = useState([]);
+
+  // useEffect(() => {
+  //   async function fetchCategories() {
+  //     const res = await fetch(
+  //       `https://workwave-vq08.onrender.com/api/categories`
+  //     );
+  //     const data = await res.json();
+  //     setCategoriesData(data);
+  //     setIsLoading(false);
+  //   }
+  //   fetchCategories();
+  // }, [setIsLoading]);
+
   return (
     <div className="bg-blue-50 pt-14  relative">
       <img

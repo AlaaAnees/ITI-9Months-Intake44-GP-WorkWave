@@ -6,7 +6,9 @@ function Layout() {
   return (
     <>
       <Navbar></Navbar>
-      <Outlet></Outlet>
+      <section className="h-screen">
+        <Outlet></Outlet>
+      </section>
       <Footer></Footer>
     </>
   );

@@ -5,14 +5,31 @@ import Cover from "../../Components/Home-page-components/Cover";
 import Inspring from "../../Components/Home-page-components/Inspring";
 import JoinWorkWave from "../../Components/Home-page-components/JoinWorkWave";
 import PopularServices from "../../Components/Home-page-components/PopularServices";
+import { useEffect, useState } from "react";
+import Loading from "../Loading/Loading";
 
 // const Inspring = lazy(() =>
 //   import("../../Components/Home-page-components/Inspring")
 // );
 function Home() {
-  const categoriesData = useLoaderData();
+  const [isLoading, setIsLoading] = useState(true);
+  const [categoriesData, setCategoriesData] = useState([]);
 
-  return (
+  useEffect(() => {
+    async function fetchCategories() {
+      const res = await fetch(
+        `https://workwave-vq08.onrender.com/api/categories`
+      );
+      const data = await res.json();
+      setCategoriesData(data);
+      setIsLoading(false);
+    }
+    fetchCategories();
+  }, [setIsLoading]);
+
+  return isLoading ? (
+    <Loading></Loading>
+  ) : (
     <>
       <Cover />
       <Categories categoriesData={categoriesData} />

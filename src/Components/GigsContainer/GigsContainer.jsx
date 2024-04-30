@@ -5,24 +5,27 @@ import Loading from "../../Pages/Loading/Loading";
 import { useSearchParams } from "react-router-dom";
 const BASE_URL = "https://workwave-vq08.onrender.com";
 
-function GigsContainer() {
+function GigsContainer({ minPrice, maxPrice }) {
   const [searchParams] = useSearchParams();
-  const [gigs, setGigs] = useState();
+  const [gigs, setGigs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [cat, setCat] = useState(() => searchParams.get("cat"));
+  const [cat, setCat] = useState(() => searchParams.get("cat") || "");
+
   useEffect(() => {
     async function fetchGigs() {
       console.log("eamannamam");
       setIsLoading(true);
-      const res = await fetch(`${BASE_URL}/api/gigs?cat=${cat}`);
+      const res = await fetch(
+        `${BASE_URL}/api/gigs?cat=${cat}&min=${minPrice}&max=${maxPrice}`
+      );
       const data = await res.json();
       console.log(data, cat);
       setGigs(data);
       setIsLoading(false);
     }
     fetchGigs();
-  }, [cat]);
-  if (isLoading) return <Loading></Loading>;
+  }, [cat, minPrice, maxPrice]);
+  if (isLoading) return <Loading background="transparent"></Loading>;
   return (
     <>
       <ul className="grid sm:grid-cols-2 md:grid-cols-4 ">

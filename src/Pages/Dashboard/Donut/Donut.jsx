@@ -41,11 +41,11 @@ function Donut() {
         />
         <Legend
           categories={[
-            "New York",
-            "London",
-            "Hong Kong",
-            "San Francisco",
-            "Singapore",
+            "Graphic Design",
+            "Programming",
+            "UI/UX",
+            "Engineering",
+            "Logo",
           ]}
           colors={["blue", "cyan", "indigo", "violet", "fuchsia"]}
           className="max-w-xs categories__name"

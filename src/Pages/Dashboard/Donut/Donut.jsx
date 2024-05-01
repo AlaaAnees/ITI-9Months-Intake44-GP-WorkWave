@@ -1,26 +1,11 @@
 import { DonutChart, Legend } from "@tremor/react";
 import "./Donut.scss";
 const sales = [
-  {
-    name: "New York",
-    sales: 980,
-  },
-  {
-    name: "London",
-    sales: 456,
-  },
-  {
-    name: "Hong Kong",
-    sales: 390,
-  },
-  {
-    name: "San Francisco",
-    sales: 240,
-  },
-  {
-    name: "Singapore",
-    sales: 190,
-  },
+  { name: "Graphics & Design", sales: 780 },
+  { name: "Digital Marketing", sales: 620 },
+  { name: "Writing & Translation", sales: 540 },
+  { name: "Video & Animation", sales: 430 },
+  { name: "Music & Audio", sales: 360 },
 ];
 
 const valueFormatter = (number) =>

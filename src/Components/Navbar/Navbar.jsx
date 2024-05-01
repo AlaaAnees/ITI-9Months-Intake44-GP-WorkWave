@@ -1,22 +1,34 @@
-import { useContext, useRef, useState } from "react";
+import {
+  useContext,
+  useRef,
+  useState,
+} from 'react';
 
-import { CgProfile } from "react-icons/cg";
-import { CiLogout } from "react-icons/ci";
-import { IoSearchOutline } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { CgProfile } from 'react-icons/cg';
+import { CiLogout } from 'react-icons/ci';
+import { IoSearchOutline } from 'react-icons/io5';
+import {
+  Link,
+  NavLink,
+} from 'react-router-dom';
 
-import { AuthContext } from "../../Context/authContext";
+import { AuthContext } from '../../Context/authContext';
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const [dropDownVisibility, setDropDownVisibility] = useState(false);
   const { userData } = useContext(AuthContext);
   const { setUserData } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
+
   const dropdownRef = useRef(null);
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUserData(null);
+    setToken(null);
   };
   const handleDropDown = () => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

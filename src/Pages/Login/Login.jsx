@@ -1,10 +1,18 @@
-import { useContext, useState } from "react";
-import { FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { MdErrorOutline } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
-import { AuthContext } from "../../Context/authContext";
+import {
+  useContext,
+  useState,
+} from 'react';
+
+import { FaFacebook } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { MdErrorOutline } from 'react-icons/md';
+import {
+  NavLink,
+  useNavigate,
+} from 'react-router-dom';
+import { SyncLoader } from 'react-spinners';
+
+import { AuthContext } from '../../Context/authContext';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,6 +25,7 @@ function Login() {
     password,
   };
   const { setUserData } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -33,7 +42,13 @@ function Login() {
       );
       const data = await response.json();
       localStorage.setItem("user", JSON.stringify(data.data.user));
+      localStorage.setItem("token", JSON.stringify(data.data.token));
+      // console.log(data);
+      const token = data.data.token;
+      console.log(token);
+      // console.log(data.data.user);
       setUserData(data.data.user);
+      setToken(data.data.token);
 
       if (!response.ok) {
         throw new Error("Failed to login user");

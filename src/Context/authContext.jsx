@@ -1,9 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
 
 const UseLocalStorage = (callback) => {
   useEffect(() => {
     const handleStorageChange = () => {
       callback(JSON.parse(localStorage.getItem("user")));
+      callback(JSON.parse(localStorage.getItem("token")));
     };
 
     // Listen for the storage event
@@ -15,12 +20,13 @@ const UseLocalStorage = (callback) => {
     };
   }, [callback]);
 };
-
 const AuthContext = createContext();
-
 const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("user")) || null
+  );
+  const [token, setToken] = useState(
+    JSON.parse(localStorage.getItem("token")) || null
   );
 
   // Update user data in context when local storage changes
@@ -29,7 +35,7 @@ const AuthProvider = ({ children }) => {
   });
 
   return (
-    <AuthContext.Provider value={{ userData, setUserData }}>
+    <AuthContext.Provider value={{ userData, setUserData, token, setToken }}>
       {children}
     </AuthContext.Provider>
   );

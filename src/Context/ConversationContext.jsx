@@ -1,19 +1,19 @@
 import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types"; // Import PropTypes
-// Create a context
-export const ConversationContext = createContext();
+
+export const ConversationContext = createContext(); // Create a context 🫙
 
 const ConversationContextProvider = (props) => {
-  // State to store fetched conversation data
+  // State to store fetched 🖲️
   const [conversationData, setConversationData] = useState([]);
   const [singleConversationData, setSingleConversationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlYTZjNmQzODUyMzViZDEyMzM1Y2EiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDQxNTg4Mn0.y_TyiL1GH6Y3ZBzMQwlHHoxDxG37vmZP7eEc2KECYCE"; // Replace 'your_token_here' with your actual JWT token
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NTE2NDMwfQ.CZuNtiLTM9SrkEKYnHhhYL08p24tlDVO0mvTUY4ugHE"; // Replace 'your_token_here' with your actual JWT token
 
-  // Function to fetch all conversations
+  // Function to fetch all conversations 🗨️
   const fetchConversations = async () => {
     try {
       // Fetch data from the conversation endpoint with the token included in the headers
@@ -27,11 +27,15 @@ const ConversationContextProvider = (props) => {
         }
       );
 
+      console.log("from fetchConversations:", response); //for check 🧪
+
       if (!response.ok) {
         throw new Error("Failed to fetch conversations");
       }
 
       const jsonData = await response.json();
+
+      console.log("form fetch: ", jsonData); //for check 🧪
 
       // Set the fetched data to the state
       setConversationData(jsonData);
@@ -43,7 +47,7 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  // Function to fetch a single conversation
+  //======================= Function to fetch a single conversation =======================
   const fetchSingleConversation = async (conversationId) => {
     try {
       // Fetch data from the single conversation endpoint with the token included in the headers
@@ -99,7 +103,7 @@ const ConversationContextProvider = (props) => {
   };
 
   // Function to update an existing conversation
-  const updateConversation = async (conversationId, updatedData) => {
+  const updateConversation = async (conversationId) => {
     try {
       // Send PUT request to update conversation
       const response = await fetch(
@@ -109,7 +113,6 @@ const ConversationContextProvider = (props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedData),
         }
       );
       if (!response.ok) {

@@ -8,6 +8,7 @@ import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
 import GigContextProvider from "./Context/GigsContext";
+import SingleGig from "./Pages/SingleGig/SingleGig";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
       {
         path: "/categories",
         element: <CategoriesPage></CategoriesPage>,
+      },
+      {
+        path: "/singlegig/:id",
+        element: <SingleGig></SingleGig>,
       },
     ],
   },

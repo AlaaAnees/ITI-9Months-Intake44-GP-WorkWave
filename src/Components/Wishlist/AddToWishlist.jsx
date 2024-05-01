@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
-function AddToWishlist() {
+function AddToWishlist({ gig }) {
+  const [colored, setColored] = useState(false);
   return (
     <div>
-      <FaHeart />
+      <FaHeart
+        className={`${colored ? "text-red-600" : ""}`}
+        onClick={(e) => {
+          e.preventDefault();
+          setColored((c) => !c);
+        }}
+      />
     </div>
   );
 }

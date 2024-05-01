@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const UseLocalStorage = (callback) => {
   useEffect(() => {

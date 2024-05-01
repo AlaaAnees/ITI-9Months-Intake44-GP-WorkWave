@@ -47,7 +47,7 @@ import Loading from "../../Pages/Loading/Loading";
 
 const Categories = () => {
   const [categoriesData, setCategoriesData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [setIsLoading] = useState(false); // isloading i remove it becasue it not used and causing an error with me
   useEffect(() => {
     async function fetchCategories() {
       setIsLoading(true);

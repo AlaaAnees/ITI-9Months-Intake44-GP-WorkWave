@@ -4,7 +4,7 @@ function Chat() {
   return (
     <>
       <div className="caht">
-        <div className="content mt-2">
+        <div className="content mt-2 container-lg">
           <span className="dirPath main-font text-sm text-gray-500">
             <Link className="text-gray-500" to={"/chats"}>
               Chats

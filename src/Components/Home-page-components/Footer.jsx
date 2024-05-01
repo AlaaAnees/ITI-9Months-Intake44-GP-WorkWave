@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="pt-8 border-t-2 border-[#ccc] bg-blue-50 px-16 pb-8">
         <div>
           <img
-            src="../../../public/assets/imgs/workwave-high-resolution-logo-black-transparent 1.png"
+            src="/assets/imgs/workwave-high-resolution-logo-black-transparent 1.png"
             alt=""
           />
         </div>
@@ -201,7 +201,7 @@ const Footer = () => {
         <div>
           <img
             className="w-24 md:w-36"
-            src="../../../public/assets/imgs/workwave-high-resolution-logo-white-transparent 2.png"
+            src="/assets/imgs/workwave-high-resolution-logo-white-transparent 2.png"
             alt=""
           />
         </div>

@@ -47,22 +47,22 @@ const BestPart = () => {
       <div className="hidden lg:flex flex-wrap gap-5 w-full lg:w-1/2 py-[50px] ">
         <img
           className="xl:w-[280px] lg:w-[220px] h-[200px]"
-          src="../../../public/assets/imgs/Rectangle 31.png"
+          src="/assets/imgs/Rectangle 31.png"
           alt=""
         />
         <img
           className="xl:w-[280px] lg:w-[220px] h-[200px]"
-          src="../../../public/assets/imgs/Rectangle 32.png"
+          src="/assets/imgs/Rectangle 32.png"
           alt=""
         />
         <img
           className="xl:w-[280px] lg:w-[220px] h-[200px]"
-          src="../../../public/assets/imgs/Rectangle 33.png"
+          src="/assets/imgs/Rectangle 33.png"
           alt=""
         />
         <img
           className="xl:w-[280px] lg:w-[220px] h-[200px]"
-          src="../../../public/assets/imgs/Rectangle 34.png"
+          src="/assets/imgs/Rectangle 34.png"
           alt=""
         />
       </div>

@@ -64,7 +64,7 @@ const Categories = () => {
   return (
     <div className="bg-blue-50 pt-14  relative">
       <img
-        src="/public/assets/imgs/Shapes.png"
+        src="/assets/imgs/Shapes.png"
         alt=""
         className="absolute top-4 -left-16"
       />

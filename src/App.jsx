@@ -7,9 +7,8 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
-// render as we fetch
-import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
-import GigContextProvider from "./Context/GigsContext";
+import SingleGig from "./Pages/SingleGig/SingleGig";
+import Wishlist from "./Components/Wishlist/Wishlist";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -19,7 +18,6 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: <Home></Home>,
-        loader: categoriesLoader,
       },
       {
         path: "/login",
@@ -31,6 +29,11 @@ const routes = createBrowserRouter([
         path: "/categories",
         element: <CategoriesPage></CategoriesPage>,
       },
+      {
+        path: "/singlegig/:id",
+        element: <SingleGig></SingleGig>,
+      },
+      { path: "/wishlist", element: <Wishlist></Wishlist> },
     ],
   },
 ]);
@@ -38,9 +41,7 @@ const routes = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <GigContextProvider>
-        <RouterProvider router={routes}></RouterProvider>
-      </GigContextProvider>
+      <RouterProvider router={routes}></RouterProvider>
     </AuthProvider>
   );
   // return (

@@ -7,9 +7,17 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
+import Chats from "./Pages/Chats/Chats";
+import Chat from "./Pages/Chat/Chat";
+import ConversationsList from "./Pages/ConversationsList/ConversationsList";
+import ConversationContextProvider from "./Context/ConversationContext";
+import { QueryClient, QueryClientProvider } from "react-query";
 // render as we fetch
 import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
 import GigContextProvider from "./Context/GigsContext";
+
+const queryClient = new QueryClient();
+
 const routes = createBrowserRouter([
   // It may be changed or removed at the time of merging
   {
@@ -52,7 +60,11 @@ function App() {
   return (
     <AuthProvider>
       <GigContextProvider>
-        <RouterProvider router={routes}></RouterProvider>
+        <ConversationContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={routes}></RouterProvider>
+          </QueryClientProvider>
+        </ConversationContextProvider>
       </GigContextProvider>
     </AuthProvider>
   );

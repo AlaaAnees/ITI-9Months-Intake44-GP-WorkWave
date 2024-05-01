@@ -1,8 +1,8 @@
-import { useNavigate, useRouteError } from "react-router";
+import { useRouteError } from "react-router";
 import { Link } from "react-router-dom";
 
 function Error() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const error = useRouteError();
   return (
     <section className="h-screen w-100 flex flex-column  gap-9 justify-center items-center">

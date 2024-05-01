@@ -7,6 +7,13 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
+import Chats from "./Pages/Chats/Chats";
+import Chat from "./Pages/Chat/Chat";
+import ConversationsList from "./Pages/ConversationsList/ConversationsList";
+import ConversationContextProvider from "./Context/ConversationContext";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const routes = createBrowserRouter([
   // It may be changed or removed at the time of merging
@@ -29,6 +36,18 @@ const routes = createBrowserRouter([
         path: "/categories",
         element: <CategoriesPage></CategoriesPage>,
       },
+      {
+        path: "/chats",
+        element: <Chats />,
+      },
+      {
+        path: "/chat",
+        element: <Chat />,
+      },
+      {
+        path: "/conversationList",
+        element: <ConversationsList />,
+      },
     ],
   },
 ]);
@@ -36,7 +55,11 @@ const routes = createBrowserRouter([
 function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={routes}></RouterProvider>
+      <ConversationContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={routes}></RouterProvider>
+        </QueryClientProvider>
+      </ConversationContextProvider>
     </AuthProvider>
   );
   // return (

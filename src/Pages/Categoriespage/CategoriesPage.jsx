@@ -25,7 +25,6 @@ function CategoriesPage() {
       <section className="  bg-white p-3  ">
         <ul className="flex justify-between items-center gap-6 container  ">
           {categoryType.map((cat) => {
-            console.log(searchParams.get("cat"), cat.route);
             return (
               <Link
                 to={`/categories?cat=${cat.route}`}

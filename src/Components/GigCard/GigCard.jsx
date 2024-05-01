@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import AddToWishlist from "../Wishlist/AddToWishlist";
 
 function GigCard({ gig }) {
-  console.log(gig);
   return (
     <Link to={`/singlegig/${gig.userId}`}>
       <li key={gig._id}>

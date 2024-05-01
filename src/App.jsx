@@ -7,8 +7,8 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
-import GigContextProvider from "./Context/GigsContext";
 import SingleGig from "./Pages/SingleGig/SingleGig";
+import Wishlist from "./Components/Wishlist/Wishlist";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -33,17 +33,16 @@ const routes = createBrowserRouter([
         path: "/singlegig/:id",
         element: <SingleGig></SingleGig>,
       },
+      { path: "/wishlist", element: <Wishlist></Wishlist> },
     ],
   },
 ]);
 
 function App() {
   return (
-    <GigContextProvider>
-      <AuthProvider>
-        <RouterProvider router={routes}></RouterProvider>
-      </AuthProvider>
-    </GigContextProvider>
+    <AuthProvider>
+      <RouterProvider router={routes}></RouterProvider>
+    </AuthProvider>
   );
   // return (
   //   <AuthProvider>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import SingleGigContainer from "../../Components/SingleGig/SingleGigContainer";
+import Review from "../../Components/Reviews/Review";
 const baseURL = "https://workwave-vq08.onrender.com";
 function SingleGig() {
   const { id } = useParams();
@@ -21,7 +22,10 @@ function SingleGig() {
   return (
     <>
       {singleGigData ? (
-        <SingleGigContainer gig={singleGigData} />
+        <>
+          <SingleGigContainer gig={singleGigData} />
+          <Review gig={singleGigData} id={id} />
+        </>
       ) : (
         <p>Loading single gig...</p>
       )}

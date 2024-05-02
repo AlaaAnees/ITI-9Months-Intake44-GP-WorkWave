@@ -3,7 +3,7 @@ import { ConversationContext } from "../../Context/ConversationContext";
 import { useContext } from "react";
 import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
-import newRequest from "../../Utils/newRequist";
+
 // =========================================================
 export default function Chats() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -12,18 +12,8 @@ export default function Chats() {
   console.log("Test currentUser from chats:", currentUser);
   console.log(localStorage);
 
-  const { conversationData, loading, error } = useContext(ConversationContext);
-
-  // console.log("from chats to mahmoud", conversationData);
-  // console.log("from chats{update}", updateConversation);
-
-  // const { loading, error, conversationData } = useQuery({
-  //   queryKey: ["conversation"],
-  //   queryFn: () =>
-  //     newRequest.get(`/conversation`).then((res) => {
-  //       return res.data;
-  //     }),
-  // });
+  const { conversationData, updateConversation, loading, error } =
+    useContext(ConversationContext);
 
   const fontStyle = {
     color: "#808080",
@@ -31,36 +21,18 @@ export default function Chats() {
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return newRequest.put(`/conversation/${id}`);
+      console.log("from mutation is mutated");
+      return updateConversation(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversation"]);
     },
   });
 
-  // const mutation = useMutation({
-  //   mutationFn: (id) => {
-  //     console.log("from mutation is mutated");
-  //     return updateConversation(id);
-  //   },
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(["conversation"]);
-  //   },
-  // });
-
   const handleRead = (id) => {
     mutation.mutate(id);
     console.log("from handleRead the button is clicked");
   };
-
-  // Function to handle marking a conversation as read
-  // const handleRead = async (conversationId) => {
-  //   try {
-  //     await updateConversation(conversationId);
-  //   } catch (error) {
-  //     console.error("Error marking conversation as read:", error);
-  //   }
-  // };
 
   return (
     <>
@@ -138,106 +110,6 @@ export default function Chats() {
 }
 
 // {/* Box 2 */}
-// <div className="box px-3 flex justify-between align-items-center bg-white rounded-md shadow-sm mt-3">
-//   <div className="person flex align-items-center gap-2 p-2">
-//     <span className="main-font" style={fontStyle}>
-//       Mahmoud Abdelaziz
-//     </span>
-//     <span>
-//       <img
-//         src="public/assets/buyer1.jpg"
-//         alt="buyer 1"
-//         className="w-10 h-10 rounded-full"
-//       />
-//     </span>
-//   </div>
-//   <Link to="/chat/123" className="text-decoration-none">
-//     <div className="message main-font py-3" style={fontStyle}>
-//       {message.substring(0, 50)}...
-//     </div>
-//   </Link>
-//   <div className="date main-font" style={fontStyle}>
-//     a few second ago
-//   </div>
-//   <div className="w-36"></div>
-// </div>
-// {/* Box 3 */}
-// <div className="box px-3 flex justify-between align-items-center bg-blue-100 border-1 border-gray-400 rounded-md shadow-sm mt-3">
-//   <div className="person flex align-items-center gap-2 p-2">
-//     <span className="main-font" style={fontStyle}>
-//       Mahmoud Abdelaziz
-//     </span>
-//     <span>
-//       <img
-//         src="public/assets/buyer1.jpg"
-//         alt="buyer 1"
-//         className="w-10 h-10 rounded-full"
-//       />
-//     </span>
-//   </div>
-//   <Link to="/chat/123" className="text-decoration-none">
-//     <div className="message main-font py-3" style={fontStyle}>
-//       {message.substring(0, 50)}...
-//     </div>
-//   </Link>
-//   <div className="date main-font" style={fontStyle}>
-//     a few second ago
-//   </div>
-//   <div className="btn">
-//     <button className="main-font text-sm w-fit py-2 px-3 bg-blue-400 text-white hover:bg-blue-300 rounded">
-//       Mark As Read
-//     </button>
-//   </div>
-// </div>
-// {/* Box 4 */}
-// <div className="box px-3 flex justify-between align-items-center bg-white rounded-md shadow-sm mt-3">
-//   <div className="person flex align-items-center gap-2 p-2">
-//     <span className="main-font" style={fontStyle}>
-//       Mahmoud Abdelaziz
-//     </span>
-//     <span>
-//       <img
-//         src="public/assets/buyer1.jpg"
-//         alt="buyer 1"
-//         className="w-10 h-10 rounded-full"
-//       />
-//     </span>
-//   </div>
-//   <Link to="/chat/123" className="text-decoration-none">
-//     <div className="message main-font py-3" style={fontStyle}>
-//       {message.substring(0, 50)}...
-//     </div>
-//   </Link>
-//   <div className="date main-font" style={fontStyle}>
-//     a few second ago
-//   </div>
-//   <div className="w-36"></div>
-// </div>
-// {/* Box 5 */}
-// <div className="box px-3 flex justify-between align-items-center bg-white rounded-md shadow-sm mt-3">
-//   <div className="person flex align-items-center gap-2 p-2">
-//     <span className="main-font" style={fontStyle}>
-//       Mahmoud Abdelaziz
-//     </span>
-//     <span>
-//       <img
-//         src="public/assets/buyer1.jpg"
-//         alt="buyer 1"
-//         className="w-10 h-10 rounded-full"
-//       />
-//     </span>
-//   </div>
-//   <Link to="/chat/123" className="text-decoration-none">
-//     <div className="message main-font py-3" style={fontStyle}>
-//       {message.substring(0, 50)}...
-//     </div>
-//   </Link>
-//   <div className="date main-font" style={fontStyle}>
-//     a few second ago
-//   </div>
-//   <div className="w-36"></div>
-// </div>
-// {/* Box 6 */}
 // <div className="box px-3 flex justify-between align-items-center bg-white rounded-md shadow-sm mt-3">
 //   <div className="person flex align-items-center gap-2 p-2">
 //     <span className="main-font" style={fontStyle}>

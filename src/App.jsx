@@ -7,8 +7,8 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
-import Chats from "./Pages/Chats/Chats";
-import Chat from "./Pages/Chat/Chat";
+import Messages from "./Pages/Messages/Messages";
+import Message from "./Pages/Message/Message";
 import ConversationsList from "./Pages/ConversationsList/ConversationsList";
 import ConversationContextProvider from "./Context/ConversationContext";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -41,12 +41,12 @@ const routes = createBrowserRouter([
         element: <CategoriesPage></CategoriesPage>,
       },
       {
-        path: "/chats",
-        element: <Chats />,
+        path: "/messages",
+        element: <Messages />,
       },
       {
-        path: "/chat",
-        element: <Chat />,
+        path: "/message/:id",
+        element: <Message />,
       },
       {
         path: "/conversationList",
@@ -58,33 +58,16 @@ const routes = createBrowserRouter([
 
 function App() {
   return (
-    <AuthProvider>
-      <GigContextProvider>
-        <ConversationContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={routes}></RouterProvider>
-          </QueryClientProvider>
-        </ConversationContextProvider>
-      </GigContextProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <GigContextProvider>
+          <ConversationContextProvider>
+            <RouterProvider router={routes} />
+          </ConversationContextProvider>
+        </GigContextProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
-  // return (
-  //   <AuthProvider>
-  //     <BrowserRouter>
-  //       <Navbar />
-  //       <Suspense fallback={<Loading />}>
-  //         <Routes>
-  //           <Route path="/" element={<Home />} />
-  //           <Route path="/explore" element={<Explore />} />
-  //           <Route path="/become-seller" element={<BecomeSeller />} />
-  //           <Route path="/login" element={<Login />} />
-  //           <Route path="/register" element={<Register />} />
-  //         </Routes>
-  //       </Suspense>
-  //       <Footer />
-  //     </BrowserRouter>
-  //   </AuthProvider>
-  // );
 }
 
 export default App;

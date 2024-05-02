@@ -1,18 +1,11 @@
-import {
-  useContext,
-  useRef,
-  useState,
-} from 'react';
+import { useContext, useRef, useState } from "react";
 
-import { CgProfile } from 'react-icons/cg';
-import { CiLogout } from 'react-icons/ci';
-import { IoSearchOutline } from 'react-icons/io5';
-import {
-  Link,
-  NavLink,
-} from 'react-router-dom';
+import { CgProfile } from "react-icons/cg";
+import { CiLogout } from "react-icons/ci";
+import { IoSearchOutline } from "react-icons/io5";
+import { Link, NavLink } from "react-router-dom";
 
-import { AuthContext } from '../../Context/authContext';
+import { AuthContext } from "../../Context/authContext";
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
@@ -99,16 +92,16 @@ function Navbar() {
               Become a seller
             </NavLink>
             <NavLink
-              to="chats"
+              to="messages"
               className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
             >
-              Chats
+              Messages
             </NavLink>
             <NavLink
-              to="chat"
+              to="message/:id"
               className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
             >
-              Single Chat
+              Single message
             </NavLink>
           </div>
           <div className="hidden relative lg:block">

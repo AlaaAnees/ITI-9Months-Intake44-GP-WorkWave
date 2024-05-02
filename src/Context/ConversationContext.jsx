@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types"; // Import PropTypes
+import { AuthContext } from "./authContext";
 
 export const ConversationContext = createContext(); // Create a context 🫙
 
@@ -9,11 +10,38 @@ const ConversationContextProvider = (props) => {
   const [singleConversationData, setSingleConversationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { token } = useContext(AuthContext);
+  console.log("token from conversationcontext page", token);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NTE2NDMwfQ.CZuNtiLTM9SrkEKYnHhhYL08p24tlDVO0mvTUY4ugHE"; // Replace 'your_token_here' with your actual JWT token
+  // const token =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NTE2NDMwfQ.CZuNtiLTM9SrkEKYnHhhYL08p24tlDVO0mvTUY4ugHE"; // Replace 'your_token_here' with your actual JWT token
 
-  // Function to fetch all conversations 🗨️
+  // ====================== Function to create a new conversation 🆕======================
+  const createConversation = async (conversationData) => {
+    try {
+      // Send POST request to create conversation
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/conversation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(conversationData),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to create conversation");
+      }
+      // Fetch updated conversations after creating a new one
+      fetchConversations();
+    } catch (error) {
+      console.error("Error creating conversation:", error);
+      setError(error.message);
+    }
+  };
+
+  //====================== Function to fetch all conversations 🗨️ ======================
   const fetchConversations = async () => {
     try {
       // Fetch data from the conversation endpoint with the token included in the headers
@@ -47,7 +75,7 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  //======================= Function to fetch a single conversation =======================
+  //======================= Function to fetch a single conversation 1️⃣=======================
   const fetchSingleConversation = async (conversationId) => {
     try {
       // Fetch data from the single conversation endpoint with the token included in the headers
@@ -77,35 +105,11 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  // Function to create a new conversation
-  const createConversation = async (conversationData) => {
-    try {
-      // Send POST request to create conversation
-      const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/conversation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(conversationData),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to create conversation");
-      }
-      // Fetch updated conversations after creating a new one
-      fetchConversations();
-    } catch (error) {
-      console.error("Error creating conversation:", error);
-      setError(error.message);
-    }
-  };
-
-  // Function to update an existing conversation
+  //====================== Function to update an existing conversation ♻️======================
   const updateConversation = async (conversationId) => {
     try {
       // Send PUT request to update conversation
+
       const response = await fetch(
         `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
         {
@@ -125,6 +129,56 @@ const ConversationContextProvider = (props) => {
       setError(error.message);
     }
   };
+
+  // const updateConversation = async (conversationId) => {
+  //   try {
+  //     // Fetch the current conversation data
+  //     const currentConversationResponse = await fetch(
+  //       `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     if (!currentConversationResponse.ok) {
+  //       throw new Error("Failed to fetch conversation");
+  //     }
+
+  //     const currentConversationData = await currentConversationResponse.json();
+
+  //     // Toggle the readBySeller property
+  //     const updatedConversationData = {
+  //       ...currentConversationData,
+  //       readBySeller: !currentConversationData.readBySeller,
+  //     };
+
+  //     // Send PUT request to update conversation with the updated data
+  //     const response = await fetch(
+  //       `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(updatedConversationData),
+  //       }
+  //     );
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to update conversation");
+  //     }
+
+  //     // Fetch updated conversations after updating
+  //     fetchConversations();
+  //   } catch (error) {
+  //     console.error("Error updating conversation:", error);
+  //     setError(error.message);
+  //   }
+  // };
 
   // Fetch all conversations when the component mounts
   useEffect(() => {

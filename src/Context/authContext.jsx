@@ -31,6 +31,8 @@ const AuthProvider = ({ children }) => {
     setUserData(newUserData);
   });
 
+  console.log("From auth context", token);
+
   return (
     <AuthContext.Provider value={{ userData, setUserData, token, setToken }}>
       {children}

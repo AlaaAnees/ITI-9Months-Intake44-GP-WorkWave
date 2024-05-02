@@ -3,7 +3,8 @@ import { ConversationContext } from "../../Context/ConversationContext";
 import { useContext } from "react";
 import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
-
+import newRequest from "../../Utils/newRequist";
+// =========================================================
 export default function Chats() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const queryClient = useQueryClient();
@@ -11,10 +12,18 @@ export default function Chats() {
   console.log("Test currentUser from chats:", currentUser);
   console.log(localStorage);
 
-  const { conversationData, updateConversation, loading, error } =
-    useContext(ConversationContext);
+  const { conversationData, loading, error } = useContext(ConversationContext);
 
-  console.log("from chats", conversationData);
+  // console.log("from chats to mahmoud", conversationData);
+  // console.log("from chats{update}", updateConversation);
+
+  // const { loading, error, conversationData } = useQuery({
+  //   queryKey: ["conversation"],
+  //   queryFn: () =>
+  //     newRequest.get(`/conversation`).then((res) => {
+  //       return res.data;
+  //     }),
+  // });
 
   const fontStyle = {
     color: "#808080",
@@ -22,16 +31,36 @@ export default function Chats() {
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return updateConversation(id);
+      return newRequest.put(`/conversation/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["conversations"]);
+      queryClient.invalidateQueries(["conversation"]);
     },
   });
 
+  // const mutation = useMutation({
+  //   mutationFn: (id) => {
+  //     console.log("from mutation is mutated");
+  //     return updateConversation(id);
+  //   },
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["conversation"]);
+  //   },
+  // });
+
   const handleRead = (id) => {
     mutation.mutate(id);
+    console.log("from handleRead the button is clicked");
   };
+
+  // Function to handle marking a conversation as read
+  // const handleRead = async (conversationId) => {
+  //   try {
+  //     await updateConversation(conversationId);
+  //   } catch (error) {
+  //     console.error("Error marking conversation as read:", error);
+  //   }
+  // };
 
   return (
     <>
@@ -82,7 +111,7 @@ export default function Chats() {
                     />
                   </span>
                 </div>
-                <Link to="/chat/123" className="text-decoration-none">
+                <Link to={`/message/${c.id}`} className="text-decoration-none">
                   <div className="message main-font py-3" style={fontStyle}>
                     {c?.lastMessage?.substring(0, 50)}...
                   </div>
@@ -92,14 +121,12 @@ export default function Chats() {
                 </div>
                 {((currentUser.isSeller && !c.readBySeller) ||
                   (!currentUser.isSeller && !c.readByBuyer)) && (
-                  <div className="btn">
-                    <button
-                      onClick={() => handleRead(c.id)}
-                      className="main-font text-sm w-fit py-2 px-3 bg-blue-400 text-white hover:bg-blue-300 rounded"
-                    >
-                      Mark As Read
-                    </button>
-                  </div>
+                  <button
+                    className="main-font text-sm w-fit py-2 px-3 bg-blue-400 text-white hover:bg-blue-300 rounded"
+                    onClick={() => handleRead(c.id)}
+                  >
+                    Mark As Read
+                  </button>
                 )}
               </div>
             ))}

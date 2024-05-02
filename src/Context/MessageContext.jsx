@@ -1,5 +1,4 @@
 import { createContext, useState, useContext } from "react";
-import axios from "axios"; // Make sure to import axios
 
 // Create a context
 export const MessageContext = createContext();
@@ -15,8 +14,20 @@ export const MessageContextProvider = ({ children }) => {
   const fetchMessages = async (conversationId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/messages/${conversationId}`);
-      setMessages(response.data);
+      const response = await fetch(
+        `https://workwave-vq08.onrender.com/api/messages/${conversationId}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NjUxNTA2fQ.8e0OIOA8n-Z7vfEGSztY_qcA0VjyxuQyZSWgDS30LpU`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch messages");
+      }
+      const data = await response.json();
+      setMessages(data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -29,11 +40,25 @@ export const MessageContextProvider = ({ children }) => {
   const createMessage = async (conversationId, desc) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/messages", {
-        conversationId,
-        desc,
-      });
-      setMessages([...messages, response.data]);
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/messages",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NjUxNTA2fQ.8e0OIOA8n-Z7vfEGSztY_qcA0VjyxuQyZSWgDS30LpU`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            conversationId,
+            desc,
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to create message");
+      }
+      const data = await response.json();
+      setMessages((prevMessages) => [...prevMessages, data]);
       setLoading(false);
     } catch (error) {
       console.error("Error creating message:", error);

@@ -4,6 +4,10 @@ import { FaHeart } from "react-icons/fa";
 function AddToWishlist({ gig }) {
   const [colored, setColored] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
   async function handleAddToWishlist(e, gigid) {
     e.preventDefault();
     if (colored == false) {

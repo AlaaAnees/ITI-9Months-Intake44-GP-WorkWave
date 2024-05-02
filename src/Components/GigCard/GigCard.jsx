@@ -3,7 +3,7 @@ import AddToWishlist from "../Wishlist/AddToWishlist";
 
 function GigCard({ gig }) {
   return (
-    <Link to={`/singlegig/${gig.userId}`}>
+    <Link to={`/singlegig/${gig._id}`}>
       <li key={gig._id}>
         <img src={gig.cover} alt={gig.title} height={100} />
         {/* second line */}

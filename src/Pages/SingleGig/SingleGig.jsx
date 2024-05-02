@@ -12,12 +12,8 @@ function SingleGig() {
       setSingleGig(data);
     }
     fetchSingleGig();
-  }, []);
-  return (
-    <>
-      <SingleGigContainer gig={singleGigData} />
-    </>
-  );
+  }, [id]);
+  return <>{<SingleGigContainer gig={singleGigData} />}</>;
 }
 
 export default SingleGig;

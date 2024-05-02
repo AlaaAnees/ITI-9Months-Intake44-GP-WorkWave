@@ -11,6 +11,7 @@ const ConversationContextProvider = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { token } = useContext(AuthContext);
+
   console.log("token from conversationcontext page", token);
 
   // const token =
@@ -115,6 +116,7 @@ const ConversationContextProvider = (props) => {
         {
           method: "PUT",
           headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NjUxNTA2fQ.8e0OIOA8n-Z7vfEGSztY_qcA0VjyxuQyZSWgDS30LpU`,
             "Content-Type": "application/json",
           },
         }
@@ -129,56 +131,6 @@ const ConversationContextProvider = (props) => {
       setError(error.message);
     }
   };
-
-  // const updateConversation = async (conversationId) => {
-  //   try {
-  //     // Fetch the current conversation data
-  //     const currentConversationResponse = await fetch(
-  //       `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     if (!currentConversationResponse.ok) {
-  //       throw new Error("Failed to fetch conversation");
-  //     }
-
-  //     const currentConversationData = await currentConversationResponse.json();
-
-  //     // Toggle the readBySeller property
-  //     const updatedConversationData = {
-  //       ...currentConversationData,
-  //       readBySeller: !currentConversationData.readBySeller,
-  //     };
-
-  //     // Send PUT request to update conversation with the updated data
-  //     const response = await fetch(
-  //       `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
-  //       {
-  //         method: "PUT",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(updatedConversationData),
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to update conversation");
-  //     }
-
-  //     // Fetch updated conversations after updating
-  //     fetchConversations();
-  //   } catch (error) {
-  //     console.error("Error updating conversation:", error);
-  //     setError(error.message);
-  //   }
-  // };
 
   // Fetch all conversations when the component mounts
   useEffect(() => {

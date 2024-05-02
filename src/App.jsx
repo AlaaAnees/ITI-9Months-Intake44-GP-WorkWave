@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 // render as we fetch
 import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
 import GigContextProvider from "./Context/GigsContext";
+import { MessageContextProvider } from "./Context/MessageContext";
 
 const queryClient = new QueryClient();
 
@@ -62,7 +63,9 @@ function App() {
       <AuthProvider>
         <GigContextProvider>
           <ConversationContextProvider>
-            <RouterProvider router={routes} />
+            <MessageContextProvider>
+              <RouterProvider router={routes} />
+            </MessageContextProvider>
           </ConversationContextProvider>
         </GigContextProvider>
       </AuthProvider>

@@ -74,7 +74,7 @@ function AddToWishlist({ gig }) {
         ""
       ) : (
         <FaHeart
-          className={`${colored ? "text-red-600" : ""}`}
+          className={`${colored ? "text-red-600" : " text-stone-500"}  `}
           onClick={(e) => {
             handleAddToWishlist(e, gig._id);
           }}

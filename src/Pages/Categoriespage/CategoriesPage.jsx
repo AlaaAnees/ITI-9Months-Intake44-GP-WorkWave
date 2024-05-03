@@ -26,7 +26,7 @@ function CategoriesPage() {
     <>
       <section className="  bg-white p-3 relative  ">
         <div
-          className=" md:hidden flex items-center justify-center"
+          className=" xl:hidden flex items-center justify-center"
           onClick={() => {
             setShowdropdown((s) => !s);
           }}
@@ -38,9 +38,9 @@ function CategoriesPage() {
         </div>
         <ul
           className={` ${showdropdown ? "" : "hidden "}
-         md:justify-between md:items-center gap-2 xl:gap:6 container
-         md:flex flex-column 
-         md:flex-row   `}
+        xl:justify-betweenxl:items-center gap-2 xl:gap:6 container
+        xl:flex flex-column 
+        xl:flex-row   `}
         >
           {categoryType.map((cat) => {
             console.log(searchParams.get("cat"), cat.route);
@@ -68,10 +68,10 @@ function CategoriesPage() {
           })}
         </ul>
       </section>
-      <section className="container mt-5 bg-white p-3  rounded-md">
-        <div className="flex flex-column  md:flex-row justify-around items-center gap-6">
+      <section className="container ">
+        <div className="flex flex-column mt-5 p-3  rounded-xl bg-white md:flex-row justify-around items-center gap-6">
           <span className="font-semibold text-xl text-[#172554] ">Budget</span>
-          <div className="md:space-x-6  text-center space-x-0 space-y-2">
+          <div className="space-x-0 sm:space-x-6  text-center  space-y-2">
             <input
               className="border-solid border-[#172554] border-2 rounded-xl  px-6 py-[5px]"
               type="text"

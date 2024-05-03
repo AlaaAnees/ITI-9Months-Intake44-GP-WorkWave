@@ -9,6 +9,7 @@ import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
 import SingleGig from "./Pages/SingleGig/SingleGig";
 import Wishlist from "./Components/Wishlist/Wishlist";
+import { QueryClient, QueryClientProvider } from "react-query";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -39,9 +40,12 @@ const routes = createBrowserRouter([
 ]);
 
 function App() {
+  let queryClient = new QueryClient();
   return (
     <AuthProvider>
-      <RouterProvider router={routes}></RouterProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={routes}></RouterProvider>
+      </QueryClientProvider>
     </AuthProvider>
   );
   // return (

@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+import { AuthContext } from "./authContext";
 
 // Create a context
 export const MessageContext = createContext();
@@ -9,6 +10,7 @@ export const MessageContextProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { token } = useContext(AuthContext);
 
   // Function to fetch messages for a specific conversation ID
   const fetchMessages = async (conversationId) => {
@@ -18,7 +20,7 @@ export const MessageContextProvider = ({ children }) => {
         `https://workwave-vq08.onrender.com/api/messages/${conversationId}`,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NjUxNTA2fQ.8e0OIOA8n-Z7vfEGSztY_qcA0VjyxuQyZSWgDS30LpU`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -45,7 +47,7 @@ export const MessageContextProvider = ({ children }) => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NjUxNTA2fQ.8e0OIOA8n-Z7vfEGSztY_qcA0VjyxuQyZSWgDS30LpU`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({

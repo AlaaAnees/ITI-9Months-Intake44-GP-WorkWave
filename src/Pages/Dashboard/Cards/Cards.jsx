@@ -1,4 +1,4 @@
-import Loading from "../../Loading/Loading";
+// import Loading from "../../Loading/Loading";
 import "./Cards.scss";
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
@@ -54,9 +54,7 @@ function Cards() {
         {icon}
         <p className="text-2xl text-[#60A5FA] ml-2">{title}</p>
       </div>
-      <p className=" font-semibold text-[#676767] text-xl">
-        {loading ? <Loading /> : value}
-      </p>
+      <p className=" font-semibold text-[#676767] text-xl">{value}</p>
     </div>
   );
 

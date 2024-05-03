@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"; // Import useEffect hook to fetch messages
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { MessageContext } from "../../Context/MessageContext";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 
 function Chat() {
   const { id } = useParams();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const { messages, fetchMessages, createMessage, loading, error } =
     useContext(MessageContext);

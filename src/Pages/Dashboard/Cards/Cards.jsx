@@ -1,4 +1,4 @@
-import { Card } from "@tremor/react";
+// import { Card } from "@tremor/react";
 import Loading from "../../Loading/Loading";
 import "./Cards.scss";
 import { useEffect, useState } from "react";
@@ -50,19 +50,15 @@ function Cards() {
   };
 
   const renderCard = (title, value, icon) => (
-    <Card
-      className="wrapper md:w-72 lg:h-40 md:h-52  text-center mx-auto max-w-xs rounded-none"
-      decoration="top"
-      decorationColor="indigo"
-    >
-      <div className="flex items-center justify-center mx-auto md:flex-col">
+    <div className=" wrapper border-2 rounded-3 border-[#676767]  w-72 lg:h-40 md:h-52  text-center mx-auto max-w-xs rounded-none">
+      <div className="flex items-center mt-3 justify-center mx-auto md:flex-col">
         {icon}
         <p className="text-2xl text-[#60A5FA] ml-2">{title}</p>
       </div>
-      <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong text-gray-600 text-xl">
-        {loading ? "loading.." : value}
+      <p className="  font-semibold text-[#676767] text-xl">
+        {loading ? "Loading.." : value}
       </p>
-    </Card>
+    </div>
   );
 
   return (
@@ -87,3 +83,15 @@ function Cards() {
 }
 
 export default Cards;
+
+/* function Card() {
+  return (
+    <div>
+      <div className="border-2 w-72 h-40 rounded-3 border-[#676767]">
+        jjjjjj
+      </div>
+    </div>
+  );
+}
+
+export default Card; */

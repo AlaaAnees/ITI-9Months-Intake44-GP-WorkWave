@@ -116,7 +116,7 @@ const ConversationContextProvider = (props) => {
         {
           method: "PUT",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NjUxNTA2fQ.8e0OIOA8n-Z7vfEGSztY_qcA0VjyxuQyZSWgDS30LpU`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }

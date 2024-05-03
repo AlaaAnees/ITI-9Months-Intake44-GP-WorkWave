@@ -50,25 +50,25 @@ function Chat() {
               {messages.map((m) => (
                 <div
                   key={m._id}
-                  className={`buyer flex gap-5 max-w-xl ${
+                  className={`buyer flex gap-3 max-w-xl ${
                     m.userId === currentUser._id
                       ? "flex-row-reverse self-end"
                       : ""
                   }`}
                 >
                   <img
-                    src="./public/assets/buyer2.jpg"
+                    src={`${currentUser.img}`}
                     alt="buyer2"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover hidden md:block"
                   />
                   <p
                     className={`${
                       m.userId === currentUser._id
-                        ? "bg-blue-500 text-white"
-                        : "bg-blue-100"
-                    } max-w-lg py-3 px-4 text-sm`}
+                        ? "bg-blue-500 text-white rounded-tl-[20px] rounded-bl-[20px] rounded-br-[20px]"
+                        : "bg-blue-100 rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px]"
+                    }  max-w-100 py-3 px-4 text-sm`}
                     style={{
-                      borderRadius: "0px 20px 20px 20px",
+                      // borderRadius: "0px 20px 20px 20px",
                       color: "gray",
                     }}
                   >
@@ -81,10 +81,10 @@ function Chat() {
           <hr />
           <form
             onSubmit={handleSubmit}
-            className="sendMessage flex align-items-center justify-between"
+            className="sendMessage flex align-items-center justify-between m-3"
           >
             <textarea
-              className="w-[85%] h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin "
+              className="w-[70%] md:w-[85%] h-[60px] md:h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin "
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
@@ -92,7 +92,7 @@ function Chat() {
             ></textarea>
             <button
               type="submit"
-              className="bg-blue-500 text-white border-none p-2 font-medium main-font rounded-md me-5 w-[100px]"
+              className="bg-blue-500 text-white border-none p-1 md:p-2 font-medium main-font rounded-md w-[80px] md:w-[100px]"
             >
               Send
             </button>

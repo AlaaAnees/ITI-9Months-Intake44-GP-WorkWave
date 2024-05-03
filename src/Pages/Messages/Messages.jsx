@@ -85,7 +85,7 @@ export default function Chats() {
               >
                 <div className="person flex flex-col md:flex-row align-items-center gap-2 p-2">
                   <img
-                    src="public/assets/buyer1.jpg"
+                    src={`${currentUser.img}`}
                     alt="buyer 1"
                     className="w-6 h-6 md:w-10 md:h-10 rounded-full"
                   />

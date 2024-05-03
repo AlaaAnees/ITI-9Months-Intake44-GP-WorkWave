@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ConversationContext } from "../../Context/ConversationContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -14,6 +14,8 @@ export default function Chats() {
 
   const { conversationData, updateConversation, loading, error } =
     useContext(ConversationContext);
+
+  console.log("form messageeeeeeeeeees:)", conversationData);
 
   const fontStyle = {
     color: "#808080",
@@ -34,6 +36,12 @@ export default function Chats() {
     console.log("from handleRead the button is clicked");
   };
 
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    window.innerWidth < 640 ? setIsSmallScreen(true) : false;
+  }, []);
+
   return (
     <>
       <div className="chats">
@@ -48,18 +56,22 @@ export default function Chats() {
               <h1 className="mt-5">Chats</h1>
             </div>
             {/* Start Table of messages */}
-            <table className="w-100">
-              {/* Start table head */}
-              <thead>
-                <tr className="h-16 main-font">
-                  <th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>
-                  <th className="text-center">Last Message</th>
-                  <th className="text-center">Date</th>
-                  <th className="text-center">Action</th>
-                </tr>
-              </thead>
-              {/* End table head */}
-            </table>
+            <div className="hidden md:block w-full">
+              {" "}
+              {/* Hide on small screens and show from medium screens and above */}
+              <table className="w-full">
+                {/* Start table head */}
+                <thead>
+                  <tr className="h-16 main-font">
+                    <th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>
+                    <th className="text-center">Last Message</th>
+                    <th className="text-center">Date</th>
+                    <th className="text-center">Action</th>
+                  </tr>
+                </thead>
+                {/* End table head */}
+              </table>
+            </div>
             {/* Box 1 */}
             {conversationData.map((c) => (
               <div
@@ -71,33 +83,45 @@ export default function Chats() {
                     : "bg-white"
                 }  rounded-md shadow-sm mt-3`}
               >
-                <div className="person flex align-items-center gap-2 p-2">
-                  <span className="main-font" style={fontStyle}>
-                    {currentUser.isSeller ? c.buyerId : c.sellerId}
-                  </span>
-                  <span>
-                    <img
-                      src="public/assets/buyer1.jpg"
-                      alt="buyer 1"
-                      className="w-10 h-10 rounded-full"
-                    />
+                <div className="person flex flex-col md:flex-row align-items-center gap-2 p-2">
+                  <img
+                    src="public/assets/buyer1.jpg"
+                    alt="buyer 1"
+                    className="w-6 h-6 md:w-10 md:h-10 rounded-full"
+                  />
+                  <span
+                    className="main-font text-sm md:text-base "
+                    style={fontStyle}
+                  >
+                    {currentUser.isSeller
+                      ? c.buyerId.substring(0, 10)
+                      : c.sellerId.substring(0, 10)}
                   </span>
                 </div>
                 <Link to={`/message/${c.id}`} className="text-decoration-none">
-                  <div className="message main-font py-3" style={fontStyle}>
-                    {c?.lastMessage?.substring(0, 50)}...
+                  <div
+                    className="message main-font py-3 text-sm md:text-base"
+                    style={fontStyle}
+                  >
+                    {isSmallScreen
+                      ? c?.lastMessage?.substring(0, 15)
+                      : c?.lastMessage?.substring(0, 30)}
+                    ...
                   </div>
                 </Link>
-                <div className="date main-font" style={fontStyle}>
+                <div
+                  className="date main-font text-sm md:text-base"
+                  style={fontStyle}
+                >
                   {moment(c.updatedAt).fromNow()}
                 </div>
                 {((currentUser.isSeller && !c.readBySeller) ||
                   (!currentUser.isSeller && !c.readByBuyer)) && (
                   <button
-                    className="main-font text-sm w-fit py-2 px-3 bg-blue-400 text-white hover:bg-blue-300 rounded"
+                    className="main-font text-sm w-fit p-2 md:py-2 md:px-3 bg-blue-400 text-white hover:bg-blue-300 rounded-full md:rounded"
                     onClick={() => handleRead(c.id)}
                   >
-                    Mark As Read
+                    <span className="hidden md:inline">Mark As Read</span>
                   </button>
                 )}
               </div>

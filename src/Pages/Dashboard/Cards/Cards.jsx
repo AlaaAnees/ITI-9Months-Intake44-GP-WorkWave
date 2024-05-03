@@ -1,4 +1,3 @@
-// import { Card } from "@tremor/react";
 import Loading from "../../Loading/Loading";
 import "./Cards.scss";
 import { useEffect, useState } from "react";
@@ -55,8 +54,8 @@ function Cards() {
         {icon}
         <p className="text-2xl text-[#60A5FA] ml-2">{title}</p>
       </div>
-      <p className="  font-semibold text-[#676767] text-xl">
-        {loading ? "Loading.." : value}
+      <p className=" font-semibold text-[#676767] text-xl">
+        {loading ? <Loading /> : value}
       </p>
     </div>
   );
@@ -83,15 +82,3 @@ function Cards() {
 }
 
 export default Cards;
-
-/* function Card() {
-  return (
-    <div>
-      <div className="border-2 w-72 h-40 rounded-3 border-[#676767]">
-        jjjjjj
-      </div>
-    </div>
-  );
-}
-
-export default Card; */

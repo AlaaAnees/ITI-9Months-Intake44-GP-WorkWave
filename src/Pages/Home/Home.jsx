@@ -1,3 +1,4 @@
+import { useLoaderData } from "react-router";
 import BestPart from "../../Components/Home-page-components/BestPart";
 import Categories from "../../Components/Home-page-components/Categories";
 import Cover from "../../Components/Home-page-components/Cover";
@@ -9,10 +10,12 @@ import PopularServices from "../../Components/Home-page-components/PopularServic
 //   import("../../Components/Home-page-components/Inspring")
 // );
 function Home() {
+  const categoriesData = useLoaderData();
+
   return (
     <>
       <Cover />
-      <Categories />
+      <Categories categoriesData={categoriesData} />
       <PopularServices />
       <BestPart />
       <Inspring />

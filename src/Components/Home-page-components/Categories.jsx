@@ -2,64 +2,21 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Loading from "../../Pages/Loading/Loading";
 
-// const categoriesData = [
-//   {
-//     name: "Programming & Tech",
-//     imgSrc: "/assets/imgs/programming-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Graphics & Design",
-//     imgSrc: "/assets/imgs/art-pc-ui-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Business",
-//     imgSrc: "/assets/imgs/business-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Music & Audio",
-//     imgSrc: "/assets/imgs/audio-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Digital Marketing",
-//     imgSrc: "/assets/imgs/Group.png",
-//   },
-//   {
-//     name: "Writing & Translation",
-//     imgSrc: "/assets/imgs/writing-notepad-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "LifeStyle",
-//     imgSrc: "/assets/imgs/coffe-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Photography",
-//     imgSrc: "/assets/imgs/photography-camera-outline-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Data",
-//     imgSrc: "/assets/imgs/data-analysis-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Video & Animation",
-//     imgSrc: "/assets/imgs/video-frame-play-horizontal-svgrepo-com 1.png",
-//   },
-// ];
-
-const Categories = () => {
-  const [categoriesData, setCategoriesData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    async function fetchCategories() {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/categories`
-      );
-      const data = await res.json();
-      setCategoriesData(data);
-      setIsLoading(false);
-    }
-    fetchCategories();
-  }, []);
+const Categories = ({ categoriesData }) => {
+  // const [categoriesData, setCategoriesData] = useState();
+  // const [isLoading, setIsLoading] = useState(false);
+  // useEffect(() => {
+  //   async function fetchCategories() {
+  //     setIsLoading(true);
+  //     const res = await fetch(
+  //       `https://workwave-vq08.onrender.com/api/categories`
+  //     );
+  //     const data = await res.json();
+  //     setCategoriesData(data);
+  //     setIsLoading(false);
+  //   }
+  //   fetchCategories();
+  // }, []);
 
   return (
     <div className="bg-blue-50 pt-14  relative">
@@ -100,3 +57,9 @@ const Categories = () => {
 };
 
 export default Categories;
+
+export async function laoder() {
+  const res = await fetch(`https://workwave-vq08.onrender.com/api/categories`);
+  const data = await res.json();
+  return data;
+}

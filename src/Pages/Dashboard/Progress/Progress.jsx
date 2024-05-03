@@ -1,4 +1,4 @@
-import { Card, ProgressBar } from "@tremor/react";
+/* import { Card, ProgressBar } from "@tremor/react";
 
 function Progress() {
   return (
@@ -16,3 +16,4 @@ function Progress() {
   );
 }
 export default Progress;
+ */

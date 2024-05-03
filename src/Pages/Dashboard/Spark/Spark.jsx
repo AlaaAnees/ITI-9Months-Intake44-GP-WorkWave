@@ -1,4 +1,4 @@
-import { Card, SparkAreaChart } from "@tremor/react";
+/* import { Card, SparkAreaChart } from "@tremor/react";
 
 const chartdata = [
   {
@@ -63,3 +63,4 @@ function Spark() {
 }
 
 export default Spark;
+ */

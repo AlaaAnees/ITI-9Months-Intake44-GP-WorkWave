@@ -12,11 +12,16 @@ function Navbar() {
   const [dropDownVisibility, setDropDownVisibility] = useState(false);
   const { userData } = useContext(AuthContext);
   const { setUserData } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
+
   const dropdownRef = useRef(null);
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUserData(null);
+    setToken(null);
   };
   const handleDropDown = () => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

@@ -28,10 +28,9 @@ function GigsContainer({ minPrice, maxPrice }) {
   if (isLoading) return <Loading background="transparent"></Loading>;
   return (
     <>
-      <ul className="grid sm:grid-cols-2 md:grid-cols-4 ">
+      <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-9  ">
         {gigs && gigs.map((g) => <GigCard key={g._id} gig={g}></GigCard>)}
       </ul>
-      <button onClick={() => {}}>clikkkk</button>
     </>
   );
 }

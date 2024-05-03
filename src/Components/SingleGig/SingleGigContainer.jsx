@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
-function SingleGigContainer({ gig }) {
-  const { userId } = gig;
-  const [ownerData, setOwnerData] = useState("");
-  useEffect(() => {
-    async function fetchOwnerInfo() {
-      const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/users/${userId}`
-      );
-      const data = await res.json();
-      setOwnerData(data.data.user);
-    }
-    fetchOwnerInfo();
-  }, [userId]);
+function SingleGigContainer({ gig, status }) {
+  // const { userId } = gig;
+  // const [ownerData, setOwnerData] = useState("");
+  // useEffect(() => {
+  //   async function fetchOwnerInfo() {
+  //     const res = await fetch(
+  //       `https://workwave-vq08.onrender.com/api/users/${userId}`
+  //     );
+  //     const data = await res.json();
+  //     setOwnerData(data.data.user);
+  //   }
+  //   fetchOwnerInfo();
+  // }, [userId]);
   return (
     <>
-      <div className="gig-title">{gig.title}</div>{" "}
+      {/* <div className="gig-title">{gig.title}</div>{" "}
       <div className="flex items-center gap-5">
         {" "}
         <div className="image-holder">
@@ -26,7 +26,7 @@ function SingleGigContainer({ gig }) {
           />
           <div>{ownerData.username}</div>{" "}
         </div>{" "}
-      </div>
+      </div> */}
     </>
     // <>
     //   {/* Title */}

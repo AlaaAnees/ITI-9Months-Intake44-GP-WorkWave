@@ -1,10 +1,9 @@
 import { useContext, useRef, useState } from "react";
-
+import { FaHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
-
 import { AuthContext } from "../../Context/authContext";
 
 function Navbar() {
@@ -12,11 +11,16 @@ function Navbar() {
   const [dropDownVisibility, setDropDownVisibility] = useState(false);
   const { userData } = useContext(AuthContext);
   const { setUserData } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
+
   const dropdownRef = useRef(null);
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUserData(null);
+    setToken(null);
   };
   const handleDropDown = () => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -125,6 +129,13 @@ function Navbar() {
                 dropDownVisibility ? "" : "hidden"
               }`}
             >
+              {/* <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/wishlist"}
+              >
+                <FaHeart className="text-red-600"></FaHeart>
+                Wishlist
+              </Link> */}
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/profile"}
@@ -233,6 +244,17 @@ function Navbar() {
                   />
                   <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
                 </div>
+
+                {/* {userData && (
+                  <NavLink
+                    className="-mx-3 flex items-center gap-1 rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to="/wishlist"
+                    onClick={handleLogOut}
+                  >
+                    wishlist
+                    <FaHeart className="text-red-600 text-sm"></FaHeart>
+                  </NavLink>
+                )} */}
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"

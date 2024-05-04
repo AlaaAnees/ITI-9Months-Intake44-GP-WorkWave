@@ -13,20 +13,20 @@ const JoinWorkWave = () => {
         </div>
         <div className="hidden lg:block">
           <div className=" md:flex gap-1 ">
-            <img src="../../../public/assets/imgs/Shapes.png" alt="" />
-            <img src="../../../public/assets/imgs/Shapes.png" alt="" />
-            <img src="../../../public/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="" />
           </div>
           <div className="my-5">
             <img
-              src="../../../public/assets/imgs/workwave-high-resolution-logo-white-transparent 2.png"
+              src="/assets/imgs/workwave-high-resolution-logo-white-transparent 2.png"
               alt=""
             />
           </div>
           <div className=" md:flex gap-1">
-            <img src="../../../public/assets/imgs/Shapes.png" alt="" />
-            <img src="../../../public/assets/imgs/Shapes.png" alt="" />
-            <img src="../../../public/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="" />
           </div>
         </div>
       </div>

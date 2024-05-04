@@ -6,9 +6,9 @@ function Layout() {
   return (
     <>
       <Navbar></Navbar>
-
-      <Outlet></Outlet>
-
+      <section className="min-h-screen overflow-hidden">
+        <Outlet></Outlet>
+      </section>
       <Footer></Footer>
     </>
   );

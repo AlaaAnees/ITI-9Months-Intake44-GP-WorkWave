@@ -1,3 +1,11 @@
 .wrapper {
   font-family: nunito-wght;
+  @media (max-width: 450px) {
+    padding: 30px;
+    margin-inline: 0px;
+  }
+  @media (max-width: 775px) {
+    padding-top: 20px;
+    // margin-inline: 10px;
+  }
 }

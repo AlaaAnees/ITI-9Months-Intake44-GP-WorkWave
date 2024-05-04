@@ -1,6 +1,9 @@
-import { Card } from "@tremor/react";
+// import Loading from "../../Loading/Loading";
 import "./Cards.scss";
 import { useEffect, useState } from "react";
+import { FaUsers } from "react-icons/fa";
+import { GiProgression } from "react-icons/gi";
+import { SiProgress } from "react-icons/si";
 
 function Cards() {
   const [loading, setLoading] = useState(true);
@@ -45,20 +48,35 @@ function Cards() {
     }
   };
 
-  const renderCard = (title, value) => (
-    <Card className="wrapper md:w-87 lg:w-full text-center max-w-xs rounded-xl">
-      <h4 className="text-2xl text-[#172554]">{title}</h4>
-      <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong text-gray-600 text-xl">
+  const renderCard = (title, value, icon) => (
+    <div className=" wrapper  border-2 rounded-3 border-[#676767] mt-6 w-72 lg:h-40 md:h-52  text-center mx-auto max-w-xs rounded-none">
+      <div className="flex items-center mt-3 justify-center items-center mx-auto md:flex-col">
+        {icon}
+        <p className="text-2xl text-[#60A5FA] ml-2">{title}</p>
+      </div>
+      <p className=" font-semibold text-[#676767] text-xl">
         {loading ? "Loading..." : value}
       </p>
-    </Card>
+    </div>
   );
 
   return (
     <div className="flex flex-auto flex-col md:flex-row justify-content-between align-items-center gap-5 my-4">
-      {renderCard("Total Users", totals.totalUsers)}
-      {renderCard("Total Orders", totals.totalOrders)}
-      {renderCard("Total Gigs", totals.totalGigs)}
+      {renderCard(
+        "TOTAL USERS",
+        totals.totalUsers,
+        <FaUsers className="text-4xl text-[#60A5FA] mb-2" />
+      )}
+      {renderCard(
+        "TOTAL ORDERS",
+        totals.totalOrders,
+        <GiProgression className="text-4xl text-[#60A5FA] mb-2" />
+      )}
+      {renderCard(
+        "TOTAL GIGS ♦️",
+        totals.totalGigs,
+        <SiProgress className="text-4xl text-[#60A5FA] mb-2" />
+      )}
     </div>
   );
 }

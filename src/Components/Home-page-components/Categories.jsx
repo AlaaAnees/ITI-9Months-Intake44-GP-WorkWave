@@ -1,70 +1,25 @@
-import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Loading from "../../Pages/Loading/Loading";
 
-// const categoriesData = [
-//   {
-//     name: "Programming & Tech",
-//     imgSrc: "/assets/imgs/programming-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Graphics & Design",
-//     imgSrc: "/assets/imgs/art-pc-ui-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Business",
-//     imgSrc: "/assets/imgs/business-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Music & Audio",
-//     imgSrc: "/assets/imgs/audio-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Digital Marketing",
-//     imgSrc: "/assets/imgs/Group.png",
-//   },
-//   {
-//     name: "Writing & Translation",
-//     imgSrc: "/assets/imgs/writing-notepad-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "LifeStyle",
-//     imgSrc: "/assets/imgs/coffe-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Photography",
-//     imgSrc: "/assets/imgs/photography-camera-outline-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Data",
-//     imgSrc: "/assets/imgs/data-analysis-svgrepo-com 1.png",
-//   },
-//   {
-//     name: "Video & Animation",
-//     imgSrc: "/assets/imgs/video-frame-play-horizontal-svgrepo-com 1.png",
-//   },
-// ];
+const Categories = ({ categoriesData }) => {
+  // const [categoriesData, setCategoriesData] = useState([]);
 
-const Categories = () => {
-  const [categoriesData, setCategoriesData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    async function fetchCategories() {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/categories`
-      );
-      const data = await res.json();
-      setCategoriesData(data);
-      setIsLoading(false);
-    }
-    fetchCategories();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchCategories() {
+  //     const res = await fetch(
+  //       `https://workwave-vq08.onrender.com/api/categories`
+  //     );
+  //     const data = await res.json();
+  //     setCategoriesData(data);
+  //     setIsLoading(false);
+  //   }
+  //   fetchCategories();
+  // }, [setIsLoading]);
 
   return (
     <div className="bg-blue-50 pt-14  relative">
       <img
-        src="/public/assets/imgs/Shapes.png"
+        src="/assets/imgs/Shapes.png"
         alt=""
         className="absolute top-4 -left-16"
       />
@@ -78,7 +33,8 @@ const Categories = () => {
               <NavLink
                 to={`/categories?cat=${category.categoryName}`}
                 key={category.title}
-                className="bg-white flex flex-col justify-center items-center rounded-md shadow-lg p-3 hover:-translate-y-2 relative before:absolute  before:top-0 before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500 transition-all duration-300 before:transition-all before:duration-300"
+                className="bg-white flex flex-col justify-center items-center rounded-md shadow-lg p-3 hover:-translate-y-2 relative 
+                before:absolute  before:top-0 before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500 transition-all duration-300 before:transition-all before:duration-300"
               >
                 <img
                   src={category.imgURL}

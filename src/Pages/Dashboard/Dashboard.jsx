@@ -19,12 +19,14 @@ function Dashboard() {
       {isLoading && <Loading />}
       {!isLoading && (
         <div className="container wrapper__all ">
-          <div className="ml-14">
-            <h3 className="pt-10 text-[#676767]">DASHBOARD</h3>
+          <div className="ml-20">
+            <h3 className="pt-10 text-2xl text-[#676767] font-bold">
+              DASHBOARD
+            </h3>
             <h6 className="text-[#60A5FA]">Welcome to dashboard</h6>
           </div>
           <Cards />
-          <div className="flex justify-between mt-12 flex-col md:flex-row items-center md:items-start">
+          <div className="flex justify-around mt-12 flex-col md:flex-row items-center md:items-start">
             <Bar className="md:mr-6" />
             <Area className="md:ml-6 mt-6 md:mt-0" />
           </div>

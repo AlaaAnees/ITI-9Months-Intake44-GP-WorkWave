@@ -38,7 +38,7 @@ function CategoriesPage() {
         </div>
         <ul
           className={` ${showdropdown ? "" : "hidden "}
-        xl:justify-betweenxl:items-center gap-2 xl:gap:6 container
+        xl:justify-between xl:items-center gap-2 xl:gap:6 container
         xl:flex flex-column 
         xl:flex-row   `}
         >

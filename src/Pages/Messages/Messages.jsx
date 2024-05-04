@@ -7,15 +7,53 @@ import { useMutation, useQueryClient } from "react-query";
 // =========================================================
 export default function Chats() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const queryClient = useQueryClient();
-
-  console.log("Test currentUser from chats:", currentUser);
-  console.log(localStorage);
 
   const { conversationData, updateConversation, loading, error } =
     useContext(ConversationContext);
 
-  console.log("form messageeeeeeeeeees:)", conversationData);
+  const [usersOreder, setUsersOreder] = useState([]);
+  const isSeller = () => {
+    return currentUser.isSeller;
+  };
+
+  const getBuyerData = () => {
+    const seller = isSeller();
+
+    const usersId = seller
+      ? conversationData.map((b) => {
+          return b.buyerId;
+        })
+      : conversationData.map((s) => {
+          return s.sellerId;
+        });
+
+    return usersId;
+  };
+
+  const usersID = getBuyerData();
+  // console.log("UUUUUUUUUUUUUUUUUUUUUUUU:) ", usersID);
+
+  useEffect(() => {
+    async function fetchUsersData() {
+      const response = await fetch(
+        `https://workwave-vq08.onrender.com/api/users/${usersID[0]}`
+      );
+      const data = await response.json();
+      console.log("FFFFFFFFFFFFFFFFFFFFFFFFFf", data);
+      setUsersOreder(data.data.user);
+    }
+
+    fetchUsersData();
+  }, []);
+
+  // console.log("MMMMMMMMMMMMMMMMMMMMMM: ", isSeller());
+
+  const queryClient = useQueryClient();
+
+  // console.log("Test currentUser from chats:", currentUser);
+  // console.log(localStorage);
+
+  // console.log("form messageeeeeeeeeees:)", conversationData);
 
   const fontStyle = {
     color: "#808080",
@@ -85,7 +123,7 @@ export default function Chats() {
               >
                 <div className="person flex flex-col md:flex-row align-items-center gap-2 p-2">
                   <img
-                    src={`${currentUser.img}`}
+                    src={`${usersOreder.img}`}
                     alt="buyer 1"
                     className="w-6 h-6 md:w-10 md:h-10 rounded-full"
                   />
@@ -96,6 +134,10 @@ export default function Chats() {
                     {currentUser.isSeller
                       ? c.buyerId.substring(0, 10)
                       : c.sellerId.substring(0, 10)}
+
+                    {/* {currentUser.isSeller
+                      ? usersOreder.username
+                      : usersOreder.username} */}
                   </span>
                 </div>
                 <Link to={`/message/${c.id}`} className="text-decoration-none">

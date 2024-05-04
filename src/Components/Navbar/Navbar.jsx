@@ -1,10 +1,10 @@
 import { useContext, useRef, useState } from "react";
-import { FaHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Context/authContext";
+import { FaHeart } from "react-icons/fa";
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
@@ -89,6 +89,18 @@ function Navbar() {
               className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
             >
               Become a seller
+            </NavLink>
+            <NavLink
+              to="messages"
+              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+            >
+              Messages
+            </NavLink>
+            <NavLink
+              to="message/:id"
+              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+            >
+              Single message
             </NavLink>
           </div>
           <div className="hidden relative lg:block">
@@ -351,5 +363,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-///assets/imgs/logo-no-background 5.png

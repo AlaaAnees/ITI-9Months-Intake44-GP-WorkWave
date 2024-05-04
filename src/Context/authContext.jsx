@@ -1,8 +1,5 @@
-import React, {
-  createContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const UseLocalStorage = (callback) => {
   useEffect(() => {
@@ -34,11 +31,18 @@ const AuthProvider = ({ children }) => {
     setUserData(newUserData);
   });
 
+  console.log("From auth context", token);
+
   return (
     <AuthContext.Provider value={{ userData, setUserData, token, setToken }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Prop validation for AuthProvider component
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired, // Ensure 'children' prop is provided and is a valid React node
 };
 
 export { AuthContext, AuthProvider };

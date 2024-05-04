@@ -23,7 +23,8 @@ function Review({ gig }) {
       },
     });
     const data = await res.json();
-    setNewReview(data.data.savedReview);
+    console.log("dataaaaaaaaa", data);
+    setNewReview(data.data?.savedReview);
   }
   return (
     <>

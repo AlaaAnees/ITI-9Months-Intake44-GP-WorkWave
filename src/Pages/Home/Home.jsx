@@ -8,9 +8,6 @@ import PopularServices from "../../Components/Home-page-components/PopularServic
 import { useEffect, useState } from "react";
 import Loading from "../Loading/Loading";
 
-// const Inspring = lazy(() =>
-//   import("../../Components/Home-page-components/Inspring")
-// );
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [categoriesData, setCategoriesData] = useState([]);

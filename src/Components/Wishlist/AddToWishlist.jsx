@@ -21,7 +21,6 @@ function AddToWishlist({ gig }) {
         }
       );
       const data = await res.json();
-      console.log("add", data);
     } else if (colored == true) {
       const res = await fetch(
         `https://workwave-vq08.onrender.com/api/favorites/${gigid}`,
@@ -33,7 +32,6 @@ function AddToWishlist({ gig }) {
         }
       );
       const data = await res.json();
-      console.log(data);
     }
     setColored((c) => !c);
   }

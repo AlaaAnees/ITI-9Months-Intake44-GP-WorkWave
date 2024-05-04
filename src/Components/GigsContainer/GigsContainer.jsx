@@ -11,9 +11,7 @@ function GigsContainer({ minPrice, maxPrice }) {
 
   useEffect(() => {
     async function fetchGigs() {
-      console.log("eamannamam");
       setIsLoading(true);
-      console.log(searchParams.get("cat"));
       const res = await fetch(
         `${BASE_URL}/api/gigs?cat=${
           searchParams.get("cat") || ""

@@ -38,7 +38,7 @@ function Chat() {
   return (
     <>
       <div className="chat">
-        <div className="content mt-2 container-lg">
+        <div className="content mt-2 container mx-auto">
           {/* Render loading or error message */}
           {loading ? (
             "Loading..."
@@ -65,12 +65,8 @@ function Chat() {
                     className={`${
                       m.userId === currentUser._id
                         ? "bg-blue-500 text-white rounded-tl-[20px] rounded-bl-[20px] rounded-br-[20px]"
-                        : "bg-blue-100 rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px]"
+                        : "text-gray-500 bg-blue-100 rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px]"
                     }  max-w-100 py-3 px-4 text-sm`}
-                    style={{
-                      // borderRadius: "0px 20px 20px 20px",
-                      color: "gray",
-                    }}
                   >
                     {m.desc}
                   </p>

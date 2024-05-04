@@ -77,6 +77,12 @@ function Navbar() {
               >
                 Categories
               </NavLink>
+              <NavLink
+                to="/dashboard"
+                className=" ml-8 font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+              >
+                dashboard
+              </NavLink>
             </div>
             <NavLink
               to="/explore"
@@ -113,12 +119,6 @@ function Navbar() {
               className=" font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
             >
               Join
-            </NavLink>
-            <NavLink
-              to="/dashboard"
-              className=" font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
-            >
-              dashboard
             </NavLink>
           </div>
         ) : (

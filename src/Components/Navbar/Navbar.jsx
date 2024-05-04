@@ -12,7 +12,7 @@ function Navbar() {
   const [dropDownVisibility, setDropDownVisibility] = useState(false);
   const { userData } = useContext(AuthContext);
   const { setUserData } = useContext(AuthContext);
-  const { token } = useContext(AuthContext);
+  // const { token } = useContext(AuthContext);
   const { setToken } = useContext(AuthContext);
 
   const dropdownRef = useRef(null);
@@ -91,18 +91,6 @@ function Navbar() {
             >
               Become a seller
             </NavLink>
-            <NavLink
-              to="messages"
-              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
-            >
-              Messages
-            </NavLink>
-            <NavLink
-              to="message/:id"
-              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
-            >
-              Single message
-            </NavLink>
           </div>
           <div className="hidden relative lg:block">
             <input
@@ -169,7 +157,7 @@ function Navbar() {
               </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/orders"}
+                to={"/messages"}
               >
                 Messages
               </Link>

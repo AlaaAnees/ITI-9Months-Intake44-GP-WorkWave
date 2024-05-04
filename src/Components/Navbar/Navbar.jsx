@@ -1,4 +1,6 @@
 import { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
@@ -130,6 +132,13 @@ function Navbar() {
                 dropDownVisibility ? "" : "hidden"
               }`}
             >
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/wishlist"}
+              >
+                <FaHeart className="text-red-600"></FaHeart>
+                Wishlist
+              </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/profile"}

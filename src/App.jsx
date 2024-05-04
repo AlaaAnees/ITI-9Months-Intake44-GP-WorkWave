@@ -7,6 +7,9 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
+import SingleGig from "./Pages/SingleGig/SingleGig";
+import Wishlist from "./Components/Wishlist/Wishlist";
+import { QueryClient, QueryClientProvider } from "react-query";
 import GigContextProvider from "./Context/GigsContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 // render as we fetch
@@ -21,7 +24,6 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: <Home></Home>,
-        loader: categoriesLoader,
       },
       {
         path: "/login",
@@ -34,6 +36,11 @@ const routes = createBrowserRouter([
         element: <CategoriesPage></CategoriesPage>,
       },
       {
+        path: "/singlegig/:id",
+        element: <SingleGig></SingleGig>,
+      },
+      { path: "/wishlist", element: <Wishlist></Wishlist> },
+      {
         path: "/dashboard",
         element: <Dashboard />,
       },
@@ -42,11 +49,12 @@ const routes = createBrowserRouter([
 ]);
 
 function App() {
+  let queryClient = new QueryClient();
   return (
     <AuthProvider>
-      <GigContextProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={routes}></RouterProvider>
-      </GigContextProvider>
+      </QueryClientProvider>
     </AuthProvider>
   );
   // return (

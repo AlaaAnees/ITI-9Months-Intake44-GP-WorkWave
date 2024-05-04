@@ -54,7 +54,9 @@ function Cards() {
         {icon}
         <p className="text-2xl text-[#60A5FA] ml-2">{title}</p>
       </div>
-      <p className=" font-semibold text-[#676767] text-xl">{value}</p>
+      <p className=" font-semibold text-[#676767] text-xl">
+        {loading ? "Loading..." : value}
+      </p>
     </div>
   );
 

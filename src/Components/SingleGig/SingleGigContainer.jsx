@@ -44,7 +44,7 @@ function SingleGigContainer({ gig }) {
           )}
         </div>
       </div>
-      <div
+      {/* <div
         id="carouselExampleRide"
         className="carousel slide w-64"
         data-bs-ride="true"
@@ -87,7 +87,7 @@ function SingleGigContainer({ gig }) {
           ></span>
           <span className="visually-hidden">Next</span>
         </button>
-      </div>
+      </div> */}
       {/* Start GIG DISC */}
       <div className="gig-description">
         <h4>About This Gig</h4>

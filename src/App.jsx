@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "./Context/authContext";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
@@ -9,11 +10,10 @@ import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
 import SingleGig from "./Pages/SingleGig/SingleGig";
 import Wishlist from "./Components/Wishlist/Wishlist";
-import { QueryClient, QueryClientProvider } from "react-query";
 import GigContextProvider from "./Context/GigsContext";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 // render as we fetch
-import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
+// import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
 
 const routes = createBrowserRouter([
   {

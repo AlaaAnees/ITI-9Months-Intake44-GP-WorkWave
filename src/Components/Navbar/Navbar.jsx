@@ -1,12 +1,9 @@
 import { useContext, useRef, useState } from "react";
-import { useContext, useRef, useState } from "react";
 import { FaHeart } from "react-icons/fa";
-
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
-
 import { AuthContext } from "../../Context/authContext";
 
 function Navbar() {

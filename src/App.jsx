@@ -8,8 +8,9 @@ import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
 import SingleGig from "./Pages/SingleGig/SingleGig";
-import Wishlist from "./Components/Wishlist/Wishlist";
+// import Wishlist from "./Components/Wishlist/Wishlist";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Creategig from "./Pages/Creategig/Creategig";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -34,7 +35,8 @@ const routes = createBrowserRouter([
         path: "/singlegig/:id",
         element: <SingleGig></SingleGig>,
       },
-      { path: "/wishlist", element: <Wishlist></Wishlist> },
+      // { path: "/wishlist", element: <Wishlist></Wishlist> },
+      { path: "/newGig", element: <Creategig></Creategig> },
     ],
   },
 ]);

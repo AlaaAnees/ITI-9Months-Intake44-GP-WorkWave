@@ -36,7 +36,7 @@ const inspringData = [
   },
   {
     tilte: "Graphic Design",
-    imgUrl: "./assets/imgs/jpeg-optimizer_14-1.jpg",
+    imgUrl: "/assets/imgs/jpeg-optimizer_14-1.jpg",
     creator: "Eman",
     creatorAvatar: "./assets/imgs/Ellipse 6 (3).png",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",

@@ -1,18 +1,12 @@
-import {
-  useContext,
-  useState,
-} from 'react';
+import { useContext, useState } from "react";
 
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { MdErrorOutline } from 'react-icons/md';
-import {
-  NavLink,
-  useNavigate,
-} from 'react-router-dom';
-import { SyncLoader } from 'react-spinners';
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { MdErrorOutline } from "react-icons/md";
+import { NavLink, useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
-import { AuthContext } from '../../Context/authContext';
+import { AuthContext } from "../../Context/authContext";
 
 function Login() {
   const navigate = useNavigate();

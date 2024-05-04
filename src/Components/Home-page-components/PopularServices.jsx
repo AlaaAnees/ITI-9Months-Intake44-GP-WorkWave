@@ -7,23 +7,23 @@ import Slider from "react-slick";
 const popularServicesData = [
   {
     title: "Logo Design",
-    imgUrl: "./assets/imgs/unsplash_gxGtqG5ul2g.png",
+    imgUrl: "/assets/imgs/unsplash_gxGtqG5ul2g.png",
   },
   {
     title: "WordPress",
-    imgUrl: "./assets/imgs/2.png",
+    imgUrl: "/assets/imgs/2.png",
   },
   {
     title: "Graphic Design",
-    imgUrl: "./assets/imgs/3.png",
+    imgUrl: "/assets/imgs/3.png",
   },
   {
     title: "Voice Over",
-    imgUrl: "./assets/imgs/4.png",
+    imgUrl: "/assets/imgs/4.png",
   },
   {
     title: "Video Explainer",
-    imgUrl: "./assets/imgs/5.png",
+    imgUrl: "/assets/imgs/5.png",
   },
 ];
 

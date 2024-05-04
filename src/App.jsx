@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "./Context/authContext";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
@@ -7,9 +8,10 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
-// render as we fetch
-import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
-import GigContextProvider from "./Context/GigsContext";
+import SingleGig from "./Pages/SingleGig/SingleGig";
+// import Wishlist from "./Components/Wishlist/Wishlist";
+import Creategig from "./Pages/Creategig/Creategig";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 const routes = createBrowserRouter([
   {
     path: "",
@@ -19,7 +21,6 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: <Home></Home>,
-        loader: categoriesLoader,
       },
       {
         path: "/login",
@@ -31,16 +32,24 @@ const routes = createBrowserRouter([
         path: "/categories",
         element: <CategoriesPage></CategoriesPage>,
       },
+      {
+        path: "/singlegig/:id",
+        element: <SingleGig></SingleGig>,
+      },
+      // { path: "/wishlist", element: <Wishlist></Wishlist> },
+      { path: "/newGig", element: <Creategig></Creategig> },
+      { path: "/dashboard", element: <Dashboard /> },
     ],
   },
 ]);
 
 function App() {
+  let queryClient = new QueryClient();
   return (
     <AuthProvider>
-      <GigContextProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={routes}></RouterProvider>
-      </GigContextProvider>
+      </QueryClientProvider>
     </AuthProvider>
   );
   // return (

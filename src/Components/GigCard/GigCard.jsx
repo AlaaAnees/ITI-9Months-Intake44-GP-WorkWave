@@ -10,7 +10,7 @@ function GigCard({ gig }) {
         key={gig._id}
         className="rounded-xl shadow-md bg-white hover:scale-105 transition-all "
       >
-        <img src={gig.cover} alt={gig.title} className="w-100 h-72" />
+        <img src={gig.cover} alt={gig.title} className="w-full h-72" />
         {/* second line */}
         <div className=" p-5">
           <div className="flex items-center justify-between flex-wrap   ">

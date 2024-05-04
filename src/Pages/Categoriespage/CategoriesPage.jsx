@@ -68,7 +68,7 @@ function CategoriesPage() {
           })}
         </ul>
       </section>
-      <section className="container ">
+      <section className="container mx-auto ">
         <div className="flex flex-column mt-5 p-3  rounded-xl bg-white md:flex-row justify-around items-center gap-6">
           <span className="font-semibold text-xl text-[#172554] ">Budget</span>
           <div className="space-x-0 sm:space-x-6  text-center  space-y-2">
@@ -91,7 +91,7 @@ function CategoriesPage() {
           </div>
         </div>
       </section>
-      <section className="container py-8">
+      <section className="container py-8 mx-auto">
         <GigsContainer minPrice={minPrice} maxPrice={maxPrice}></GigsContainer>
       </section>
     </>

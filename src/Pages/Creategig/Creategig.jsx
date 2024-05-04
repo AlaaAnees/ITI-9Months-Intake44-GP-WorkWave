@@ -61,7 +61,7 @@ function Creategig() {
   }
   return (
     <>
-      <div className="container py-8">
+      <div className="container mx-auto py-8">
         <h1>Add new gig</h1>
 
         <form onSubmit={formik.handleSubmit} className="flex flex-wrap">

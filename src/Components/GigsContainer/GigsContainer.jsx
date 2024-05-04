@@ -11,9 +11,7 @@ function GigsContainer({ minPrice, maxPrice }) {
 
   useEffect(() => {
     async function fetchGigs() {
-      console.log("eamannamam");
       setIsLoading(true);
-      console.log(searchParams.get("cat"));
       const res = await fetch(
         `${BASE_URL}/api/gigs?cat=${
           searchParams.get("cat") || ""
@@ -28,7 +26,7 @@ function GigsContainer({ minPrice, maxPrice }) {
   if (isLoading) return <Loading background="transparent"></Loading>;
   return (
     <>
-      <ul className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-9  ">
+      <ul className="container grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-9  ">
         {gigs && gigs.map((g) => <GigCard key={g._id} gig={g}></GigCard>)}
       </ul>
     </>

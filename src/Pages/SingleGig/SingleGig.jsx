@@ -1,18 +1,39 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import SingleGigContainer from "../../Components/SingleGig/SingleGigContainer";
-import { useQuery } from "react-query";
-const baseURL = "https://workwave-vq08.onrender.com/api";
+import Review from "../../Components/Reviews/Review";
+const baseURL = "https://workwave-vq08.onrender.com";
 function SingleGig() {
   const { id } = useParams();
-  console.log(id);
-  async function getSinglegig() {
-    const res = await fetch(`${baseURL}/gigs/single/${id}`);
-    return res.json();
-  }
+  const [singleGigData, setSingleGig] = useState("");
 
-  const query = useQuery("getsinglegig", getSinglegig);
-  console.log(query);
-  return <>{<SingleGigContainer gig={query.data} status={query.status} />}</>;
+  useEffect(() => {
+    async function fetchSingleGig() {
+      try {
+        console.log("anaa id", id);
+        const res = await fetch(`${baseURL}/api/gigs/single/${id}`);
+        const data = await res.json();
+        console.log("meeen", data);
+        setSingleGig(data);
+      } catch (err) {
+        return err;
+      }
+    }
+    fetchSingleGig();
+  }, [id]);
+
+  return (
+    <>
+      {singleGigData ? (
+        <>
+          <SingleGigContainer gig={singleGigData} />
+          <Review gig={singleGigData} id={id} />
+        </>
+      ) : (
+        <p>Loading single gig...</p>
+      )}
+    </>
+  );
 }
 
 export default SingleGig;

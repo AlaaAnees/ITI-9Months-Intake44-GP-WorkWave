@@ -1,17 +1,17 @@
 import { useContext, useRef, useState } from "react";
-import { FaHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Context/authContext";
+import { FaHeart } from "react-icons/fa";
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const [dropDownVisibility, setDropDownVisibility] = useState(false);
   const { userData } = useContext(AuthContext);
   const { setUserData } = useContext(AuthContext);
-  const { token } = useContext(AuthContext);
+  // const { token } = useContext(AuthContext);
   const { setToken } = useContext(AuthContext);
 
   const dropdownRef = useRef(null);
@@ -163,7 +163,7 @@ function Navbar() {
               </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/orders"}
+                to={"/messages"}
               >
                 Messages
               </Link>
@@ -351,5 +351,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-///assets/imgs/logo-no-background 5.png

@@ -8,13 +8,20 @@ import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
 import Profile from "./Pages/Profile/Profile";
 import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
+import Messages from "./Pages/Messages/Messages";
+import Message from "./Pages/Message/Message";
+import ConversationsList from "./Pages/ConversationsList/ConversationsList";
+import ConversationContextProvider from "./Context/ConversationContext";
+import GigContextProvider from "./Context/GigsContext";
+import { MessageContextProvider } from "./Context/MessageContext";
 import SingleGig from "./Pages/SingleGig/SingleGig";
 // import Wishlist from "./Components/Wishlist/Wishlist";
 import Creategig from "./Pages/Creategig/Creategig";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 const routes = createBrowserRouter([
+  // It may be changed or removed at the time of merging
   {
-    path: "",
+    path: "/",
     element: <Layout></Layout>,
     errorElement: <Error></Error>,
     children: [
@@ -33,6 +40,18 @@ const routes = createBrowserRouter([
         element: <CategoriesPage></CategoriesPage>,
       },
       {
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "/message/:id",
+        element: <Message />,
+      },
+      {
+        path: "/conversationList",
+        element: <ConversationsList />,
+      },
+      {
         path: "/singlegig/:id",
         element: <SingleGig></SingleGig>,
       },
@@ -46,12 +65,19 @@ const routes = createBrowserRouter([
 function App() {
   let queryClient = new QueryClient();
   return (
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={routes}></RouterProvider>
-      </QueryClientProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <GigContextProvider>
+          <ConversationContextProvider>
+            <MessageContextProvider>
+              <RouterProvider router={routes} />
+            </MessageContextProvider>
+          </ConversationContextProvider>
+        </GigContextProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
+
   // return (
   //   <AuthProvider>
   //     <BrowserRouter>

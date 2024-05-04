@@ -45,7 +45,7 @@ function Chat() {
           ) : error ? (
             "Error"
           ) : (
-            <div className="chats flex flex-column my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll ">
+            <div className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll ">
               {/* Render messages */}
               {messages.map((m) => (
                 <div

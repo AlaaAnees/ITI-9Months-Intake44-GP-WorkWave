@@ -33,10 +33,10 @@ export default function Chats() {
   const usersID = getBuyerData();
   // console.log("UUUUUUUUUUUUUUUUUUUUUUUU:) ", usersID);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     async function fetchUsersData() {
       const response = await fetch(
-        `https://workwave-vq08.onrender.com/api/users/${usersID[0]}`
+        // `https://workwave-vq08.onrender.com/api/users/${usersID[0]}`
       );
       const data = await response.json();
       console.log("FFFFFFFFFFFFFFFFFFFFFFFFFf", data);
@@ -44,7 +44,7 @@ export default function Chats() {
     }
 
     fetchUsersData();
-  }, []);
+  }, []); */
 
   // console.log("MMMMMMMMMMMMMMMMMMMMMM: ", isSeller());
 

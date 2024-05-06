@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Loading from "../../Pages/Loading/Loading";
 
 const Categories = ({ categoriesData }) => {
-  // const [categoriesData, setCategoriesData] = useState();
-  // const [isLoading, setIsLoading] = useState(false);
+  // const [categoriesData, setCategoriesData] = useState([]);
+
   // useEffect(() => {
   //   async function fetchCategories() {
-  //     setIsLoading(true);
   //     const res = await fetch(
   //       `https://workwave-vq08.onrender.com/api/categories`
   //     );
@@ -16,12 +14,12 @@ const Categories = ({ categoriesData }) => {
   //     setIsLoading(false);
   //   }
   //   fetchCategories();
-  // }, []);
+  // }, [setIsLoading]);
 
   return (
     <div className="bg-blue-50 pt-14  relative">
       <img
-        src="/public/assets/imgs/Shapes.png"
+        src="/assets/imgs/Shapes.png"
         alt=""
         className="absolute top-4 -left-16"
       />
@@ -35,7 +33,8 @@ const Categories = ({ categoriesData }) => {
               <NavLink
                 to={`/categories?cat=${category.categoryName}`}
                 key={category.title}
-                className="bg-white flex flex-col justify-center items-center rounded-md shadow-lg p-3 hover:-translate-y-2 relative before:absolute  before:top-0 before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500 transition-all duration-300 before:transition-all before:duration-300"
+                className="bg-white flex flex-col justify-center items-center rounded-md shadow-lg p-3 hover:-translate-y-2 relative 
+                before:absolute  before:top-0 before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500 transition-all duration-300 before:transition-all before:duration-300"
               >
                 <img
                   src={category.imgURL}
@@ -57,9 +56,3 @@ const Categories = ({ categoriesData }) => {
 };
 
 export default Categories;
-
-export async function laoder() {
-  const res = await fetch(`https://workwave-vq08.onrender.com/api/categories`);
-  const data = await res.json();
-  return data;
-}

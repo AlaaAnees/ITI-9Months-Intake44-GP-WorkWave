@@ -53,7 +53,7 @@ const Cover = () => {
             <span className=" italic"> &quot;</span>
           </span>
         </span>
-        <img src="/assets/imgs/1 1.png" alt="" />
+        <img src="./assets/imgs/1 1.png" alt="" />
       </div>
     </div>
   );

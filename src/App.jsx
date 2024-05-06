@@ -16,6 +16,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { laoder as categoriesLoader } from "./Components/Home-page-components/Categories";
 import GigContextProvider from "./Context/GigsContext";
 import { MessageContextProvider } from "./Context/MessageContext";
+import Explore from "./Pages/Explore/explore";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,10 @@ const routes = createBrowserRouter([
       {
         path: "/conversationList",
         element: <ConversationsList />,
+      },
+      {
+        path: "/explore",
+        element: <Explore />,
       },
     ],
   },

@@ -1,17 +1,28 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
+import { jwtDecode } from 'jwt-decode';
 import {
   FaEye,
   FaEyeSlash,
-  FaFacebook,
   FaRegCheckCircle,
-} from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { MdErrorOutline } from "react-icons/md";
-import { NavLink } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
+} from 'react-icons/fa';
+import {
+  MdDeleteForever,
+  MdErrorOutline,
+} from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
+import { SyncLoader } from 'react-spinners';
 
-import SuccessModal from "../../Components/registration-modal/RegModal";
+import { GoogleLogin } from '@react-oauth/google';
+
+import SuccessModal from '../../Components/registration-modal/RegModal';
+import { AuthContext } from '../../Context/authContext';
+import FacebookAuthComponent from '../Login/FaceBook';
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -43,7 +54,15 @@ function Register() {
     setPasswordMatching(password === confirmPassword);
   }, [password, confirmPassword]);
   const [previewUrl, setPreviewUrl] = useState(null);
-
+  const [skillsInput, setSkillsInput] = useState("");
+  const [skills, setSkills] = useState([]);
+  const addSkill = () => {
+    setSkills([...skills, skillsInput]);
+    setSkillsInput("");
+  };
+  const removeSkill = (skill) => {
+    setSkills(skills.filter((s) => s !== skill));
+  };
   useEffect(() => {
     matchPassword();
   }, [confirmPassword, matchPassword]);
@@ -119,6 +138,104 @@ function Register() {
     return isValid;
   };
 
+  const { setUserData } = useContext(AuthContext);
+
+  const handleFacebookLogin = async (response) => {
+    console.log(response);
+    const facebookUser = {
+      firstName: response.data.first_name,
+      lastName: response.data.last_name,
+      username: response.data.first_name + response.data.last_name,
+      email: response.data.email,
+      img:
+        response.data.picture.url ||
+        "/assets/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
+      isSeller: false,
+      phone: "00",
+      country: "**",
+      password: "**",
+      desc: "",
+    };
+    try {
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(facebookUser),
+        }
+      );
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+
+        console.log(facebookUser);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
+        );
+      }
+      setIsLoading(false);
+
+      setRegSuccess(true);
+      console.log("User registered successfully");
+    } catch (error) {
+      console.error("Error registering user:", error.message);
+      setIsLoading(false);
+    }
+  };
+
+  const responseMessage = async (response) => {
+    const credentialResopnseDecoded = jwtDecode(response.credential); //
+    console.log(credentialResopnseDecoded);
+    const userGoogle = {
+      firstName: credentialResopnseDecoded.given_name,
+      lastName: credentialResopnseDecoded.family_name,
+      username:
+        credentialResopnseDecoded.given_name +
+        credentialResopnseDecoded.family_name,
+      email: credentialResopnseDecoded.email,
+      img: credentialResopnseDecoded.picture,
+      isSeller: false,
+      phone: "",
+      country: "**",
+      password: "**",
+      desc: "",
+    };
+    try {
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userGoogle),
+        }
+      );
+
+      if (!response.ok) {
+        const errorMessage = await response.text(); // Get the error message from the response
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
+        );
+      }
+      setIsLoading(false);
+
+      setRegSuccess(true);
+      console.log("User registered successfully");
+    } catch (error) {
+      console.error("Error registering user:", error.message);
+      setIsLoading(false);
+    }
+
+    console.log(userGoogle);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
+
   const submitForm = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -140,10 +257,9 @@ function Register() {
       country,
       phone: phoneNumber,
       desc: description,
-      img:
-        previewUrl ||
-        "/assets/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
+      img: previewUrl,
       isSeller,
+      skills,
     };
     console.log(user);
 
@@ -161,6 +277,7 @@ function Register() {
 
       if (!response.ok) {
         const errorMessage = await response.text(); // Get the error message from the response
+
         throw new Error(
           `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
         );
@@ -187,14 +304,9 @@ function Register() {
         />
         <div className="bg-white w-10/12 md:w-3/5 flex flex-col items-center justify-center py-10 rounded-3xl">
           <h2 className="sub-font-2 font-bold text-2xl">Register</h2>
-          <div className="flex flex-col md:flex-row gap-5 md:gap-10 my-10">
-            <p className="flex items-center gap-3 border border-[#ccc] rounded-lg py-2 px-4 sub-font-2 text-xs font-medium">
-              <FaFacebook className="text-3xl text-[#1877F2]" /> Sign in with
-              Facebook
-            </p>
-            <p className="flex items-center gap-3 border border-[#ccc] rounded-lg py-2 px-4 sub-font-2 text-xs font-medium">
-              <FcGoogle className="text-3xl" /> Sign in with Google
-            </p>
+          <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 my-10 items-center">
+            <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} />
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
           </div>
           <p className="flex gap-1 text-[#bbb]">
             <p className="-translate-y-1">ــ</p>
@@ -351,6 +463,37 @@ function Register() {
               value={description}
               className="outline-none border-b-2 w-full mt-4 p-2"
             />
+            <input
+              type="text"
+              placeholder="Add Skill ..."
+              onChange={(e) => setSkillsInput(e.target.value)}
+              value={skillsInput}
+              className="outline-none border-b-2 w-full mt-4 p-2"
+            />
+            <div className="mt-3 flex gap-2">
+              {skills.map((skill) => {
+                return (
+                  <span
+                    key={skill}
+                    className=" text-[#bbb] border-2 flex items-center justify-between  gap-3 ps-2  border-[#bbb]   py-1 rounded-lg  transition-all duration-300 "
+                  >
+                    {skill}{" "}
+                    <MdDeleteForever
+                      className="hover:text-red-800 cursor-pointer"
+                      onClick={() => removeSkill(skill)}
+                    />
+                  </span>
+                );
+              })}
+            </div>
+            {skillsInput && (
+              <button
+                className="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-800 transition-all duration-300 mt-2"
+                onClick={addSkill}
+              >
+                Add
+              </button>
+            )}
             <label
               htmlFor="profile"
               className="block bg-white border-2 border-blue-500 text-blue-500 font-semibold cursor-pointer rounded-lg w-fit p-3 mt-4  hover:bg-blue-500 hover:text-white transition-all duration-300"

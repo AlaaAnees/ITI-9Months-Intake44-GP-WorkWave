@@ -194,7 +194,8 @@ function Register() {
       lastName: credentialResopnseDecoded.family_name,
       username:
         credentialResopnseDecoded.given_name +
-        credentialResopnseDecoded.family_name,
+        credentialResopnseDecoded.family_name +
+        "anyy",
       email: credentialResopnseDecoded.email,
       img: credentialResopnseDecoded.picture,
       isSeller: false,

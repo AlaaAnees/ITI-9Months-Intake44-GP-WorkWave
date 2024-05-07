@@ -1,14 +1,20 @@
-import { useContext, useState } from "react";
+import {
+  useContext,
+  useState,
+} from 'react';
 
-import { jwtDecode } from "jwt-decode";
-import { FaFacebook } from "react-icons/fa";
-import { MdErrorOutline } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
+import { jwtDecode } from 'jwt-decode';
+import { FaFacebook } from 'react-icons/fa';
+import { MdErrorOutline } from 'react-icons/md';
+import {
+  NavLink,
+  useNavigate,
+} from 'react-router-dom';
+import { SyncLoader } from 'react-spinners';
 
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from '@react-oauth/google';
 
-import { AuthContext } from "../../Context/authContext";
+import { AuthContext } from '../../Context/authContext';
 
 function Login() {
   const navigate = useNavigate();
@@ -60,7 +66,7 @@ function Login() {
       const data = await response.json();
 
       localStorage.setItem("user", JSON.stringify(data.data.user));
-      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("token", JSON.stringify(data.data.token));
       setUserData(data.data.user);
       setToken(data.data.token);
       console.log("brrrrrrrrr", data);
@@ -109,7 +115,6 @@ function Login() {
       // console.log(data.data.user);
       localStorage.setItem("token", JSON.stringify(data.data.token));
       setUserData(data.data.user);
-      setToken(data.data.token);
       setToken(data.data.token);
 
       if (!response.ok) {

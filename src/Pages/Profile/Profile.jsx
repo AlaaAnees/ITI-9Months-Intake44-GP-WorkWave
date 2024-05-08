@@ -1,31 +1,24 @@
-import { useContext, useEffect } from "react";
+import { useContext } from 'react';
 
-import { FaStar } from "react-icons/fa";
-import { GrLocation } from "react-icons/gr";
-import { IoIosChatbubbles } from "react-icons/io";
-import { MdCall } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { FaStar } from 'react-icons/fa';
+import { GrLocation } from 'react-icons/gr';
+import { IoIosChatbubbles } from 'react-icons/io';
+import { MdCall } from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
 
-import Gigs from "../../Components/Profile-page-components/ProfileGigs";
-import ProfileReviews from "../../Components/Profile-page-components/ProfileReviews";
-import { AuthContext } from "../../Context/authContext";
+import Gigs from '../../Components/Profile-page-components/ProfileGigs';
+import ProfileReviews
+  from '../../Components/Profile-page-components/ProfileReviews';
+import { AuthContext } from '../../Context/authContext';
 
 function Profile() {
   const { userData } = useContext(AuthContext);
   console.log(userData);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Redirect to login if userData is not present (user is not authenticated)
-    if (!userData) {
-      navigate("/login"); // Redirect to your login route
-    }
-  }, [userData, navigate]);
   const starArray = Array.from({ length: 5 }, (value, index) => (
     <FaStar key={index} className="text-[#FFB340]" />
   ));
 
-  // Render the profile page if user is authenticated
   return (
     <div className="bg-blue-50 px-16 py-8">
       <p className="text-[#595959]">

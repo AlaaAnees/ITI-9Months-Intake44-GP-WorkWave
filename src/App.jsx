@@ -10,6 +10,8 @@ import {
 } from 'react-router-dom';
 import { WhatsAppWidget } from 'react-whatsapp-widget';
 
+import IsSeller from './Components/ProtectRoute/IsSeller';
+import ProtectedRoute from './Components/ProtectRoute/ProtectRoute';
 import { AuthProvider } from './Context/authContext';
 import ConversationContextProvider from './Context/ConversationContext';
 import GigContextProvider from './Context/GigsContext';
@@ -45,10 +47,23 @@ const routes = createBrowserRouter([
         element: <Login></Login>,
       },
       { path: "/register", element: <Register></Register> },
-      { path: "/profile", element: <Profile></Profile> },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile></Profile>
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/categories",
-        element: <CategoriesPage></CategoriesPage>,
+        element: (
+          <ProtectedRoute>
+            <IsSeller>
+              <CategoriesPage></CategoriesPage>
+            </IsSeller>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/messages",

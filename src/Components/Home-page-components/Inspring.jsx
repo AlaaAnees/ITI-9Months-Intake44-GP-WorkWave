@@ -1,5 +1,10 @@
-import { NavLink } from "react-router-dom";
-import Slider from "react-slick";
+import 'aos/dist/aos.css';
+
+import { useEffect } from 'react';
+
+import AOS from 'aos';
+import { NavLink } from 'react-router-dom';
+import Slider from 'react-slick';
 
 const inspringData = [
   {
@@ -44,6 +49,15 @@ const inspringData = [
   },
 ];
 const Inspring = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 600,
+      easing: "ease-in-out",
+      delay: 100,
+      once: true,
+    });
+  });
   const settings = {
     dots: false,
     infinite: true,
@@ -68,7 +82,7 @@ const Inspring = () => {
     ],
   };
   return (
-    <div className="bg-blue-50 pt-20 pb-20">
+    <div className="bg-blue-50 pt-20 pb-20" data-aos="fade-up">
       <p className="sub-font-3 ps-14 text-3xl font-extrabold ">Inspring Work</p>
       <div className="w-[90%] mx-auto mt-20">
         <Slider {...settings}>

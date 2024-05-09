@@ -1,8 +1,12 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'aos/dist/aos.css';
 
-import { NavLink } from "react-router-dom";
-import Slider from "react-slick";
+import { useEffect } from 'react';
+
+import AOS from 'aos';
+import { NavLink } from 'react-router-dom';
+import Slider from 'react-slick';
 
 const popularServicesData = [
   {
@@ -51,17 +55,28 @@ const PopularServices = () => {
       },
     ],
   };
+  useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 600,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+  }, []);
 
   return (
     <div className="bg-blue-50 pt-20  pb-20">
-      <p className="sub-font-3 ps-14 text-3xl font-extrabold ">
+      <p
+        className="sub-font-3 ps-14 text-3xl font-extrabold "
+        data-aos="fade-right"
+      >
         Popular Services
       </p>
       <div className="w-[90%] mx-auto mt-20">
         <Slider {...settings}>
           {popularServicesData.map((service, index) => (
             <div key={index}>
-              <NavLink to={"/any"}>
+              <NavLink to={"/any"} data-aos="zoom-in-up">
                 <div className="relative text-white hover:text-blue-400 transition-all duration-300">
                   <img
                     src={service.imgUrl}

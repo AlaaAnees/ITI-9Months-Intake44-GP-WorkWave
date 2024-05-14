@@ -19,6 +19,7 @@ import SingleGig from "./Pages/SingleGig/SingleGig";
 // import Wishlist from "./Components/Wishlist/Wishlist";
 import Creategig from "./Pages/Creategig/Creategig";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import Payment from "./Components/Payment/Payment";
 // const queryClient = new QueryClient();
 const routes = createBrowserRouter([
   // It may be changed or removed at the time of merging
@@ -60,6 +61,10 @@ const routes = createBrowserRouter([
       {
         path: "/explore",
         element: <Explore></Explore>,
+      },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
       },
       // { path: "/wishlist", element: <Wishlist></Wishlist> },
       { path: "/newGig", element: <Creategig></Creategig> },

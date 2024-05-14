@@ -1,18 +1,115 @@
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { useState } from "react";
+// import { useState } from "react";
 
-const stripePromise = loadStripe(
-  "pk_test_51PBSmdRpGMDN68ih6VbD4SxLBlR2wyojqbhs3cEVCvtjIhEn34KGA49ftATcVEIXKMX5XlS0T6pbZlOewYcpiLYQ00c16tKaSj"
-);
+// function Payment() {
+//   const [clientSecret, setClientSecret] = useState("");
+//   return (
+//     <>
+//       <div className="w-20">
+//         <button>
+//           <img className="w-full" src="./assets/cart.svg" alt="" />
+//         </button>
+//       </div>
+//     </>
+//   );
+// }
 
-function Payment() {
-  const [clientSecret, setClientSecret] = useState("");
+// export default Payment;
+
+// import { useEffect, useRef } from "react";
+
+// const Payment = ({ totalAmount }) => {
+//   const paypalBtn = useRef(null);
+//   useEffect(() => {
+//     paypalBtn.current.textContent = "";
+//     window.paypal
+//       .Buttons({
+//         createOrder: (order, actions) => {
+//           return actions.order.create({
+//             purchase_units: [
+//               {
+//                 amount: {
+//                   value: totalAmount,
+//                   currency: "USD",
+//                 },
+//               },
+//             ],
+//           });
+//         },
+// onApprove: (data, actions) => {
+//   return actions.order.capture().then(async (details) => {
+//     // await checkout();
+//     alert(
+//       "Payment Made Successfully " +
+//         details.payer.name.given_name +
+//         " !"
+//     );
+//   });
+// },
+//       })
+//       .render("#paypal-btn");
+//   }, []);
+
+//   return (
+//     <div
+//       id="paypal-btn"
+//       ref={paypalBtn}
+//       onClick={(e) => {
+//         e.preventDefault();
+//         e.stopPropagation();
+//       }}
+//     ></div>
+//   );
+// };
+
+// export default Payment;
+
+import React, { useRef, useEffect } from "react";
+
+export default function Paypal() {
+  const paypalBtn = useRef(null);
+
+  useEffect(() => {
+    paypalBtn.current.textContent = "";
+    window.paypal
+      .Buttons({
+        createOrder: (data, actions, err) => {
+          return actions.order.create({
+            intent: "CAPTURE",
+            purchase_units: [
+              {
+                description: "Cool looking table",
+                amount: {
+                  currency_code: "USD",
+                  value: 1.0,
+                },
+              },
+            ],
+          });
+        },
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(async (details) => {
+            // await checkout();
+            alert(
+              "Payment Made Successfully " +
+                details.payer.name.given_name +
+                " !"
+            );
+          });
+        },
+      })
+      .render(paypalBtn.current);
+  }, []);
+
   return (
-    <>
-      <h1>payment</h1>
-    </>
+    <div>
+      <div
+        id="paypal-btn"
+        ref={paypalBtn}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      ></div>
+    </div>
   );
 }
-
-export default Payment;

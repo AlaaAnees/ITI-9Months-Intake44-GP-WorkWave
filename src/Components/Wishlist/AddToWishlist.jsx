@@ -4,10 +4,7 @@ import { FaHeart } from "react-icons/fa";
 function AddToWishlist({ gig }) {
   const [colored, setColored] = useState(false);
   const [isloading, setisloading] = useState(true);
-  const [token, setToken] = useState("");
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, []);
+  const token = JSON.parse(localStorage.getItem("token"));
   async function handleAddToWishlist(e, gigid) {
     e.preventDefault();
     if (colored == false) {
@@ -16,18 +13,19 @@ function AddToWishlist({ gig }) {
         {
           method: "POST",
           headers: {
-            authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMyOTI4YTFmNzVlNzFkNGM1Mjc0NzIiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDU5NTgyMX0.WNHjJYm1655OMR1FupH6C0eTB03rzGGygtKG5wiyPxI"}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );
       const data = await res.json();
+      console.log("add", data);
     } else if (colored == true) {
       const res = await fetch(
         `https://workwave-vq08.onrender.com/api/favorites/${gigid}`,
         {
           method: "DELETE",
           headers: {
-            authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMyOTI4YTFmNzVlNzFkNGM1Mjc0NzIiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDU5NTgyMX0.WNHjJYm1655OMR1FupH6C0eTB03rzGGygtKG5wiyPxI"}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );
@@ -43,7 +41,7 @@ function AddToWishlist({ gig }) {
         {
           method: "GET",
           headers: {
-            authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMyOTI4YTFmNzVlNzFkNGM1Mjc0NzIiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDU5NTgyMX0.WNHjJYm1655OMR1FupH6C0eTB03rzGGygtKG5wiyPxI"}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );

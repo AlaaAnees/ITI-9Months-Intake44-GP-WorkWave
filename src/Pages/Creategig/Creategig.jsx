@@ -1,14 +1,30 @@
 import { useFormik } from "formik";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import * as Yup from "yup";
 
 const BASE_URL = "https://workwave-vq08.onrender.com/api";
 function Creategig() {
+  const navigate = useNavigate();
+  const [coverImage, setCoverImage] = useState(null);
+  const [sliderImage, setSliderImage] = useState([]);
+  function handleImages(e) {
+    const file = URL.createObjectURL(e.target.files[0]);
+    setCoverImage(file);
+  }
+  function handleSliderImages(e) {
+    const files = e.target.files;
+    const selectedImages = [];
+    for (let i = 0; i < files.length; i++) {
+      selectedImages.push(URL.createObjectURL(files[i]));
+    }
+    setSliderImage(selectedImages);
+  }
+
   const formik = useFormik({
     initialValues: {
       title: "",
       shortTitle: "",
-      cover: "",
-      images: "",
       shortDesc: "",
       desc: "",
       features: "",
@@ -26,8 +42,7 @@ function Creategig() {
         .required()
         .min(4, "Title Short must be at least 4 char")
         .max(30, "Title Short must be less than  15 char"),
-      cover: Yup.string().required(),
-      images: Yup.string().required(),
+
       shortDesc: Yup.string()
         .required()
         .min(4, "Short description must be at least 4 char")
@@ -47,10 +62,16 @@ function Creategig() {
 
   async function handleSubmit() {
     const token = JSON.parse(localStorage.getItem("token"));
-
+    console.log("eman");
+    const formData = {
+      ...formik.values,
+      cover: coverImage,
+      images: sliderImage,
+    };
+    console.log(formData);
     const res = await fetch(`${BASE_URL}/gigs`, {
       method: "POST",
-      body: JSON.stringify(formik.values),
+      body: JSON.stringify(formData),
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -58,17 +79,28 @@ function Creategig() {
     });
     const data = await res.json();
     console.log(data);
+    navigate(`/singlegig/${data._id}`);
   }
   return (
     <>
-      <div className="container mx-auto py-8">
-        <h1>Add new gig</h1>
-
-        <form onSubmit={formik.handleSubmit} className="flex flex-wrap">
-          <div className="collll">
-            <div>
-              <label htmlFor="title">Title:</label>
+      <div className="container mx-auto py-8 px-4 md:px-0 h-screen flex flex-col justify-center ">
+        <h1 className="text-3xl text-[#595959] capitalize font-semibold   ">
+          Add new gig
+        </h1>
+        <form
+          onSubmit={formik.handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 "
+        >
+          <div className="colll ">
+            <div className="flex flex-col my-2 ">
+              <label
+                htmlFor="title"
+                className="text-[#959595] text-lg capitalize"
+              >
+                Title:
+              </label>
               <input
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]  "
                 type="text"
                 id="title"
                 name="title"
@@ -82,9 +114,15 @@ function Creategig() {
                 </div>
               ) : null}
             </div>
-            <div>
-              <label htmlFor="shortTitle">shortTitle:</label>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="shortTitle"
+                className="text-[#959595] text-lg capitalize"
+              >
+                shortTitle:
+              </label>
               <input
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]  "
                 type="text"
                 id="shortTitle"
                 name="shortTitle"
@@ -98,44 +136,34 @@ function Creategig() {
                 </div>
               ) : null}
             </div>
-            <div>
-              <label htmlFor="cover">cover:</label>
-              <input
-                type="file"
-                accept="image/png, image/gif, image/jpeg"
-                id="cover"
-                name="cover"
-                onChange={formik.handleChange}
-                value={formik.values.cover}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.cover && formik.errors.cover ? (
-                <div className="text-red-600 text-sm">
-                  {formik.errors.cover}
-                </div>
-              ) : null}
-            </div>
-            <div>
-              <label htmlFor="images">images:</label>
-              <input
-                type="file"
-                id="images"
-                multiple
-                accept="image/png, image/gif, image/jpeg"
-                name="images"
-                onChange={formik.handleChange}
-                value={formik.values.images}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.images && formik.errors.images ? (
-                <div className="text-red-600 text-sm">
-                  {formik.errors.images}
-                </div>
-              ) : null}
-            </div>
-            <div>
-              <label htmlFor="shortDesc">shortDesc:</label>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="desc"
+                className="text-[#959595] text-lg capitalize"
+              >
+                desc:
+              </label>
               <textarea
+                className="p-2 rounded-md border outline-none border-[#D0D0D0] resize-none "
+                name="desc"
+                id="desc"
+                onChange={formik.handleChange}
+                value={formik.values.desc}
+                onBlur={formik.handleBlur}
+              ></textarea>
+              {formik.touched.desc && formik.errors.desc ? (
+                <div className="text-red-600 text-sm">{formik.errors.desc}</div>
+              ) : null}
+            </div>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="shortDesc"
+                className="text-[#959595] text-lg capitalize"
+              >
+                shortDesc:
+              </label>
+              <textarea
+                className="p-2 rounded-md border outline-none border-[#D0D0D0] resize-none "
                 name="shortDesc"
                 id="shortDesc"
                 onChange={formik.handleChange}
@@ -148,39 +176,83 @@ function Creategig() {
                 </div>
               ) : null}
             </div>
-            <div>
-              <label htmlFor="desc">desc:</label>
-              <textarea
-                name="desc"
-                id="desc"
-                onChange={formik.handleChange}
-                value={formik.values.desc}
-                onBlur={formik.handleBlur}
-              ></textarea>
-              {formik.touched.desc && formik.errors.desc ? (
-                <div className="text-red-600 text-sm">{formik.errors.desc}</div>
-              ) : null}
+            <div className="flex justify-between my-2 flex-col  md:flex-row">
+              <div className="flex flex-col my-2 ">
+                <label
+                  htmlFor="images"
+                  className="text-[#959595] text-lg capitalize"
+                >
+                  images:
+                </label>
+                <input
+                  type="file"
+                  id="images"
+                  multiple
+                  accept="image/png, image/gif, image/jpeg"
+                  name="images"
+                  onChange={handleSliderImages}
+                />
+                {formik.touched.images && formik.errors.images ? (
+                  <div className="text-red-600 text-sm">
+                    {formik.errors.images}
+                  </div>
+                ) : null}
+              </div>
+              <div className="flex flex-col my-2 ">
+                <label
+                  htmlFor="cover"
+                  className="text-[#959595] text-lg capitalize"
+                >
+                  cover:
+                </label>
+                <input
+                  type="file"
+                  accept="image/png, image/gif, image/jpeg"
+                  id="cover"
+                  name="cover"
+                  onChange={handleImages}
+                />
+
+                {formik.touched.cover && formik.errors.cover ? (
+                  <div className="text-red-600 text-sm">
+                    {formik.errors.cover}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
           <div className="collll">
-            <div>
-              <label htmlFor="features">features:</label>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="deliveryTime"
+                className="text-[#959595] text-lg capitalize"
+              >
+                deliveryTime:
+              </label>
               <input
-                type="text"
-                name="features"
-                id="features"
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]"
+                type="number"
+                name="deliveryTime"
+                id="deliveryTime"
                 onChange={formik.handleChange}
-                value={formik.values.f}
+                value={formik.values.deliveryTime}
                 onBlur={formik.handleBlur}
               />
-              {formik.touched.features && formik.errors.features ? (
+              {formik.touched.deliveryTime && formik.errors.deliveryTime ? (
                 <div className="text-red-600 text-sm">
-                  {formik.errors.features}
+                  {formik.errors.deliveryTime}
                 </div>
               ) : null}
             </div>
-            <div>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="price"
+                className="text-[#959595] text-lg capitalize"
+              >
+                category
+              </label>
               <select
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]"
                 name="cat"
                 id="cat"
                 onChange={formik.handleChange}
@@ -200,25 +272,38 @@ function Creategig() {
                 <div className="text-red-600 text-sm">{formik.errors.cat}</div>
               ) : null}
             </div>
-            <div>
-              <label htmlFor="deliveryTime">deliveryTime:</label>
+
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="features"
+                className="text-[#959595] text-lg capitalize"
+              >
+                features:
+              </label>
               <input
-                type="number"
-                name="deliveryTime"
-                id="deliveryTime"
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]"
+                type="text"
+                name="features"
+                id="features"
                 onChange={formik.handleChange}
-                value={formik.values.deliveryTime}
+                value={formik.values.f}
                 onBlur={formik.handleBlur}
               />
-              {formik.touched.deliveryTime && formik.errors.deliveryTime ? (
+              {formik.touched.features && formik.errors.features ? (
                 <div className="text-red-600 text-sm">
-                  {formik.errors.deliveryTime}
+                  {formik.errors.features}
                 </div>
               ) : null}
             </div>
-            <div>
-              <label htmlFor="revisionNumber">revisionNumber:</label>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="revisionNumber"
+                className="text-[#959595] text-lg capitalize"
+              >
+                revisionNumber:
+              </label>
               <input
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]"
                 type="number"
                 name="revisionNumber"
                 id="revisionNumber"
@@ -232,9 +317,16 @@ function Creategig() {
                 </div>
               ) : null}
             </div>
-            <div>
-              <label htmlFor="price">price:</label>
+
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="price"
+                className="text-[#959595] text-lg capitalize"
+              >
+                price:
+              </label>
               <input
+                className="p-2 rounded-md border outline-none border-[#D0D0D0]"
                 type="nunber"
                 name="price"
                 id="price"
@@ -248,8 +340,13 @@ function Creategig() {
                 </div>
               ) : null}
             </div>
+            <button
+              type="submit"
+              className="bg-[#60A5FA]  p-3 rounded-md text-white my-2"
+            >
+              create
+            </button>
           </div>
-          <button type="submit">create</button>
         </form>
       </div>
     </>

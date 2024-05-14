@@ -3,7 +3,7 @@ function Rating({ rate }) {
   return (
     <ul className="flex gap-[2px]">
       {Array.from({ length: 5 }, (_, i) =>
-        i <= rate ? (
+        i < rate ? (
           <li key={i} className="text-lg">
             <MdOutlineStar className="text-yellow-400" />
           </li>

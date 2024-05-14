@@ -242,7 +242,7 @@ function Register() {
               </span>
             )}
             <input
-              type="text"
+              type="email"
               placeholder="Email Address"
               onChange={(e) => setEmail(e.target.value)}
               value={email}

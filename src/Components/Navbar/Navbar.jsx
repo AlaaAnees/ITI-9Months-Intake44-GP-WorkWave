@@ -77,12 +77,16 @@ function Navbar() {
               >
                 Categories
               </NavLink>
-              <NavLink
-                to="/dashboard"
-                className=" ml-8 font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
-              >
-                dashboard
-              </NavLink>
+              {userData?.isAdmin ? (
+                <NavLink
+                  to="/dashboard"
+                  className=" ml-8 font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+                >
+                  dashboard
+                </NavLink>
+              ) : (
+                ""
+              )}
             </div>
             <NavLink
               to="/explore"

@@ -1,10 +1,27 @@
-import { IoSearchOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import 'aos/dist/aos.css';
+
+import { useEffect } from 'react';
+
+import AOS from 'aos';
+import { IoSearchOutline } from 'react-icons/io5';
+import { NavLink } from 'react-router-dom';
 
 const Cover = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 600,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+  }, []);
+
   return (
     <div className="flex items-center justify-center lg:justify-between px-24 bg-blue-400 pt-16">
-      <div className="w-[537px] flex flex-col  items-center">
+      <div
+        className="w-[537px] flex flex-col  items-center"
+        data-aos="zoom-in-up"
+      >
         <h2 className="sub-font text-white text-3xl md:text-4xl lg:text-5xl text-center mb-10">
           Start your “freelance” journey with instant access to top talent
         </h2>
@@ -43,7 +60,7 @@ const Cover = () => {
           </NavLink>
         </div>
       </div>
-      <div className="hidden lg:flex relative">
+      <div className="hidden lg:flex relative" data-aos="fade-down">
         <span className="absolute sub-font text-[#BFDBFE] top-1/4 left-[10%]">
           <span className=" italic">&quot; </span>
           <span className="font-medium">Coding Is Easy</span> <br />

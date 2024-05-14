@@ -1,13 +1,36 @@
-import { FaRegCheckCircle } from "react-icons/fa";
+import 'aos/dist/aos.css';
+
+import { useEffect } from 'react';
+
+import AOS from 'aos';
+import { FaRegCheckCircle } from 'react-icons/fa';
 
 const BestPart = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 900,
+      easing: "ease-in-out",
+      delay: 500,
+      once: true,
+    });
+  }, []);
   return (
-    <div className="w-full bg-blue-100 flex flex-col lg:flex-row justify-between overflow-hidden">
-      <div className="w-full lg:w-[35%] pt-[50px] pe-4 ps-14">
-        <p className="font-bold text-4xl text-[#3B3B3B] sub-font-3 mb-5">
+    <div
+      className="w-full bg-blue-100 flex flex-col lg:flex-row justify-between overflow-hidden"
+      data-aos="fade-up"
+    >
+      <div
+        className="w-full lg:w-[35%] pt-[50px] pe-4 ps-14"
+        data-aos="fade-right"
+      >
+        <p
+          className="font-bold text-4xl text-[#3B3B3B] sub-font-3 mb-5"
+          data-aos="fade-right"
+        >
           The best part? Everything.
         </p>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up">
           <p className="font-bold flex items-center text-[20px] text-[#3B3B3B] sub-font-3">
             <FaRegCheckCircle className="me-2" /> Stick to your budget.
           </p>
@@ -16,7 +39,7 @@ const BestPart = () => {
             project-based pricing.
           </span>
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up">
           <p className="font-bold flex items-center text-[20px] text-[#3B3B3B] sub-font-3">
             <FaRegCheckCircle className="me-2" /> Get quality work done quickly.
           </p>
@@ -25,7 +48,7 @@ const BestPart = () => {
             long-lasting results.
           </span>
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up">
           <p className="font-bold text-[20px] flex items-center text-[#3B3B3B] sub-font-3">
             <FaRegCheckCircle className="me-2" /> Pay when you&apos;re happy.
           </p>
@@ -34,7 +57,7 @@ const BestPart = () => {
             you approve.
           </span>
         </div>
-        <div className="mb-3">
+        <div className="mb-3" data-aos="fade-up">
           <p className="font-bold text-[20px] flex items-center text-[#3B3B3B] sub-font-3">
             <FaRegCheckCircle className="me-2" /> Count on 24/7 support.
           </p>
@@ -44,7 +67,10 @@ const BestPart = () => {
           </span>
         </div>
       </div>
-      <div className="hidden lg:flex flex-wrap gap-5 w-full lg:w-1/2 py-[50px] ">
+      <div
+        className="hidden lg:flex flex-wrap gap-5 w-full lg:w-1/2 py-[50px] "
+        data-aos="fade-up"
+      >
         <img
           className="xl:w-[280px] lg:w-[220px] h-[200px]"
           src="/assets/imgs/Rectangle 31.png"

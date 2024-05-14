@@ -1,6 +1,21 @@
+import 'aos/dist/aos.css';
+
+import { useEffect } from 'react';
+
+import AOS from 'aos';
+
 const JoinWorkWave = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 200,
+      duration: 600,
+      easing: "ease-in-out",
+      delay: 100,
+      once: true,
+    });
+  });
   return (
-    <div className="bg-blue-50 pb-20">
+    <div className="bg-blue-50 pb-20" data-aos="flip-up">
       <div className="bg-blue-950 flex justify-center lg:justify-between px-10 lg:px-24 items-center w-[90%] mx-auto">
         <div className="space-y-14 text-center lg:text-left py-5 lg:py-0">
           <h2 className="text-white sub-font text-4xl">

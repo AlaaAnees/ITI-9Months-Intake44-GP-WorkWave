@@ -71,12 +71,12 @@ function Navbar() {
         <div className="hidden lg:flex justify-evenly grow   items-center  ">
           <div className="hidden lg:flex lg:gap-x-12">
             <div className="relative">
-              <NavLink
+              {/* <NavLink
                 to="/categories"
                 className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
               >
                 Categories
-              </NavLink>
+              </NavLink> */}
               {userData?.isAdmin ? (
                 <NavLink
                   to="/dashboard"
@@ -155,7 +155,7 @@ function Navbar() {
               </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/gigs"}
+                to={"/categories"}
               >
                 Gigs
               </Link>
@@ -268,7 +268,7 @@ function Navbar() {
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/gigs"
+                    to="/categories"
                     onClick={() => setIsMobile(false)}
                   >
                     Gigs

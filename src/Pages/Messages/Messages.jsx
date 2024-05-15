@@ -3,6 +3,8 @@ import { ConversationContext } from "../../Context/ConversationContext";
 import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { useMutation, useQueryClient } from "react-query";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 // =========================================================
 export default function Chats() {
@@ -61,7 +63,7 @@ export default function Chats() {
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      console.log("from mutation is mutated");
+      // console.log("from mutation is mutated");
       return updateConversation(id);
     },
     onSuccess: () => {
@@ -71,7 +73,7 @@ export default function Chats() {
 
   const handleRead = (id) => {
     mutation.mutate(id);
-    console.log("from handleRead the button is clicked");
+    // console.log("from handleRead the button is clicked");
   };
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -82,16 +84,18 @@ export default function Chats() {
 
   return (
     <>
-      <div className="chats">
+      <div className="messages sub-font container mx-auto m-5">
         {loading ? (
-          "Loading..."
+          <Loading />
         ) : error ? (
-          "Error.."
+          <Error />
         ) : (
-          <div className="container-lg">
+          <div className="">
             {/* Start title */}
             <div className="title main-font">
-              <h1 className="mt-5">Chats</h1>
+              <h1 className="mt-5 main-font font-extrabold text-2xl">
+                Messages
+              </h1>
             </div>
             {/* Start Table of messages */}
             <div className="hidden md:block w-full">
@@ -114,14 +118,14 @@ export default function Chats() {
             {conversationData.map((c) => (
               <div
                 key={c.id}
-                className={`box mb-3 px-3 flex justify-between align-items-center ${
+                className={`box mb-3 px-3 flex justify-between items-center ${
                   (currentUser.isSeller && !c.readBySeller) ||
                   (!currentUser.isSeller && !c.readByBuyer)
                     ? "bg-blue-100 border-1 border-gray-400"
                     : "bg-white"
                 }  rounded-md shadow-sm mt-3`}
               >
-                <div className="person flex flex-col md:flex-row align-items-center gap-2 p-2">
+                <div className="person flex flex-col md:flex-row items-center gap-2 p-2">
                   <img
                     src={`${usersOreder.img}`}
                     alt="buyer 1"

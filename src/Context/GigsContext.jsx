@@ -110,7 +110,7 @@ function reducer(state, action) {
 }
 
 async function fetchGigs(dispatch, cat = "", min = "", max = "") {
-  console.log("eamannamam");
+  // console.log("eamannamam");
   dispatch({ type: "loading" });
   try {
     const res = await fetch(`${BASE_URL}/api/gigs?cat=${cat}`);
@@ -125,7 +125,7 @@ async function fetchGigs(dispatch, cat = "", min = "", max = "") {
 }
 
 export async function fetchGigsOutsideContext(cat = "", min = "", max = "") {
-  console.log("cat", cat);
+  // console.log("cat", cat);
   const dispatch = () => {}; // Placeholder dispatch function, not used in this context
   await fetchGigs(dispatch, cat, min, max);
 }

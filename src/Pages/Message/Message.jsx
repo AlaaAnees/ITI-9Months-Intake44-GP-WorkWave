@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"; // Import useEffect hook to fetch messages
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { MessageContext } from "../../Context/MessageContext";
 import { useMutation } from "react-query";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 
 function Chat() {
   const { id } = useParams();
@@ -39,11 +41,20 @@ function Chat() {
     <>
       <div className="chat">
         <div className="content mt-2 container mx-auto">
+          <div className="back">
+            <Link
+              className="hover:text-blue-900 text-blue-700"
+              to={"/messages"}
+            >
+              {" "}
+              {" < "}To Messages
+            </Link>
+          </div>
           {/* Render loading or error message */}
           {loading ? (
-            "Loading..."
+            <Loading />
           ) : error ? (
-            "Error"
+            <Error />
           ) : (
             <div className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll ">
               {/* Render messages */}
@@ -77,7 +88,7 @@ function Chat() {
           <hr />
           <form
             onSubmit={handleSubmit}
-            className="sendMessage flex align-items-center justify-between m-3"
+            className="sendMessage flex items-center justify-between m-3"
           >
             <textarea
               className="w-[70%] md:w-[85%] h-[60px] md:h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin "

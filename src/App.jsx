@@ -1,23 +1,32 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "react-whatsapp-widget/dist/index.css";
+
 import { QueryClient, QueryClientProvider } from "react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { WhatsAppWidget } from "react-whatsapp-widget";
+
+import IsSeller from "./Components/ProtectRoute/IsSeller";
+import ProtectedRoute from "./Components/ProtectRoute/ProtectRoute";
 import { AuthProvider } from "./Context/authContext";
+import ConversationContextProvider from "./Context/ConversationContext";
+import GigContextProvider from "./Context/GigsContext";
+import { MessageContextProvider } from "./Context/MessageContext";
+import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
+import ConversationsList from "./Pages/ConversationsList/ConversationsList";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Registeration/Register";
 import Layout from "./Pages/Layout/Layout";
 import Error from "./Pages/Error/Error";
+import Explore from "./Pages/Explore/explore";
 import Profile from "./Pages/Profile/Profile";
-import CategoriesPage from "./Pages/Categoriespage/CategoriesPage";
 import Messages from "./Pages/Messages/Messages";
 import Message from "./Pages/Message/Message";
-import ConversationsList from "./Pages/ConversationsList/ConversationsList";
-import ConversationContextProvider from "./Context/ConversationContext";
-import GigContextProvider from "./Context/GigsContext";
-import { MessageContextProvider } from "./Context/MessageContext";
 import SingleGig from "./Pages/SingleGig/SingleGig";
 // import Wishlist from "./Components/Wishlist/Wishlist";
 import Creategig from "./Pages/Creategig/Creategig";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import Payment from "./Components/Payment/Payment";
+// const queryClient = new QueryClient();
 const routes = createBrowserRouter([
   // It may be changed or removed at the time of merging
   {
@@ -34,10 +43,23 @@ const routes = createBrowserRouter([
         element: <Login></Login>,
       },
       { path: "/register", element: <Register></Register> },
-      { path: "/profile", element: <Profile></Profile> },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile></Profile>
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/categories",
-        element: <CategoriesPage></CategoriesPage>,
+        element: (
+          <ProtectedRoute>
+            <IsSeller>
+              <CategoriesPage></CategoriesPage>
+            </IsSeller>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/messages",
@@ -55,6 +77,14 @@ const routes = createBrowserRouter([
         path: "/singlegig/:id",
         element: <SingleGig></SingleGig>,
       },
+      {
+        path: "/explore",
+        element: <Explore></Explore>,
+      },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
+      },
       // { path: "/wishlist", element: <Wishlist></Wishlist> },
       { path: "/newGig", element: <Creategig></Creategig> },
       { path: "/dashboard", element: <Dashboard /> },
@@ -71,6 +101,11 @@ function App() {
           <ConversationContextProvider>
             <MessageContextProvider>
               <RouterProvider router={routes} />
+              <WhatsAppWidget
+                phoneNumber="+201064592515"
+                // textReplyTime="Available 24/7"
+                message="Hello! Do you have a question?"
+              />
             </MessageContextProvider>
           </ConversationContextProvider>
         </GigContextProvider>

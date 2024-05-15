@@ -1,12 +1,16 @@
-import { useLoaderData } from "react-router";
-import BestPart from "../../Components/Home-page-components/BestPart";
-import Categories from "../../Components/Home-page-components/Categories";
-import Cover from "../../Components/Home-page-components/Cover";
-import Inspring from "../../Components/Home-page-components/Inspring";
-import JoinWorkWave from "../../Components/Home-page-components/JoinWorkWave";
-import PopularServices from "../../Components/Home-page-components/PopularServices";
-import { useEffect, useState } from "react";
-import Loading from "../Loading/Loading";
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import BestPart from '../../Components/Home-page-components/BestPart';
+import Categories from '../../Components/Home-page-components/Categories';
+import Cover from '../../Components/Home-page-components/Cover';
+import Inspring from '../../Components/Home-page-components/Inspring';
+import JoinWorkWave from '../../Components/Home-page-components/JoinWorkWave';
+import PopularServices
+  from '../../Components/Home-page-components/PopularServices';
+import Loading from '../Loading/Loading';
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);

@@ -12,13 +12,8 @@ const ConversationContextProvider = (props) => {
   const [error, setError] = useState(null);
   const { token } = useContext(AuthContext);
 
-  console.log("token from conversationcontext page", token);
-
-  // const token =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjJlOTY5M2UzYjk4YTNjOWI0MmM1ODEiLCJpc1NlbGxlciI6dHJ1ZSwiaWF0IjoxNzE0NTE2NDMwfQ.CZuNtiLTM9SrkEKYnHhhYL08p24tlDVO0mvTUY4ugHE"; // Replace 'your_token_here' with your actual JWT token
-
   // ====================== Function to create a new conversation 🆕======================
-  const createConversation = async (conversationData) => {
+  const createConversation = async (to) => {
     try {
       // Send POST request to create conversation
       const response = await fetch(
@@ -26,16 +21,19 @@ const ConversationContextProvider = (props) => {
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(conversationData),
+          body: JSON.stringify({ to: to }),
         }
       );
       if (!response.ok) {
         throw new Error("Failed to create conversation");
       }
-      // Fetch updated conversations after creating a new one
-      fetchConversations();
+      // // Fetch updated conversations after creating a new one
+      // fetchConversations();
+      const jsonData = await response.json();
+      return jsonData;
     } catch (error) {
       console.error("Error creating conversation:", error);
       setError(error.message);
@@ -56,7 +54,7 @@ const ConversationContextProvider = (props) => {
         }
       );
 
-      console.log("from fetchConversations:", response); //for check 🧪
+      // console.log("from fetchConversations:", response); //for check 🧪
 
       if (!response.ok) {
         throw new Error("Failed to fetch conversations");

@@ -24,7 +24,7 @@ function CategoriesPage() {
 
   return (
     <>
-      <section className="  bg-white p-3 relative  ">
+      <section className="  bg-white p-3 relative ">
         <div
           className=" xl:hidden flex items-center justify-center"
           onClick={() => {
@@ -38,6 +38,7 @@ function CategoriesPage() {
         </div>
         <ul
           className={` ${showdropdown ? "" : "hidden "}
+          xl:mx-auto 
         xl:justify-between xl:items-center gap-2 xl:gap:6 container
         xl:flex flex-column 
         xl:flex-row   `}

@@ -2,24 +2,18 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
+import upload from "../../Utils/uploadImg";
 
 const BASE_URL = "https://workwave-vq08.onrender.com/api";
 function Creategig() {
   const navigate = useNavigate();
   const [coverImage, setCoverImage] = useState(null);
   const [sliderImage, setSliderImage] = useState([]);
-  function handleImages(e) {
-    const file = URL.createObjectURL(e.target.files[0]);
-    setCoverImage(file);
-  }
-  function handleSliderImages(e) {
-    const files = e.target.files;
-    const selectedImages = [];
-    for (let i = 0; i < files.length; i++) {
-      selectedImages.push(URL.createObjectURL(files[i]));
-    }
-    setSliderImage(selectedImages);
-  }
+
+  const handleSliderImages = (e) => {
+    const files = Array.from(e.target.files);
+    setSliderImage(files);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -35,51 +29,58 @@ function Creategig() {
     },
     validationSchema: Yup.object({
       title: Yup.string()
-        .required()
-        .min(4, "Title must be at least 4 char")
-        .max(30, "Title must be less than  15 char"),
+        .required("Title is required")
+        .min(4, "Title must be at least 4 characters")
+        .max(30, "Title must be less than 30 characters"),
       shortTitle: Yup.string()
-        .required()
-        .min(4, "Title Short must be at least 4 char")
-        .max(30, "Title Short must be less than  15 char"),
-
+        .required("Short title is required")
+        .min(4, "Short title must be at least 4 characters")
+        .max(30, "Short title must be less than 30 characters"),
       shortDesc: Yup.string()
-        .required()
-        .min(4, "Short description must be at least 4 char")
-        .max(30, "Short description must be less than  15 char"),
+        .required("Short description is required")
+        .min(4, "Short description must be at least 4 characters")
+        .max(30, "Short description must be less than 30 characters"),
       desc: Yup.string()
-        .required()
-        .min(40, "Short description must be at least 40 char")
-        .max(200, "Short description must be less than  200 char"),
-      features: Yup.string().required(),
-      cat: Yup.string().required(),
-      deliveryTime: Yup.number().required(),
-      revisionNumber: Yup.number().required(),
-      price: Yup.number().required(),
+        .required("Description is required")
+        .min(40, "Description must be at least 40 characters")
+        .max(200, "Description must be less than 200 characters"),
+      features: Yup.string().required("Features are required"),
+      cat: Yup.string().required("Category is required"),
+      deliveryTime: Yup.number().required("Delivery time is required"),
+      revisionNumber: Yup.number().required("Revision number is required"),
+      price: Yup.number().required("Price is required"),
     }),
     onSubmit: handleSubmit,
   });
 
   async function handleSubmit() {
     const token = JSON.parse(localStorage.getItem("token"));
-    console.log("eman");
+    const coverUrl = await upload(coverImage);
+    const sliderImageUrls = await Promise.all(
+      sliderImage.map((file) => upload(file))
+    );
+
     const formData = {
       ...formik.values,
-      cover: coverImage,
-      images: sliderImage,
+      cover: coverUrl,
+      images: sliderImageUrls,
     };
-    console.log(formData);
-    const res = await fetch(`${BASE_URL}/gigs`, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    console.log(data);
-    navigate(`/singlegig/${data._id}`);
+
+    try {
+      const res = await fetch(`${BASE_URL}/gigs`, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+      navigate(`/singlegig/${data._id}`);
+    } catch (err) {
+      console.error("Error creating gig:", err);
+    }
   }
   return (
     <>
@@ -210,7 +211,7 @@ function Creategig() {
                   accept="image/png, image/gif, image/jpeg"
                   id="cover"
                   name="cover"
-                  onChange={handleImages}
+                  onChange={(e) => setCoverImage(e.target.files[0])}
                 />
 
                 {formik.touched.cover && formik.errors.cover ? (
@@ -352,5 +353,4 @@ function Creategig() {
     </>
   );
 }
-
 export default Creategig;

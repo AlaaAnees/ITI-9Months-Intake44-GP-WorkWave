@@ -3,8 +3,6 @@ import AddToWishlist from "../Wishlist/AddToWishlist";
 import Rating from "../Rating/Rating";
 
 function GigCard({ gig }) {
-  console.log(" neeeeeeeeeeeeeeeeeew", gig);
-
   return (
     <Link to={`/singlegig/${gig._id}`}>
       <li

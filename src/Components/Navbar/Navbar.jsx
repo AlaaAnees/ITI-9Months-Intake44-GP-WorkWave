@@ -28,7 +28,7 @@ function Navbar() {
     }
   };
   document.addEventListener("click", handleDropDown);
-  console.log(userData);
+  // console.log(userData);
   return (
     <header className="bg-white">
       <nav
@@ -139,13 +139,19 @@ function Navbar() {
                 dropDownVisibility ? "" : "hidden"
               }`}
             >
-              {/* <Link
+              <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/wishlist"}
               >
                 <FaHeart className="text-red-600"></FaHeart>
                 Wishlist
-              </Link> */}
+              </Link>
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/order"}
+              >
+                Order
+              </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/profile"}

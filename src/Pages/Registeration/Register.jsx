@@ -1,28 +1,16 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useState } from "react";
 
-import { jwtDecode } from 'jwt-decode';
-import {
-  FaEye,
-  FaEyeSlash,
-  FaRegCheckCircle,
-} from 'react-icons/fa';
-import {
-  MdDeleteForever,
-  MdErrorOutline,
-} from 'react-icons/md';
-import { NavLink } from 'react-router-dom';
-import { SyncLoader } from 'react-spinners';
+import { jwtDecode } from "jwt-decode";
+import { FaEye, FaEyeSlash, FaRegCheckCircle } from "react-icons/fa";
+import { MdDeleteForever, MdErrorOutline } from "react-icons/md";
+import { NavLink } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from "@react-oauth/google";
 
-import SuccessModal from '../../Components/registration-modal/RegModal';
-import { AuthContext } from '../../Context/authContext';
-import FacebookAuthComponent from '../Login/FaceBook';
+import SuccessModal from "../../Components/registration-modal/RegModal";
+import { AuthContext } from "../../Context/authContext";
+import FacebookAuthComponent from "../Login/FaceBook";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -74,7 +62,7 @@ function Register() {
       const imageUrl = URL.createObjectURL(file);
       setPreviewUrl(imageUrl);
     }
-    console.log(selectedPic);
+    // console.log(selectedPic);
   };
   const validateInputs = () => {
     let isValid = true;
@@ -141,7 +129,7 @@ function Register() {
   const { setUserData } = useContext(AuthContext);
 
   const handleFacebookLogin = async (response) => {
-    console.log(response);
+    // console.log(response);
     const facebookUser = {
       firstName: response.data.first_name,
       lastName: response.data.last_name,
@@ -149,7 +137,8 @@ function Register() {
       email: response.data.email,
       img:
         response.data.picture.url ||
-        "/assets/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
+        "../../../public/assets/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
+      // "/assets/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
       isSeller: false,
       phone: "00",
       country: "**",
@@ -171,7 +160,7 @@ function Register() {
       if (!response.ok) {
         const errorMessage = await response.text();
 
-        console.log(facebookUser);
+        // console.log(facebookUser);
         throw new Error(
           `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
         );
@@ -179,7 +168,7 @@ function Register() {
       setIsLoading(false);
 
       setRegSuccess(true);
-      console.log("User registered successfully");
+      // console.log("User registered successfully");
     } catch (error) {
       console.error("Error registering user:", error.message);
       setIsLoading(false);
@@ -188,7 +177,7 @@ function Register() {
 
   const responseMessage = async (response) => {
     const credentialResopnseDecoded = jwtDecode(response.credential); //
-    console.log(credentialResopnseDecoded);
+    // console.log(credentialResopnseDecoded);
     const userGoogle = {
       firstName: credentialResopnseDecoded.given_name,
       lastName: credentialResopnseDecoded.family_name,
@@ -225,16 +214,16 @@ function Register() {
       setIsLoading(false);
 
       setRegSuccess(true);
-      console.log("User registered successfully");
+      // console.log("User registered successfully");
     } catch (error) {
       console.error("Error registering user:", error.message);
       setIsLoading(false);
     }
 
-    console.log(userGoogle);
+    // console.log(userGoogle);
   };
   const errorMessage = (error) => {
-    console.log(error);
+    // console.log(error);
   };
 
   const submitForm = async (e) => {

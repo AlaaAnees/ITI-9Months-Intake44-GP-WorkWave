@@ -27,7 +27,10 @@ function GigsContainer({ minPrice, maxPrice, handleSetFav }) {
   return (
     <>
       <ul className="container grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-9   ">
-        {gigs && gigs.map((g) => <GigCard key={g._id} gig={g}></GigCard>)}
+        {gigs &&
+          gigs.map((g) => (
+            <GigCard key={g._id} gig={g} display={true}></GigCard>
+          ))}
       </ul>
     </>
   );

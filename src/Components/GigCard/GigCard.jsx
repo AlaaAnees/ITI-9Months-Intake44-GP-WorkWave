@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 import AddToWishlist from "../Wishlist/AddToWishlist";
 import Rating from "../Rating/Rating";
 
-function GigCard({ gig }) {
+function GigCard({ gig, display }) {
+  console.log(display, "di");
   return (
     <Link to={`/singlegig/${gig._id}`}>
-      <li
-        key={gig._id}
-        className="rounded-xl shadow-md bg-white hover:scale-105 transition-all "
-      >
+      <li key={gig._id} className="rounded-xl shadow-md bg-white  ">
         <img src={gig.cover} alt={gig.title} className="w-full h-72" />
         {/* second line */}
         <div className=" p-5">
@@ -34,7 +32,7 @@ function GigCard({ gig }) {
             <span className="font-medium text-lg text-[#595959]">
               $ {gig.price}
             </span>
-            <AddToWishlist gig={gig}></AddToWishlist>
+            {display && <AddToWishlist gig={gig}></AddToWishlist>}
           </div>
         </div>
       </li>

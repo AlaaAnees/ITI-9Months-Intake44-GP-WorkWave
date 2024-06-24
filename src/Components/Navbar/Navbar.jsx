@@ -271,6 +271,7 @@ function Navbar() {
                     <FaHeart className="text-red-600 text-sm"></FaHeart>
                   </NavLink>
                 )} */}
+
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
@@ -297,6 +298,15 @@ function Navbar() {
                   >
                     Orders
                   </NavLink>
+                )}
+
+                {userData && (
+                  <Link
+                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                    to={"/wishlist"}
+                  >
+                    Wishlist
+                  </Link>
                 )}
                 {userData && (
                   <NavLink

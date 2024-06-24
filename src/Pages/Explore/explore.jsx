@@ -1,4 +1,5 @@
 import Contact from "../../Components/Contact/Contact";
+import Paypal from "../../Components/Payment/Payment";
 
 const Explore = () => {
   let ids = {
@@ -13,6 +14,7 @@ const Explore = () => {
       <div className="parent h-screen">
         <div className="container">
           <Contact IDs={ids} />
+          <Paypal />
         </div>
       </div>
     </>

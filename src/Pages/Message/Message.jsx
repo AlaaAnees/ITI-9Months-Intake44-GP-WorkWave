@@ -8,14 +8,17 @@ import Error from "../Error/Error";
 
 function Chat() {
   const { id } = useParams();
-  // const queryClient = useQueryClient();
+  console.log("iddddddddd", id);
 
   const { messages, fetchMessages, createMessage, loading, error } =
     useContext(MessageContext);
+  console.log("Array Messages that come from MessageContext", messages);
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [newMessage, setNewMessage] = useState("");
 
+  console.log("loadinggggggggggggggg---------", loading);
+  // =====================================================================
   const mutation = useMutation({
     mutationFn: async () => {
       await createMessage(id, newMessage);
@@ -28,28 +31,28 @@ function Chat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setNewMessage("");
+    // setNewMessage("");
     mutation.mutate();
   };
 
   useEffect(() => {
     // Fetch messages when component mounts
     fetchMessages(id);
-  }, []);
+  }, [id]);
 
   return (
     <>
-      <div className="chat">
-        <div className="content mt-2 container mx-auto">
-          <div className="back">
-            <Link
-              className="hover:text-blue-900 text-blue-700"
-              to={"/messages"}
-            >
+      <div className="chat mx-2 md:mx-10">
+        <div className="content mt-2 container mx-auto xl:w-[90%] xl:mx-auto">
+          {/*============== Start Messages navigation ==================*/}
+          <div className="back ms-5 bg-blue-900 w-[110px] text-white py-1 px-2 rounded-md text-center">
+            <Link className="text-sm" to={"/messages"}>
               {" "}
-              {" < "}To Messages
+              {" <"}To Messages
             </Link>
           </div>
+          {/*============== End Messages navigation ==================*/}
+
           {/* Render loading or error message */}
           {loading ? (
             <Loading />
@@ -67,14 +70,14 @@ function Chat() {
                       : ""
                   }`}
                 >
-                  <img
+                  {/* <img
                     src={`${currentUser.img}`}
-                    alt="buyer2"
+                    alt={`${currentUser.username}`}
                     className="w-12 h-12 rounded-full object-cover hidden md:block"
-                  />
+                  /> */}
                   <p
                     className={`${
-                      m.userId === currentUser._id
+                      m.userId === currentUser._id //m.userId ==> (Sender) -------  currentUser._id ==> account owner (receiver)
                         ? "bg-blue-500 text-white rounded-tl-[20px] rounded-bl-[20px] rounded-br-[20px]"
                         : "text-gray-500 bg-blue-100 rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px]"
                     }  max-w-100 py-3 px-4 text-sm`}
@@ -111,24 +114,3 @@ function Chat() {
 }
 
 export default Chat;
-
-// {/* seller */}
-// <div className="seller flex gap-5 max-w-xl flex-row-reverse self-end">
-// <img
-//   src="assets/seller1.jpg"
-//   alt="buyer2"
-//   className="w-12 h-12 rounded-full object-cover"
-// />
-// <p
-//   className="bg-blue-500 text-white max-w-lg py-3 px-4 text-sm"
-//   style={{
-//     borderRadius: "20px 0px 20px 20px",
-//     color: "gray",
-//   }}
-// >
-//   Lorem ipsum dolor sit amet consectetur adipisicing elit.
-//   Officiis, eaque quas distinctio exercitationem dolores sit
-//   ipsam nemo, rerum, voluptatibus excepturi amet. Autem
-//   voluptatum similique culpa id ipsam, suscipit minima enim?
-// </p>
-// </div>

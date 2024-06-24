@@ -1,5 +1,5 @@
 const Loading = ({ background = "blue-100" }) => {
-  console.log("eman");
+  // console.log("eman");
   return (
     <section
       className={`overflow-hidden flex justify-center w-100 h-screen items-center bg-${background}`}

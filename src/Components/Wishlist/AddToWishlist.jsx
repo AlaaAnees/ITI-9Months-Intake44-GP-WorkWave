@@ -51,7 +51,7 @@ function AddToWishlist({ gig }) {
       const foundGig = data.data.userFavorites.find((gigitem) => {
         return gigitem._id === gig._id;
       });
-      console.log(foundGig);
+      // console.log(foundGig);
       if (foundGig) {
         setColored(true);
       }

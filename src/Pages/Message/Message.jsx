@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // Import useEffect hook to fetch messages
+import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { MessageContext } from "../../Context/MessageContext";
@@ -8,59 +8,77 @@ import Error from "../Error/Error";
 
 function Chat() {
   const { id } = useParams();
-  console.log("iddddddddd", id);
 
   const { messages, fetchMessages, createMessage, loading, error } =
     useContext(MessageContext);
-  console.log("Array Messages that come from MessageContext", messages);
 
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [newMessage, setNewMessage] = useState("");
 
-  console.log("loadinggggggggggggggg---------", loading);
-  // =====================================================================
+  const messageContainerRef = useRef(null);
+
   const mutation = useMutation({
     mutationFn: async () => {
       await createMessage(id, newMessage);
     },
     onSuccess: async () => {
-      await fetchMessages(id); // Fetch messages again to update the list
-      setNewMessage(""); // Reset the message input field after successful send
+      await fetchMessages(id);
+      setNewMessage("");
+      if (messageContainerRef.current) {
+        messageContainerRef.current.scrollTop =
+          messageContainerRef.current.scrollHeight;
+      }
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setNewMessage("");
-    mutation.mutate();
+    sendMessage();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const sendMessage = () => {
+    if (newMessage.trim() !== "") {
+      mutation.mutate();
+    }
   };
 
   useEffect(() => {
-    // Fetch messages when component mounts
     fetchMessages(id);
   }, [id]);
+
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <>
       <div className="chat mx-2 md:mx-10">
         <div className="content mt-2 container mx-auto xl:w-[90%] xl:mx-auto">
-          {/*============== Start Messages navigation ==================*/}
           <div className="back ms-5 bg-blue-900 w-[110px] text-white py-1 px-2 rounded-md text-center">
             <Link className="text-sm" to={"/messages"}>
-              {" "}
               {" <"}To Messages
             </Link>
           </div>
-          {/*============== End Messages navigation ==================*/}
 
-          {/* Render loading or error message */}
           {loading ? (
             <Loading />
           ) : error ? (
             <Error />
           ) : (
-            <div className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll ">
-              {/* Render messages */}
+            <div
+              className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll"
+              ref={messageContainerRef}
+            >
               {messages.map((m) => (
                 <div
                   key={m._id}
@@ -70,14 +88,9 @@ function Chat() {
                       : ""
                   }`}
                 >
-                  {/* <img
-                    src={`${currentUser.img}`}
-                    alt={`${currentUser.username}`}
-                    className="w-12 h-12 rounded-full object-cover hidden md:block"
-                  /> */}
                   <p
                     className={`${
-                      m.userId === currentUser._id //m.userId ==> (Sender) -------  currentUser._id ==> account owner (receiver)
+                      m.userId === currentUser._id
                         ? "bg-blue-500 text-white rounded-tl-[20px] rounded-bl-[20px] rounded-br-[20px]"
                         : "text-gray-500 bg-blue-100 rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px]"
                     }  max-w-100 py-3 px-4 text-sm`}
@@ -88,17 +101,19 @@ function Chat() {
               ))}
             </div>
           )}
+
           <hr />
           <form
             onSubmit={handleSubmit}
             className="sendMessage flex items-center justify-between m-3"
           >
             <textarea
-              className="w-[70%] md:w-[85%] h-[60px] md:h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin "
+              className="w-[70%] md:w-[85%] h-[60px] md:h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin"
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Write a message"
+              onKeyDown={handleKeyDown}
             ></textarea>
             <button
               type="submit"

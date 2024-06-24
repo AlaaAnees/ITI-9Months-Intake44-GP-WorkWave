@@ -141,11 +141,17 @@ function Navbar() {
             >
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/wishlist"}
+                to={"/categories"}
               >
-                <FaHeart className="text-red-600"></FaHeart>
-                Wishlist
+                Gigs
               </Link>
+              <Link
+                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                to={"/newGig"}
+              >
+                Add New Gigs
+              </Link>
+
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/order"}
@@ -161,15 +167,10 @@ function Navbar() {
               </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/categories"}
+                to={"/wishlist"}
               >
-                Gigs
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/newGig"}
-              >
-                Add New Gigs
+                <FaHeart className="text-red-600"></FaHeart>
+                Wishlist
               </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"

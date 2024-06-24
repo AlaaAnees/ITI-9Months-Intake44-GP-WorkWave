@@ -1,19 +1,18 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 
-import { FaStar } from 'react-icons/fa';
-import { GrLocation } from 'react-icons/gr';
-import { IoIosChatbubbles } from 'react-icons/io';
-import { MdCall } from 'react-icons/md';
-import { NavLink } from 'react-router-dom';
+import { FaStar } from "react-icons/fa";
+import { GrLocation } from "react-icons/gr";
+import { IoIosChatbubbles } from "react-icons/io";
+import { MdCall } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
-import Gigs from '../../Components/Profile-page-components/ProfileGigs';
-import ProfileReviews
-  from '../../Components/Profile-page-components/ProfileReviews';
-import { AuthContext } from '../../Context/authContext';
+import Gigs from "../../Components/Profile-page-components/ProfileGigs";
+import ProfileReviews from "../../Components/Profile-page-components/ProfileReviews";
+import { AuthContext } from "../../Context/authContext";
 
 function Profile() {
   const { userData } = useContext(AuthContext);
-  console.log(userData);
+  // console.log(userData);
 
   const starArray = Array.from({ length: 5 }, (value, index) => (
     <FaStar key={index} className="text-[#FFB340]" />

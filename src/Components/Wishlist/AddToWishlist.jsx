@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
+// import { UseWish, WishContex } from "../../WishListContext";
 
 function AddToWishlist({ gig }) {
   const [colored, setColored] = useState(false);
   const [isloading, setisloading] = useState(true);
-  const [token, setToken] = useState("");
-  useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, []);
+  // const { favoriteList, handleAddToWishlist: handleAddToWishlistcontext } =
+  //   useContext(WishContex);
+
+  const token = JSON.parse(localStorage.getItem("token"));
   async function handleAddToWishlist(e, gigid) {
     e.preventDefault();
     if (colored == false) {
@@ -16,22 +17,25 @@ function AddToWishlist({ gig }) {
         {
           method: "POST",
           headers: {
-            authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMyOTI4YTFmNzVlNzFkNGM1Mjc0NzIiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDU5NTgyMX0.WNHjJYm1655OMR1FupH6C0eTB03rzGGygtKG5wiyPxI"}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );
-      const data = await res.json();
+      const fav = await res.json();
+      // handleAddToWishlistcontext(fav.data.favorite);
+      console.log("add", fav);
     } else if (colored == true) {
       const res = await fetch(
         `https://workwave-vq08.onrender.com/api/favorites/${gigid}`,
         {
           method: "DELETE",
           headers: {
-            authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMyOTI4YTFmNzVlNzFkNGM1Mjc0NzIiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDU5NTgyMX0.WNHjJYm1655OMR1FupH6C0eTB03rzGGygtKG5wiyPxI"}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );
-      const data = await res.json();
+      const fav = await res.json();
+      // handleAddToWishlistcontext(fav.data.favorite);
     }
     setColored((c) => !c);
   }
@@ -43,11 +47,12 @@ function AddToWishlist({ gig }) {
         {
           method: "GET",
           headers: {
-            authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMyOTI4YTFmNzVlNzFkNGM1Mjc0NzIiLCJpc1NlbGxlciI6ZmFsc2UsImlhdCI6MTcxNDU5NTgyMX0.WNHjJYm1655OMR1FupH6C0eTB03rzGGygtKG5wiyPxI"}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );
       const data = await res.json();
+      // handleAddToWishlistcontext(data.data.favorite);
       setisloading(false);
 
       const foundGig = data.data.userFavorites.find((gigitem) => {
@@ -59,16 +64,11 @@ function AddToWishlist({ gig }) {
       }
     }
     fetchWishlist();
-  }, [gig._id]);
+  }, [gig._id, token]);
 
   return (
     <div>
       {isloading ? (
-        // <FontAwesomeIcon
-        //   icon="fa-solid fa-heart"
-        //   beat
-        //   style={{ color: "#6290df" }}
-        // />
         ""
       ) : (
         <FaHeart

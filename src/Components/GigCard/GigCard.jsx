@@ -3,7 +3,6 @@ import AddToWishlist from "../Wishlist/AddToWishlist";
 import Rating from "../Rating/Rating";
 
 function GigCard({ gig }) {
-  console.log(" neeeeeeeeeeeeeeeeeew", gig);
   return (
     <Link to={`/singlegig/${gig._id}`}>
       <li
@@ -17,11 +16,11 @@ function GigCard({ gig }) {
             {/* gig owner need from back */}
             <div className="flex items-center justify-between  gap-3">
               <img
-                src={gig.cover}
-                alt={gig.title}
+                src={gig.ownerImg}
+                alt={gig.ownerName}
                 className="w-8 h-8 rounded-full"
               />
-              <span className="text-md  text-stone-400 ">gig owner</span>
+              <span className="text-md  text-stone-400 ">{gig.ownerName}</span>
             </div>
             {/* rating */}
             <div className=" ">

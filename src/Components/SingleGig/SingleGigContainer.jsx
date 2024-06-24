@@ -1,15 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 function SingleGigContainer({ gig }) {
   const { userId, images, features } = gig;
   const [ownerData, setOwnerData] = useState("");
-
-  console.log("aaaaaaaaaaaaaaaaaaa", gig);
+  const [isloading, setIsloading] = useState(false);
+  const token = JSON.parse(localStorage.getItem("token"));
+  async function handleAddtoOrder() {
+    setIsloading(true);
+    const res = await fetch(
+      `https://workwave-vq08.onrender.com/api/orders/${gig._id}`,
+      {
+        method: "POST",
+        body: JSON.stringify(gig),
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    setIsloading(false);
+  }
+  // console.log("aaaaaaaaaaaaaaaaaaa", gig);
   useEffect(() => {
     async function fetchOwnerInfo() {
       try {
         const res = await fetch(
-          `https://workwave-vq08.onrender.com/api/users/${userId}`
+          `https://workwave-vq08.onrender.com/api/users/${userId}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await res.json();
         setOwnerData(data.data.user);
@@ -44,6 +70,9 @@ function SingleGigContainer({ gig }) {
           )}
         </div>
       </div>
+      {/* test */}
+      <img src={gig.cover} alt="" />
+      {/* test */}
       {/* <div
         id="carouselExampleRide"
         className="carousel slide w-64"
@@ -133,6 +162,16 @@ function SingleGigContainer({ gig }) {
         </div>
       </div>
       {/* End about the seller */}
+      <button
+        className="bg-blue-500 rounded py-2 px-4 text-white"
+        onClick={handleAddtoOrder}
+      >
+        {isloading ? (
+          <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />
+        ) : (
+          "addToCart"
+        )}
+      </button>
     </>
   );
 }

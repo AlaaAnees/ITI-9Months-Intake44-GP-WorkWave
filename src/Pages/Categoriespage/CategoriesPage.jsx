@@ -21,10 +21,9 @@ function CategoriesPage() {
   const [minPrice, setminPrice] = useState("");
   const [maxPrice, setmaxPrice] = useState("");
   const [showdropdown, setShowdropdown] = useState(false);
-
   return (
     <>
-      <section className="  bg-white p-3 relative  ">
+      <section className="  bg-white p-3 relative ">
         <div
           className=" xl:hidden flex items-center justify-center"
           onClick={() => {
@@ -38,12 +37,13 @@ function CategoriesPage() {
         </div>
         <ul
           className={` ${showdropdown ? "" : "hidden "}
+          xl:mx-auto
         xl:justify-between xl:items-center gap-2 xl:gap:6 container
-        xl:flex flex-column 
+        xl:flex flex-column
         xl:flex-row   `}
         >
           {categoryType.map((cat) => {
-            console.log(searchParams.get("cat"), cat.route);
+            // console.log(searchParams.get("cat"), cat.route);
             return (
               <Link
                 to={`/categories?cat=${cat.route}`}
@@ -52,8 +52,8 @@ function CategoriesPage() {
                   setShowdropdown((s) => !s);
                 }}
                 // className="hover:border-solid hover:border-[#172554] border-b-[2px] border-transparent"
-                className={` flex flex-col justify-center items-center 
-            p-3 relative before:absolute  before:bottom-0 text-sm  text-gray-700 
+                className={` flex flex-col justify-center items-center
+            p-3 relative before:absolute  before:bottom-0 text-sm  text-gray-700
              before:left-0 before:w-0 hover:before:w-full before:h-1 before:bg-blue-500
               transition-all duration-300 before:transition-all before:duration-300 ${
                 searchParams.get("cat") == cat.route ||

@@ -1,20 +1,14 @@
-import {
-  useContext,
-  useState,
-} from 'react';
+import { useContext, useState } from "react";
 
-import { jwtDecode } from 'jwt-decode';
-import { FaFacebook } from 'react-icons/fa';
-import { MdErrorOutline } from 'react-icons/md';
-import {
-  NavLink,
-  useNavigate,
-} from 'react-router-dom';
-import { SyncLoader } from 'react-spinners';
+import { jwtDecode } from "jwt-decode";
+import { FaFacebook } from "react-icons/fa";
+import { MdErrorOutline } from "react-icons/md";
+import { NavLink, useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from "@react-oauth/google";
 
-import { AuthContext } from '../../Context/authContext';
+import { AuthContext } from "../../Context/authContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -43,11 +37,11 @@ function Login() {
   // isSeller,
   // });
   const { setUserData, setToken, token } = useContext(AuthContext);
-  console.log(token);
+  // console.log(token);
 
   const responseMessage = async (response) => {
     const credentialResopnseDecoded = jwtDecode(response.credential); //
-    console.log(credentialResopnseDecoded);
+    // console.log(credentialResopnseDecoded);
     const userGoogle = {
       email: credentialResopnseDecoded.email,
       password: "**",
@@ -86,10 +80,10 @@ function Login() {
     }
     // console.log(user);
 
-    console.log(userGoogle);
+    // console.log(userGoogle);
   };
   const errorMessage = (error) => {
-    console.log(error);
+    // console.log(error);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,13 +118,13 @@ function Login() {
 
       navigate("/");
 
-      console.log("User logged in successfully");
+      // console.log("User logged in successfully");
     } catch (error) {
       console.error("Error logging user:", error.message);
       setFailedLogin(true);
       setIsLoading(false);
     }
-    console.log(user);
+    // console.log(user);
 
     // if (LoggedSuccess) ;
   };

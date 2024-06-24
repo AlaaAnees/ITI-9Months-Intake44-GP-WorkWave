@@ -28,7 +28,7 @@ const AddReview = () => {
         />
         <button
           className="bg-blue-400 hover:bg-blue-500 transition-all duration-300 font-semibold text-white rounded-md sub-font-3 w-full py-1"
-          onClick={() => console.log(rating)}
+          // onClick={() => console.log(rating)}
         >
           Send
         </button>

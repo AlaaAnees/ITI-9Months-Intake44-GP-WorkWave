@@ -210,7 +210,7 @@ export default function Chats() {
                         ? c.buyerId.substring(0, 10)
                         : c.sellerId.substring(0, 10)} */}
 
-                        {usersOrder[0] ? usersOrder[0].username : "name"}
+                        {user ? user.username : "name"}
                         {/* {currentUser.isSeller
                         ? usersOreder.username
                         : usersOreder.username} */}

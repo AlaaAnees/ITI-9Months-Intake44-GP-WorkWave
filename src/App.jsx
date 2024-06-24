@@ -54,11 +54,11 @@ const routes = createBrowserRouter([
       {
         path: "/categories",
         element: (
-          <ProtectedRoute>
-            <IsSeller>
-              <CategoriesPage></CategoriesPage>
-            </IsSeller>
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          // <IsSeller>
+          <CategoriesPage></CategoriesPage>
+          // </IsSeller>
+          // </ProtectedRoute>
         ),
       },
       {

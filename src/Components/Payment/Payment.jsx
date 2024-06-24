@@ -1,12 +1,19 @@
 import React, { useRef, useEffect } from "react";
 
-export default function Paypal() {
+export default function Paypal({ price, hi, sh }) {
   const paypalBtn = useRef(null);
 
   useEffect(() => {
     paypalBtn.current.textContent = "";
     window.paypal
       .Buttons({
+        style: {
+          layout: "horizontal",
+          color: "black",
+          shape: sh,
+          label: "pay",
+          height: hi,
+        },
         createOrder: (data, actions, err) => {
           return actions.order.create({
             intent: "CAPTURE",
@@ -15,7 +22,7 @@ export default function Paypal() {
                 description: "Cool looking table",
                 amount: {
                   currency_code: "USD",
-                  value: 1.0,
+                  value: price,
                 },
               },
             ],
@@ -23,7 +30,6 @@ export default function Paypal() {
         },
         onApprove: (data, actions) => {
           return actions.order.capture().then(async (details) => {
-            // await checkout();
             alert(
               "Payment Made Successfully " +
                 details.payer.name.given_name +
@@ -36,26 +42,90 @@ export default function Paypal() {
   }, []);
 
   return (
-    <div>
+    <div className="relative inline-block  mx-20 mt-5">
       <div
-        className="container mx-auto"
-        id="paypal-btn"
+        className="relative"
         ref={paypalBtn}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
         }}
       >
-        <img src="assets/pay.png" alt="" />
+        <button onClick={() => paypalBtn.current.children[0].click()}></button>
       </div>
-      {/* <img
-        src="./assets/cart.svg"
-        alt=""
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-      /> */}
     </div>
   );
 }
+
+// import React, { useRef, useEffect } from "react";
+
+// export default function Paypal() {
+//   const paypalBtn = useRef(null);
+
+//   useEffect(() => {
+//     paypalBtn.current.textContent = "";
+//     window.paypal
+//       .Buttons({
+//         style: {
+//           layout: "vertical", // use horizontal layout to easily hide the default button
+//           color: "blue",
+//           shape: "pill",
+//           label: "paypal",
+//           height: 40,
+//         },
+//         createOrder: (data, actions, err) => {
+//           return actions.order.create({
+//             intent: "CAPTURE",
+//             purchase_units: [
+//               {
+//                 description: "Cool looking table",
+//                 amount: {
+//                   currency_code: "USD",
+//                   value: 1.0,
+//                 },
+//               },
+//             ],
+//           });
+//         },
+//         onApprove: (data, actions) => {
+//           return actions.order.capture().then(async (details) => {
+//             // await checkout();
+//             alert(
+//               "Payment Made Successfully " +
+//                 details.payer.name.given_name +
+//                 " !"
+//             );
+//           });
+//         },
+//       })
+//       .render(paypalBtn.current);
+//   }, []);
+
+//   return (
+//     <div>
+//       <div
+//         className=""
+//         id="paypal-btn"
+//         ref={paypalBtn}
+//         onClick={(e) => {
+//           e.preventDefault();
+//           e.stopPropagation();
+//         }}
+//       >
+//         <button
+//           className=" "
+//           onClick={() => paypalBtn.current.children[0].click()}
+//         ></button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// <img
+//           src="./assets/cart.svg"
+//           alt=""
+//           onClick={(e) => {
+//             e.preventDefault();
+//             e.stopPropagation();
+//           }}
+//         />

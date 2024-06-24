@@ -16,6 +16,7 @@ const Contact = ({ IDs }) => {
   const sellerId = IDs.sellerId;
   const buyerId = IDs.buyerId;
   const id = sellerId + buyerId;
+  console.log("idddddddddddddddddd", id);
   useEffect(() => {
     if (id) {
       fetchSingleConversation(id);
@@ -36,7 +37,7 @@ const Contact = ({ IDs }) => {
   };
   return (
     <>
-      <div className="contact w-[35px] h-[35px] m-2">
+      <div className="contact w-[35px] h-[35px] m-2 cursor-pointer">
         <img
           className="message w-full"
           src="./assets/message.png"

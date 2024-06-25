@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+/* import { createContext, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types"; // Import PropTypes
 import { AuthContext } from "./authContext";
 
@@ -150,12 +150,165 @@ const ConversationContextProvider = (props) => {
         fetchConversations,
       }}
     >
-      {props.children} {/* Include children prop */}
+      {props.children} {}
     </ConversationContext.Provider>
   );
 };
 
 // Add prop validation for children prop
+ConversationContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default ConversationContextProvider;
+ */
+
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
+import PropTypes from "prop-types";
+import { AuthContext } from "./authContext";
+
+export const ConversationContext = createContext();
+
+const ConversationContextProvider = (props) => {
+  const [conversationData, setConversationData] = useState([]);
+  const [singleConversationData, setSingleConversationData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { token } = useContext(AuthContext);
+
+  const createConversation = async (to) => {
+    try {
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/conversation",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ to: to }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to create conversation");
+      }
+      const jsonData = await response.json();
+      return jsonData;
+    } catch (error) {
+      console.error("Error creating conversation:", error);
+      setError(error.message);
+    }
+  };
+
+  const fetchConversations = useCallback(async () => {
+    try {
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/conversation",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch conversations");
+      }
+
+      const jsonData = await response.json();
+      setConversationData(jsonData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching conversations:", error);
+      setError(error.message);
+      setLoading(false);
+    }
+  }, [token]);
+
+  const fetchSingleConversation = useCallback(
+    async (conversationId) => {
+      try {
+        const response = await fetch(
+          `https://workwave-vq08.onrender.com/api/conversation/single/${conversationId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch single conversation");
+        }
+
+        const jsonData = await response.json();
+        setSingleConversationData(jsonData);
+        setLoading(false);
+        return jsonData;
+      } catch (error) {
+        console.error("Error fetching single conversation:", error);
+        setError(error.message);
+        setLoading(false);
+      }
+    },
+    [token]
+  );
+
+  const updateConversation = useCallback(
+    async (conversationId) => {
+      try {
+        const response = await fetch(
+          `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to update conversation");
+        }
+        fetchConversations();
+      } catch (error) {
+        console.error("Error updating conversation:", error);
+        setError(error.message);
+      }
+    },
+    [token, fetchConversations]
+  );
+
+  useEffect(() => {
+    fetchConversations();
+  }, [fetchConversations]);
+
+  return (
+    <ConversationContext.Provider
+      value={{
+        conversationData,
+        singleConversationData,
+        loading,
+        error,
+        createConversation,
+        updateConversation,
+        fetchSingleConversation,
+        fetchConversations,
+      }}
+    >
+      {props.children}
+    </ConversationContext.Provider>
+  );
+};
+
 ConversationContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

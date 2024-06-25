@@ -97,6 +97,7 @@ const ConversationContextProvider = (props) => {
       // Set the fetched data to the state
       setSingleConversationData(jsonData);
       setLoading(false);
+      return jsonData; // Return the fetched conversation data
     } catch (error) {
       console.error("Error fetching single conversation:", error);
       setError(error.message);

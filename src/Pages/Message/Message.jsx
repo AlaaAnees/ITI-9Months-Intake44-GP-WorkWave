@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // Import useEffect hook to fetch messages
+import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { MessageContext } from "../../Context/MessageContext";
@@ -8,7 +8,6 @@ import Error from "../Error/Error";
 
 function Chat() {
   const { id } = useParams();
-  // const queryClient = useQueryClient();
 
   const { messages, fetchMessages, createMessage, loading, error } =
     useContext(MessageContext);
@@ -16,48 +15,70 @@ function Chat() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [newMessage, setNewMessage] = useState("");
 
+  const messageContainerRef = useRef(null);
+
   const mutation = useMutation({
     mutationFn: async () => {
       await createMessage(id, newMessage);
     },
     onSuccess: async () => {
-      await fetchMessages(id); // Fetch messages again to update the list
-      setNewMessage(""); // Reset the message input field after successful send
+      await fetchMessages(id);
+      setNewMessage("");
+      if (messageContainerRef.current) {
+        messageContainerRef.current.scrollTop =
+          messageContainerRef.current.scrollHeight;
+      }
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setNewMessage("");
-    mutation.mutate();
+    sendMessage();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const sendMessage = () => {
+    if (newMessage.trim() !== "") {
+      mutation.mutate();
+    }
   };
 
   useEffect(() => {
-    // Fetch messages when component mounts
     fetchMessages(id);
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <>
-      <div className="chat">
-        <div className="content mt-2 container mx-auto">
-          <div className="back">
-            <Link
-              className="hover:text-blue-900 text-blue-700"
-              to={"/messages"}
-            >
-              {" "}
-              {" < "}To Messages
+      <div className="chat mx-2 md:mx-10">
+        <div className="content mt-2 container mx-auto xl:w-[90%] xl:mx-auto">
+          <div className="back ms-5 bg-blue-900 w-[110px] text-white py-1 px-2 rounded-md text-center">
+            <Link className="text-sm" to={"/messages"}>
+              {" <"}To Messages
             </Link>
           </div>
-          {/* Render loading or error message */}
+
           {loading ? (
             <Loading />
           ) : error ? (
             <Error />
           ) : (
-            <div className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll ">
-              {/* Render messages */}
+            <div
+              className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll"
+              ref={messageContainerRef}
+            >
               {messages.map((m) => (
                 <div
                   key={m._id}
@@ -67,11 +88,6 @@ function Chat() {
                       : ""
                   }`}
                 >
-                  <img
-                    src={`${currentUser.img}`}
-                    alt="buyer2"
-                    className="w-12 h-12 rounded-full object-cover hidden md:block"
-                  />
                   <p
                     className={`${
                       m.userId === currentUser._id
@@ -85,17 +101,19 @@ function Chat() {
               ))}
             </div>
           )}
+
           <hr />
           <form
             onSubmit={handleSubmit}
             className="sendMessage flex items-center justify-between m-3"
           >
             <textarea
-              className="w-[70%] md:w-[85%] h-[60px] md:h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin "
+              className="w-[70%] md:w-[85%] h-[60px] md:h-[80px] p-3 rounded-lg shadow-sm outline-none border-1 border-blue-100 resize-none scrollbar-thin"
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Write a message"
+              onKeyDown={handleKeyDown}
             ></textarea>
             <button
               type="submit"
@@ -111,24 +129,3 @@ function Chat() {
 }
 
 export default Chat;
-
-// {/* seller */}
-// <div className="seller flex gap-5 max-w-xl flex-row-reverse self-end">
-// <img
-//   src="assets/seller1.jpg"
-//   alt="buyer2"
-//   className="w-12 h-12 rounded-full object-cover"
-// />
-// <p
-//   className="bg-blue-500 text-white max-w-lg py-3 px-4 text-sm"
-//   style={{
-//     borderRadius: "20px 0px 20px 20px",
-//     color: "gray",
-//   }}
-// >
-//   Lorem ipsum dolor sit amet consectetur adipisicing elit.
-//   Officiis, eaque quas distinctio exercitationem dolores sit
-//   ipsam nemo, rerum, voluptatibus excepturi amet. Autem
-//   voluptatum similique culpa id ipsam, suscipit minima enim?
-// </p>
-// </div>

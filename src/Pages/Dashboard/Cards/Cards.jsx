@@ -1,4 +1,3 @@
-// import Loading from "../../Loading/Loading";
 import "./Cards.scss";
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";

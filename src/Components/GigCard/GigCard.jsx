@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
+
 import AddToWishlist from "../Wishlist/AddToWishlist";
 import Rating from "../Rating/Rating";
 
 function GigCard({ gig, display }) {
-  console.log(display, "di");
+  const isadmin = JSON.parse(localStorage.getItem("user")).isAdmin;
+
   return (
-    <Link to={`/singlegig/${gig._id}`}>
-      <li key={gig._id} className="rounded-xl shadow-md bg-white  ">
+    <li key={gig._id} className="rounded-xl shadow-md bg-white  ">
+      <Link to={`/singlegig/${gig._id}`}>
         <img src={gig.cover} alt={gig.title} className="w-full h-72" />
         {/* second line */}
         <div className=" p-5">
@@ -32,11 +34,12 @@ function GigCard({ gig, display }) {
             <span className="font-medium text-lg text-[#595959]">
               $ {gig.price}
             </span>
-            {display && <AddToWishlist gig={gig}></AddToWishlist>}
+
+            {display && !isadmin && <AddToWishlist gig={gig}></AddToWishlist>}
           </div>
         </div>
-      </li>
-    </Link>
+      </Link>
+    </li>
   );
 }
 

@@ -5,8 +5,6 @@ import { FaHeart } from "react-icons/fa";
 function AddToWishlist({ gig }) {
   const [colored, setColored] = useState(false);
   const [isloading, setisloading] = useState(true);
-  // const { favoriteList, handleAddToWishlist: handleAddToWishlistcontext } =
-  //   useContext(WishContex);
 
   const token = JSON.parse(localStorage.getItem("token"));
   async function handleAddToWishlist(e, gigid) {
@@ -22,7 +20,7 @@ function AddToWishlist({ gig }) {
         }
       );
       const fav = await res.json();
-      // handleAddToWishlistcontext(fav.data.favorite);
+
       console.log("add", fav);
     } else if (colored == true) {
       const res = await fetch(
@@ -35,7 +33,6 @@ function AddToWishlist({ gig }) {
         }
       );
       const fav = await res.json();
-      // handleAddToWishlistcontext(fav.data.favorite);
     }
     setColored((c) => !c);
   }
@@ -52,7 +49,7 @@ function AddToWishlist({ gig }) {
         }
       );
       const data = await res.json();
-      // handleAddToWishlistcontext(data.data.favorite);
+
       setisloading(false);
 
       const foundGig = data.data.userFavorites.find((gigitem) => {

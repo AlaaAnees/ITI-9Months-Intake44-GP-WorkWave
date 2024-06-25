@@ -27,11 +27,14 @@ function Review({ gig }) {
     setNewReview(data.data?.savedReview);
   }
   return (
-    <>
+    <div className="container m-auto p-8">
       {reviews ? (
         reviews.map((rev) => {
           return (
-            <div className="reviews" key={rev.userId}>
+            <div
+              className="reviews  p-4 border-b-[.5px] border-b-slate-400 "
+              key={rev.userId}
+            >
               <div className="user-holder flex items-center gap-5">
                 <div className="image-holder flex items-center">
                   <img
@@ -41,7 +44,9 @@ function Review({ gig }) {
                   />
                 </div>
                 <div className="holder space-y-2">
-                  <div>{rev.username}</div>
+                  <div className="font-semibold text-lg text-blue-400">
+                    {rev.username}
+                  </div>
                   <div>
                     {!isNaN(rev.star) && (
                       <div className="stars flex items-center">
@@ -67,7 +72,10 @@ function Review({ gig }) {
         <div>Reviews Is Loading</div>
       )}
       {newReview && (
-        <div className="reviews" key={newReview.userId}>
+        <div
+          className="reviews p-4 border-b-[.5px] border-b-slate-400 "
+          key={newReview.userId}
+        >
           <div className="user-holder flex items-center gap-5">
             <div className="image-holder flex items-center">
               <img
@@ -77,7 +85,9 @@ function Review({ gig }) {
               />
             </div>
             <div className="holder space-y-2">
-              <div>{newReview.username}</div>
+              <div className="font-semibold text-lg text-blue-400">
+                {newReview.username}
+              </div>
               <div>
                 {!isNaN(newReview.star) && (
                   <div className="stars flex items-center">
@@ -95,7 +105,7 @@ function Review({ gig }) {
           </div>
         </div>
       )}
-      <div className="add-review">
+      <div className="add-review mt-8 flex flex-col gap-4">
         <textarea
           className="resize-none"
           placeholder="Review"
@@ -111,9 +121,14 @@ function Review({ gig }) {
           value={star}
           onChange={(e) => setStars(e.target.value)}
         />
-        <button onClick={handlePostReview}>Submit Review</button>
+        <button
+          className="bg-blue-500 rounded py-2 px-4 text-white"
+          onClick={handlePostReview}
+        >
+          Submit Review
+        </button>
       </div>
-    </>
+    </div>
   );
 }
 

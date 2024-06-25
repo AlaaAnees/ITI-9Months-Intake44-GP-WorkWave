@@ -63,7 +63,7 @@ function Login() {
       localStorage.setItem("token", JSON.stringify(data.data.token));
       setUserData(data.data.user);
       setToken(data.data.token);
-      console.log("brrrrrrrrr", data);
+      // console.log("brrrrrrrrr", data);
 
       if (!response.ok) {
         throw new Error("Failed to login user");
@@ -72,7 +72,7 @@ function Login() {
 
       navigate("/");
 
-      console.log("User logged in successfully");
+      // console.log("User logged in successfully");
     } catch (error) {
       console.error("Error logging user:", error.message);
       setFailedLogin(true);

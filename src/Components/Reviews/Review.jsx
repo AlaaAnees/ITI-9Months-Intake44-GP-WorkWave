@@ -107,13 +107,14 @@ function Review({ gig }) {
       )}
       <div className="add-review mt-8 flex flex-col gap-4">
         <textarea
-          className="resize-none"
+          className="resize-none p-4 rounded-md"
           placeholder="Review"
           name="desc"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
         <input
+          className="p-2 rounded-md"
           type="number"
           name="star"
           min={0}

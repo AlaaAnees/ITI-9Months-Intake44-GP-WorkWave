@@ -4,27 +4,52 @@ import { FaStar } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdCall } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import Gigs from "../../Components/Profile-page-components/ProfileGigs";
 import ProfileReviews from "../../Components/Profile-page-components/ProfileReviews";
 import { AuthContext } from "../../Context/authContext";
 
 function Profile() {
-  const { userData } = useContext(AuthContext);
-  // console.log(userData);
+  const token = JSON.parse(localStorage.getItem("token"));
+  const { userData, setUserData } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setUserData(null);
+    setToken(null);
+  };
 
   const starArray = Array.from({ length: 5 }, (value, index) => (
     <FaStar key={index} className="text-[#FFB340]" />
   ));
-
+  async function handleDeleteaccount() {
+    const res = await fetch(
+      `https://workwave-vq08.onrender.com/api/users/delete/${userData._id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    handleLogOut();
+    navigate("/");
+  }
   return (
     <div className="bg-blue-50 px-16 py-8">
-      <p className="text-[#595959]">
-        <NavLink to={"/"} className="me-1">
-          WorkWave
-        </NavLink>
-        &gt; profile
+      <p className="text-[#595959] text-right">
+        <span
+          className="bg-red-500  p-3 rounded-md text-white my-2 cursor-pointer"
+          onClick={handleDeleteaccount}
+        >
+          Delete account
+        </span>
       </p>
 
       <div className="flex justify-between mt-10">

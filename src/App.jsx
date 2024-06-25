@@ -46,7 +46,7 @@ const routes = createBrowserRouter([
       },
       { path: "/register", element: <Register></Register> },
       {
-        path: "/profile",
+        path: "/profile/:id",
         element: (
           <ProtectedRoute>
             <Profile></Profile>

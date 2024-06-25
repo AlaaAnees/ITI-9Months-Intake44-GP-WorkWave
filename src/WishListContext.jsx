@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const WishContex = createContext();
 
@@ -19,7 +19,7 @@ function WishProvider({ children }) {
       );
       const data = await res.json();
       setFavoriteList(data.data.userFavorites);
-      console.log("eman eman eman contexts", data.data.userFavorites);
+      // console.log("eman eman eman contexts", data.data.userFavorites);
     }
     getUserFav();
   }, [token]);

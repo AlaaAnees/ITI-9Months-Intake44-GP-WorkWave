@@ -1,28 +1,16 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useState } from "react";
 
-import { jwtDecode } from 'jwt-decode';
-import {
-  FaEye,
-  FaEyeSlash,
-  FaRegCheckCircle,
-} from 'react-icons/fa';
-import {
-  MdDeleteForever,
-  MdErrorOutline,
-} from 'react-icons/md';
-import { NavLink } from 'react-router-dom';
-import { SyncLoader } from 'react-spinners';
+import { jwtDecode } from "jwt-decode";
+import { FaEye, FaEyeSlash, FaRegCheckCircle } from "react-icons/fa";
+import { MdDeleteForever, MdErrorOutline } from "react-icons/md";
+import { NavLink } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from "@react-oauth/google";
 
-import SuccessModal from '../../Components/registration-modal/RegModal';
-import { AuthContext } from '../../Context/authContext';
-import FacebookAuthComponent from '../Login/FaceBook';
+import SuccessModal from "../../Components/registration-modal/RegModal";
+import { AuthContext } from "../../Context/authContext";
+import FacebookAuthComponent from "../Login/FaceBook";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -323,7 +311,7 @@ function Register() {
               className="outline-none border-b-2 w-full p-2"
             />
             {firstNameError && (
-              <span className="text-danger  flex text-xs items-center gap-1">
+              <span className="text-red-600  flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {firstNameError}
               </span>
@@ -336,7 +324,7 @@ function Register() {
               className="outline-none border-b-2 w-full mt-4 p-2"
             />
             {lastNameError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {lastNameError}
               </span>
@@ -349,7 +337,7 @@ function Register() {
               className="outline-none border-b-2 w-full mt-4 p-2"
             />
             {userNameError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {userNameError}
               </span>
@@ -362,7 +350,7 @@ function Register() {
               className="outline-none border-b-2 w-full mt-4 p-2"
             />
             {emailError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {emailError}
               </span>
@@ -390,7 +378,7 @@ function Register() {
             </div>
 
             {passwordError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {passwordError}
               </span>
@@ -420,13 +408,13 @@ function Register() {
             </div>
 
             {confirmPasswordError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {confirmPasswordError}
               </span>
             )}
             {!passwordMatching && (
-              <span className="text-danger flex text-xs items-center gap-1 ">
+              <span className="text-red-600 flex text-xs items-center gap-1 ">
                 <MdErrorOutline /> The confirmation password does not match the
                 password
               </span>
@@ -439,7 +427,7 @@ function Register() {
               className="outline-none border-b-2 w-full mt-4 p-2"
             />
             {countryError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {countryError}
               </span>
@@ -452,7 +440,7 @@ function Register() {
               className="outline-none border-b-2 w-full mt-4 p-2"
             />
             {phoneNumberError && (
-              <span className="text-danger flex text-xs items-center gap-1">
+              <span className="text-red-600 flex text-xs items-center gap-1">
                 <MdErrorOutline className="mt-[2px]" />
                 {phoneNumberError}
               </span>

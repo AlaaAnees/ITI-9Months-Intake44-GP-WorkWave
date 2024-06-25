@@ -1,20 +1,14 @@
-import {
-  useContext,
-  useState,
-} from 'react';
+import { useContext, useState } from "react";
 
-import { jwtDecode } from 'jwt-decode';
-import { FaFacebook } from 'react-icons/fa';
-import { MdErrorOutline } from 'react-icons/md';
-import {
-  NavLink,
-  useNavigate,
-} from 'react-router-dom';
-import { SyncLoader } from 'react-spinners';
+import { jwtDecode } from "jwt-decode";
+import { FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa";
+import { MdErrorOutline } from "react-icons/md";
+import { NavLink, useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from "@react-oauth/google";
 
-import { AuthContext } from '../../Context/authContext';
+import { AuthContext } from "../../Context/authContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -22,6 +16,10 @@ function Login() {
   const [password, setPassword] = useState("");
   const [failedLogin, setFailedLogin] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
+    useState(false);
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
   const user = {
     email,
     password,
@@ -170,16 +168,29 @@ function Login() {
             value={email}
             className="outline-none border-b-2 w-full mb-4  p-2"
           />
-          <input
-            type="text"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            className="outline-none border-b-2 w-full mb-4  p-2"
-          />
+          <div className="relative">
+            <input
+              type={!passwordVisibility ? "password" : "text"}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              className="outline-none border-b-2 w-full mb-4  p-2"
+            />
+            {!passwordVisibility ? (
+              <FaEyeSlash
+                className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer text-[#bbb]"
+                onClick={() => setPasswordVisibility(true)}
+              />
+            ) : (
+              <FaEye
+                className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer text-[#bbb]"
+                onClick={() => setPasswordVisibility(false)}
+              />
+            )}
+          </div>
           {failedLogin && (
-            <span className="text-danger flex text-xs items-center gap-1 ">
-              <MdErrorOutline /> Inavalid User Name Or Password
+            <span className="text-red-600 flex text-xs items-center gap-1 ">
+              <MdErrorOutline /> Invalid User Name Or Password
             </span>
           )}
 

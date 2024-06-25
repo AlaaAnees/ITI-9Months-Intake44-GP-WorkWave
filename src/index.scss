@@ -110,3 +110,16 @@
     transform: translate(33.6px);
   }
 }
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(123, 123, 239, 0.358);
+}
+::-webkit-scrollbar-thumb {
+  background-color: #474bff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #474affbd;
+}

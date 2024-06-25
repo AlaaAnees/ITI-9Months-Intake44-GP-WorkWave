@@ -1,20 +1,61 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
+
 import { AuthContext } from "../../Context/authContext";
-import { FaHeart } from "react-icons/fa";
 
 function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const [dropDownVisibility, setDropDownVisibility] = useState(false);
-  const { userData } = useContext(AuthContext);
-  const { setUserData } = useContext(AuthContext);
-  // const { token } = useContext(AuthContext);
-  const { setToken } = useContext(AuthContext);
-
+  const { userData, setUserData, setToken } = useContext(AuthContext);
+  const [searchInput, setSearchInput] = useState("");
+  const [filtered, setFiltered] = useState([]);
   const dropdownRef = useRef(null);
+  const searchRef = useRef(null);
+
+  const fetching = async (searchInput, controller) => {
+    try {
+      const res = await fetch("https://workwave-vq08.onrender.com/api/gigs", {
+        signal: controller.signal,
+      });
+      const data = await res.json();
+      setFiltered(data.filter((item) => item.title.includes(searchInput)));
+      console.log(data);
+    } catch (error) {
+      if (error.name === "AbortError") {
+        console.log("Fetch aborted");
+      } else {
+        console.error("Error fetching data:", error);
+      }
+    }
+  };
+
+  const debounceSearch = (input) => {
+    clearTimeout(searchRef.current);
+
+    const controller = new AbortController();
+    searchRef.current = setTimeout(() => {
+      fetching(input, controller);
+    }, 300);
+
+    return () => controller.abort();
+  };
+
+  useEffect(() => {
+    if (searchInput) {
+      debounceSearch(searchInput);
+    } else {
+      setFiltered([]);
+    }
+  }, [searchInput]);
+
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value);
+    console.log(e.target.value);
+  };
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
@@ -22,13 +63,22 @@ function Navbar() {
     setUserData(null);
     setToken(null);
   };
-  const handleDropDown = () => {
+
+  const handleDropDown = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropDownVisibility(false);
     }
   };
-  document.addEventListener("click", handleDropDown);
+
+  useEffect(() => {
+    document.addEventListener("click", handleDropDown);
+    return () => {
+      document.removeEventListener("click", handleDropDown);
+    };
+  }, []);
+
   console.log(userData);
+
   return (
     <header className="bg-white">
       <nav
@@ -68,21 +118,15 @@ function Navbar() {
             </svg>
           </button>
         </div>
-        <div className="hidden lg:flex justify-evenly grow   items-center  ">
+        <div className="hidden lg:flex justify-evenly grow items-center">
           <div className="hidden lg:flex lg:gap-x-12">
             <div className="relative">
-              {/* <NavLink
-                to="/categories"
-                className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
-              >
-                Categories
-              </NavLink> */}
               {userData?.isAdmin ? (
                 <NavLink
                   to="/dashboard"
                   className=" ml-8 font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
                 >
-                  dashboard
+                  Dashboard
                 </NavLink>
               ) : (
                 ""
@@ -106,8 +150,21 @@ function Navbar() {
               type="text"
               placeholder="Anything"
               className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px] "
+              onChange={handleSearch}
+              value={searchInput}
             />
             <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
+            <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
+              {filtered.map((item) => (
+                <div
+                  key={item.id}
+                  className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
+                >
+                  <img src={item.cover} alt="category img" className="w-1/6" />
+                  <Link className="sub-font-2 font-medium">{item.title}</Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         {!userData ? (
@@ -127,7 +184,7 @@ function Navbar() {
           </div>
         ) : (
           <div
-            className="hidden lg:flex gap-2  justify-center items-center cursor-pointer relative"
+            className="hidden lg:flex gap-2 justify-center items-center cursor-pointer relative"
             ref={dropdownRef}
             onClick={() => setDropDownVisibility((drop) => !drop)}
           >
@@ -139,13 +196,6 @@ function Navbar() {
                 dropDownVisibility ? "" : "hidden"
               }`}
             >
-              {/* <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/wishlist"}
-              >
-                <FaHeart className="text-red-600"></FaHeart>
-                Wishlist
-              </Link> */}
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/profile"}
@@ -161,44 +211,27 @@ function Navbar() {
               </Link>
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/newGig"}
-              >
-                Add New Gigs
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/orders"}
-              >
-                Orderes
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/messages"}
-              >
-                Messages
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 onClick={handleLogOut}
               >
                 <CiLogout />
-                Log out
+                Logout
               </Link>
             </div>
           </div>
         )}
       </nav>
-      {/* Mobile menu, show/hide based on menu open state. */}
-      <div className={isMobile ? "" : "hidden"} role="dialog" aria-modal="true">
-        {/* Background backdrop, show/hide based on slide-over state. */}
+      <div
+        className={`${isMobile ? "" : "hidden"} lg:hidden`}
+        role="dialog"
+        aria-modal="true"
+      >
         <div className="fixed inset-0 z-10" />
         <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <NavLink to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">WorkWave</span>
               <img
-                className="w-[133px]"
+                className="h-8 w-auto"
                 src="/assets/imgs/logo-no-background 5.png"
                 alt=""
               />
@@ -226,129 +259,63 @@ function Navbar() {
             </button>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 ">
+            <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <div className="-mx-3">
-                  {/* 'Product' sub-menu, show/hide based on menu state. */}
-                </div>
-                {userData && (
-                  <NavLink
-                    className="-mx-3 flex flex-col items-center rounded-lg justify-center it px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/profile"
-                    onClick={() => setIsMobile(false)}
-                  >
-                    <img
-                      src={userData.img}
-                      alt="user img"
-                      className="w-12 h-12 rounded-full "
-                    />{" "}
-                    {userData.username}
-                    {`'`}s Profile
-                  </NavLink>
-                )}
-                <div className="relative w-fit">
-                  <input
-                    type="text"
-                    placeholder="Anything"
-                    className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
-                  />
-                  <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
-                </div>
-
-                {/* {userData && (
-                  <NavLink
-                    className="-mx-3 flex items-center gap-1 rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/wishlist"
-                    onClick={handleLogOut}
-                  >
-                    wishlist
-                    <FaHeart className="text-red-600 text-sm"></FaHeart>
-                  </NavLink>
-                )} */}
-                {userData && (
-                  <NavLink
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/categories"
-                    onClick={() => setIsMobile(false)}
-                  >
-                    Gigs
-                  </NavLink>
-                )}
-                {userData && (
-                  <NavLink
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/newGig"
-                    onClick={() => setIsMobile(false)}
-                  >
-                    Add New Gigs
-                  </NavLink>
-                )}
-                {userData && (
-                  <NavLink
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/orders"
-                    onClick={() => setIsMobile(false)}
-                  >
-                    Orders
-                  </NavLink>
-                )}
-                {userData && (
-                  <NavLink
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/messages"
-                    onClick={() => setIsMobile(false)}
-                  >
-                    Messages
-                  </NavLink>
-                )}
                 <NavLink
-                  className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                  to="/categories"
+                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
+                >
+                  Categories
+                </NavLink>
+                <NavLink
                   to="/explore"
-                  onClick={() => setIsMobile(false)}
+                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
                 >
                   Explore
                 </NavLink>
                 <NavLink
-                  to="/any"
-                  onClick={() => setIsMobile(false)}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                >
-                  English
-                </NavLink>
-                <NavLink
-                  to="become-seller"
-                  onClick={() => setIsMobile(false)}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                  to="/become-seller"
+                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
                 >
                   Become a seller
                 </NavLink>
-                {userData && (
-                  <NavLink
-                    className="-mx-3 flex items-center gap-1 rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/"
-                    onClick={handleLogOut}
-                  >
-                    <CiLogout />
-                    Log out
-                  </NavLink>
-                )}
               </div>
-
-              {!userData && (
-                <div className="py-6 flex justify-center mt-3 gap-5 items-center">
+              {!userData ? (
+                <div className="py-6">
                   <NavLink
-                    to="login"
-                    onClick={() => setIsMobile(false)}
-                    className="text-sm font-semibold text-[#595959]  hover:text-blue-400 transition-all duration-300 text-[20px] main-font leading-6 text-decoration-none "
+                    to="/login"
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
                   >
                     Sign in
                   </NavLink>
                   <NavLink
-                    to="register"
-                    onClick={() => setIsMobile(false)}
-                    className="text-sm font-semibold  text-[20px] main-font leading-6 text-decoration-none text-blue-400 border-2 py-[3px] px-[15px]  rounded-lg border-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300"
+                    to="/register"
+                    className=" text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
                   >
                     Join
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="py-6">
+                  <NavLink
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
+                    to={"/profile"}
+                  >
+                    <CgProfile />
+                    Profile
+                  </NavLink>
+                  <NavLink
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
+                    to={"/categories"}
+                  >
+                    Gigs
+                  </NavLink>
+                  <NavLink
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
+                    onClick={handleLogOut}
+                  >
+                    <CiLogout />
+                    Logout
                   </NavLink>
                 </div>
               )}

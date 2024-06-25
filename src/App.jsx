@@ -90,6 +90,10 @@ const routes = createBrowserRouter([
         element: <Explore></Explore>,
       },
       {
+        path: "/orders",
+        element: <Order></Order>,
+      },
+      {
         path: "/payment",
         element: (
           <ProtectedRoute>
@@ -98,7 +102,6 @@ const routes = createBrowserRouter([
         ),
       },
       { path: "/wishlist", element: <WishListCom></WishListCom> },
-      { path: "/order", element: <Order></Order> },
       {
         path: "/newGig",
         element: (

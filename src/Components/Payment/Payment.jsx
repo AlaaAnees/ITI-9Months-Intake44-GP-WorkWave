@@ -45,7 +45,9 @@ export default function Paypal() {
           e.preventDefault();
           e.stopPropagation();
         }}
-      ></div>
+      >
+        <img src="assets/pay.png" alt="" />
+      </div>
       {/* <img
         src="./assets/cart.svg"
         alt=""

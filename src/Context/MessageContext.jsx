@@ -12,36 +12,10 @@ export const MessageContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const { token } = useContext(AuthContext);
 
-  // Function to fetch messages for a specific conversation ID
-  const fetchMessages = async (conversationId) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `https://workwave-vq08.onrender.com/api/messages/${conversationId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch messages");
-      }
-      const data = await response.json();
-      setMessages(data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-      setError(error.message);
-      setLoading(false);
-    }
-  };
-
-  // Function to create a new message
+  //! Function to create a new message
   const createMessage = async (conversationId, desc) => {
     try {
-      setLoading(true);
+      setLoading(true); //......
       const response = await fetch(
         "https://workwave-vq08.onrender.com/api/messages",
         {
@@ -60,8 +34,9 @@ export const MessageContextProvider = ({ children }) => {
         throw new Error("Failed to create message");
       }
       const data = await response.json();
+
       setMessages((prevMessages) => [...prevMessages, data]);
-      setLoading(false);
+      setLoading(false); //....
     } catch (error) {
       console.error("Error creating message:", error);
       setError(error.message);
@@ -69,7 +44,34 @@ export const MessageContextProvider = ({ children }) => {
     }
   };
 
-  // Provide the message data, loading state, and functions to the child components
+  //! Function to fetch messages for a specific conversation ID
+  const fetchMessages = async (conversationId) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `https://workwave-vq08.onrender.com/api/messages/${conversationId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch messages");
+      }
+      const data = await response.json();
+
+      setMessages(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  //! Provide the message data, loading state, and functions to the child components
   return (
     <MessageContext.Provider
       value={{

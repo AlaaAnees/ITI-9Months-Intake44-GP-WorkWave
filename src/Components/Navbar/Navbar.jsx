@@ -14,6 +14,11 @@ function Navbar() {
   const { userData, setUserData, setToken } = useContext(AuthContext);
   const [searchInput, setSearchInput] = useState("");
   const [filtered, setFiltered] = useState([]);
+
+  console.log("pppppppppppppppppppp", userData);
+
+  // const { token } = useContext(AuthContext);
+
   const dropdownRef = useRef(null);
   const searchRef = useRef(null);
 
@@ -221,13 +226,7 @@ function Navbar() {
 
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/order"}
-              >
-                Order
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/profile"}
+                to={`/profile/${userData._id}`}
               >
                 <CgProfile />
                 Profile
@@ -369,7 +368,7 @@ function Navbar() {
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/orders"
+                    to="/order"
                     onClick={() => setIsMobile(false)}
                   >
                     Orders

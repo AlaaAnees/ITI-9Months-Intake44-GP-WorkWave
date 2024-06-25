@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
-// import { UseWish, WishContex } from "../../WishListContext";
 
 function AddToWishlist({ gig }) {
   const [colored, setColored] = useState(false);
@@ -55,7 +54,7 @@ function AddToWishlist({ gig }) {
       const foundGig = data.data.userFavorites.find((gigitem) => {
         return gigitem._id === gig._id;
       });
-      // console.log(foundGig);
+
       if (foundGig) {
         setColored(true);
       }

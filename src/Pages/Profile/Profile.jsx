@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { FaStar } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
@@ -14,6 +14,7 @@ import { AuthContext } from "../../Context/authContext";
 
 function Profile() {
   const [isloading, setisloading] = useState(false);
+  const [sellerGigs, setSellerGigs] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
   const { userData, setUserData } = useContext(AuthContext);
   const { setToken } = useContext(AuthContext);
@@ -46,6 +47,24 @@ function Profile() {
     handleLogOut();
     navigate("/");
   }
+  useEffect(() => {
+    async function GetALLSellerGigs() {
+      if (userData.isSeller) {
+        const res = await fetch(
+          `https://workwave-vq08.onrender.com/api/gigs/${userData._id}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setSellerGigs(data.data.gigs);
+      }
+    }
+    GetALLSellerGigs();
+  }, []);
+
   return (
     <div className="bg-blue-50 px-16 py-8">
       <p className="text-[#595959] text-right">
@@ -138,8 +157,8 @@ function Profile() {
           </p>
         </div>
       </div>
-      <Gigs />
-      <ProfileReviews />
+      <Gigs sellerGigs={sellerGigs} />
+      {/* <ProfileReviews /> */}
     </div>
   );
 }

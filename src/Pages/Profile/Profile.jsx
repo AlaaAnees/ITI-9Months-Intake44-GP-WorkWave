@@ -1,16 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { FaStar } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdCall } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
 import Gigs from "../../Components/Profile-page-components/ProfileGigs";
 import ProfileReviews from "../../Components/Profile-page-components/ProfileReviews";
 import { AuthContext } from "../../Context/authContext";
 
 function Profile() {
+  const [isloading, setisloading] = useState(false);
   const token = JSON.parse(localStorage.getItem("token"));
   const { userData, setUserData } = useContext(AuthContext);
   const { setToken } = useContext(AuthContext);
@@ -27,6 +30,7 @@ function Profile() {
     <FaStar key={index} className="text-[#FFB340]" />
   ));
   async function handleDeleteaccount() {
+    setisloading(true);
     const res = await fetch(
       `https://workwave-vq08.onrender.com/api/users/delete/${userData._id}`,
       {
@@ -37,6 +41,7 @@ function Profile() {
       }
     );
     const data = await res.json();
+    setisloading(false);
     console.log(data);
     handleLogOut();
     navigate("/");
@@ -48,7 +53,11 @@ function Profile() {
           className="bg-red-500  p-3 rounded-md text-white my-2 cursor-pointer"
           onClick={handleDeleteaccount}
         >
-          Delete account
+          {isloading ? (
+            <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />
+          ) : (
+            " Delete account"
+          )}
         </span>
       </p>
 

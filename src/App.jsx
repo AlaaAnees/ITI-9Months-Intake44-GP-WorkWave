@@ -27,6 +27,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Payment from "./Components/Payment/Payment";
 import Order from "./Pages/Orders/Order";
 import WishListCom from "./Components/Wishlist/WishListCom";
+import IsAdmin from "./Components/ProtectRoute/IsAdmin";
 // import { WishProvider } from "./WishListContext";
 // const queryClient = new QueryClient();
 const routes = createBrowserRouter([
@@ -113,7 +114,9 @@ const routes = createBrowserRouter([
         path: "/dashboard",
         element: (
           <ProtectedRoute>
-            <Dashboard />
+            <IsAdmin>
+              <Dashboard />
+            </IsAdmin>
           </ProtectedRoute>
         ),
       },

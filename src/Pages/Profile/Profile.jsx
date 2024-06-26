@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdCall } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -157,7 +157,18 @@ function Profile() {
           </p>
         </div>
       </div>
-      <Gigs sellerGigs={sellerGigs} />
+      {sellerGigs.length > 0 ? (
+        <Gigs sellerGigs={sellerGigs} />
+      ) : (
+        <div className="text-center mt-16">
+          <Link
+            to={"/newGig"}
+            className="bg-[#60A5FA]  p-3 rounded-md text-white my-2"
+          >
+            Create new gig
+          </Link>
+        </div>
+      )}
       {/* <ProfileReviews /> */}
     </div>
   );

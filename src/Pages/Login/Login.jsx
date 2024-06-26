@@ -1,14 +1,24 @@
-import { useContext, useState } from "react";
+import {
+  useContext,
+  useState,
+} from 'react';
 
-import { jwtDecode } from "jwt-decode";
-import { FaEye, FaEyeSlash, FaFacebook } from "react-icons/fa";
-import { MdErrorOutline } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
+import { jwtDecode } from 'jwt-decode';
+import {
+  FaEye,
+  FaEyeSlash,
+} from 'react-icons/fa';
+import { MdErrorOutline } from 'react-icons/md';
+import {
+  NavLink,
+  useNavigate,
+} from 'react-router-dom';
+import { SyncLoader } from 'react-spinners';
 
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from '@react-oauth/google';
 
-import { AuthContext } from "../../Context/authContext";
+import { AuthContext } from '../../Context/authContext';
+import FacebookAuthComponent from './FaceBook';
 
 function Login() {
   const navigate = useNavigate();
@@ -41,11 +51,11 @@ function Login() {
   // isSeller,
   // });
   const { setUserData, setToken, token } = useContext(AuthContext);
-  console.log(token);
+  // console.log(token);
 
   const responseMessage = async (response) => {
     const credentialResopnseDecoded = jwtDecode(response.credential); //
-    console.log(credentialResopnseDecoded);
+    // console.log(credentialResopnseDecoded);
     const userGoogle = {
       email: credentialResopnseDecoded.email,
       password: "**",
@@ -84,10 +94,10 @@ function Login() {
     }
     // console.log(user);
 
-    console.log(userGoogle);
+    // console.log(userGoogle);
   };
   const errorMessage = (error) => {
-    console.log(error);
+    // console.log(error);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -122,15 +132,58 @@ function Login() {
 
       navigate("/");
 
-      console.log("User logged in successfully");
+      // console.log("User logged in successfully");
     } catch (error) {
       console.error("Error logging user:", error.message);
       setFailedLogin(true);
       setIsLoading(false);
     }
-    console.log(user);
+  };
+  const handleFacebookLogin = async (response) => {
+    // console.log(response);
+    const facebookUser = {
+      firstName: response.data.first_name,
+      lastName: response.data.last_name,
+      username: response.data.first_name + response.data.last_name,
+      email: response.data.email,
+      img:
+        response.data.picture.url ||
+        "/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
+      // "/assets/imgs/profile-default-icon-2048x2045-u3j7s5nj.png",
+      isSeller: false,
+      phone: "00",
+      country: "**",
+      password: "**",
+      desc: "",
+    };
+    try {
+      const response = await fetch(
+        "https://workwave-vq08.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(facebookUser),
+        }
+      );
 
-    // if (LoggedSuccess) ;
+      if (!response.ok) {
+        const errorMessage = await response.text();
+
+        // console.log(facebookUser);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
+        );
+      }
+      setIsLoading(false);
+
+      // setRegSuccess(true);
+      // console.log("User registered successfully");
+    } catch (error) {
+      console.error("Error registering user:", error.message);
+      setIsLoading(false);
+    }
   };
   return (
     <div className="bg-blue-50 flex items-center justify-center py-20 relative">
@@ -141,11 +194,10 @@ function Login() {
       />
       <div className="bg-white w-10/12 md:w-3/5 flex flex-col items-center justify-center py-10 rounded-3xl">
         <h2 className="sub-font-2 font-bold text-2xl">Sign In</h2>
-        <div className="flex flex-col md:flex-row gap-5 md:gap-10 my-10">
-          <p className="flex items-center gap-3 border border-[#ccc] rounded-lg py-2 px-4 sub-font-2 text-xs font-medium">
-            <FaFacebook className="text-3xl text-[#1877F2]" /> Sign in with
-            Facebook
-          </p>
+        <div className="flex items-center flex-col md:flex-row gap-5 md:gap-10 my-10">
+          {/* <p className="flex items-center gap-3 border border-[#ccc] rounded-lg py-2 px-4 sub-font-2 text-xs font-medium"> */}
+          <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} />
+          {/* </p> */}
 
           <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
         </div>

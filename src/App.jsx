@@ -22,10 +22,12 @@ import Profile from "./Pages/Profile/Profile";
 import Messages from "./Pages/Messages/Messages";
 import Message from "./Pages/Message/Message";
 import SingleGig from "./Pages/SingleGig/SingleGig";
-// import Wishlist from "./Components/Wishlist/Wishlist";
 import Creategig from "./Pages/Creategig/Creategig";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Payment from "./Components/Payment/Payment";
+import Order from "./Pages/Orders/Order";
+import WishListCom from "./Components/Wishlist/WishListCom";
+// import { WishProvider } from "./WishListContext";
 // const queryClient = new QueryClient();
 const routes = createBrowserRouter([
   // It may be changed or removed at the time of merging
@@ -53,25 +55,31 @@ const routes = createBrowserRouter([
       },
       {
         path: "/categories",
+        element: <CategoriesPage></CategoriesPage>,
+      },
+      {
+        path: "/messages",
         element: (
           <ProtectedRoute>
-            <IsSeller>
-              <CategoriesPage></CategoriesPage>
-            </IsSeller>
+            <Messages />
           </ProtectedRoute>
         ),
       },
       {
-        path: "/messages",
-        element: <Messages />,
-      },
-      {
         path: "/message/:id",
-        element: <Message />,
+        element: (
+          <ProtectedRoute>
+            <Message />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/conversationList",
-        element: <ConversationsList />,
+        element: (
+          <ProtectedRoute>
+            <ConversationsList />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/singlegig/:id",
@@ -83,11 +91,32 @@ const routes = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <Payment></Payment>,
+        element: (
+          <ProtectedRoute>
+            <Payment></Payment>
+          </ProtectedRoute>
+        ),
       },
-      // { path: "/wishlist", element: <Wishlist></Wishlist> },
-      { path: "/newGig", element: <Creategig></Creategig> },
-      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/wishlist", element: <WishListCom></WishListCom> },
+      { path: "/order", element: <Order></Order> },
+      {
+        path: "/newGig",
+        element: (
+          <ProtectedRoute>
+            <IsSeller>
+              <Creategig></Creategig>
+            </IsSeller>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
@@ -100,7 +129,9 @@ function App() {
         <GigContextProvider>
           <ConversationContextProvider>
             <MessageContextProvider>
+              {/* <WishProvider> */}
               <RouterProvider router={routes} />
+              {/* </WishProvider> */}
               <WhatsAppWidget
                 phoneNumber="+201064592515"
                 // textReplyTime="Available 24/7"

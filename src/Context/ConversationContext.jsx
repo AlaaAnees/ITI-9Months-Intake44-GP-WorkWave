@@ -12,7 +12,7 @@ const ConversationContextProvider = (props) => {
   const [error, setError] = useState(null);
   const { token } = useContext(AuthContext);
 
-  // ====================== Function to create a new conversation 🆕======================
+  //! ====================== Function to create a new conversation 🆕======================
   const createConversation = async (to) => {
     try {
       // Send POST request to create conversation
@@ -40,7 +40,7 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  //====================== Function to fetch all conversations 🗨️ ======================
+  //!====================== Function to fetch all conversations 🗨️ ======================
   const fetchConversations = async () => {
     try {
       // Fetch data from the conversation endpoint with the token included in the headers
@@ -62,7 +62,7 @@ const ConversationContextProvider = (props) => {
 
       const jsonData = await response.json();
 
-      console.log("form fetch: ", jsonData); //for check 🧪
+      // console.log("form fetch: ", jsonData); //for check 🧪
 
       // Set the fetched data to the state
       setConversationData(jsonData);
@@ -74,7 +74,7 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  //======================= Function to fetch a single conversation 1️⃣=======================
+  //!======================= Function to fetch a single conversation 1️⃣=======================
   const fetchSingleConversation = async (conversationId) => {
     try {
       // Fetch data from the single conversation endpoint with the token included in the headers
@@ -104,7 +104,7 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  //====================== Function to update an existing conversation ♻️======================
+  //!====================== Function to update an existing conversation ♻️======================
   const updateConversation = async (conversationId) => {
     try {
       // Send PUT request to update conversation
@@ -130,7 +130,7 @@ const ConversationContextProvider = (props) => {
     }
   };
 
-  // Fetch all conversations when the component mounts
+  //! Fetch all conversations when the component mounts
   useEffect(() => {
     fetchConversations();
   }, []);
@@ -146,6 +146,7 @@ const ConversationContextProvider = (props) => {
         createConversation,
         updateConversation,
         fetchSingleConversation,
+        fetchConversations,
       }}
     >
       {props.children} {/* Include children prop */}

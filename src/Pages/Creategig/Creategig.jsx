@@ -3,15 +3,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import upload from "../../Utils/uploadImg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
 const BASE_URL = "https://workwave-vq08.onrender.com/api";
+
 function Creategig() {
   const navigate = useNavigate();
   const [coverImage, setCoverImage] = useState(null);
   const [sliderImage, setSliderImage] = useState([]);
-
+  const [isloading, setIsLoading] = useState(false);
   const handleSliderImages = (e) => {
     const files = Array.from(e.target.files);
+    // console.log(files);
     setSliderImage(files);
   };
 
@@ -22,7 +26,7 @@ function Creategig() {
       shortDesc: "",
       desc: "",
       features: "",
-      cat: "",
+      cat: "design",
       deliveryTime: "",
       revisionNumber: "",
       price: "",
@@ -45,7 +49,7 @@ function Creategig() {
         .min(40, "Description must be at least 40 characters")
         .max(200, "Description must be less than 200 characters"),
       features: Yup.string().required("Features are required"),
-      cat: Yup.string().required("Category is required"),
+      cat: Yup.string(),
       deliveryTime: Yup.number().required("Delivery time is required"),
       revisionNumber: Yup.number().required("Revision number is required"),
       price: Yup.number().required("Price is required"),
@@ -54,10 +58,11 @@ function Creategig() {
   });
 
   async function handleSubmit() {
+    setIsLoading(true);
     const token = JSON.parse(localStorage.getItem("token"));
     const coverUrl = await upload(coverImage);
     const sliderImageUrls = await Promise.all(
-      sliderImage.map((file) => upload(file))
+      sliderImage?.map((file) => upload(file))
     );
 
     const formData = {
@@ -76,8 +81,10 @@ function Creategig() {
         },
       });
       const data = await res.json();
-      console.log(data);
-      navigate(`/singlegig/${data._id}`);
+      // console.log(data);
+      // navigate(`/singlegig/${data._id}`);
+      navigate("/categories");
+      setIsLoading(false);
     } catch (err) {
       console.error("Error creating gig:", err);
     }
@@ -345,7 +352,11 @@ function Creategig() {
               type="submit"
               className="bg-[#60A5FA]  p-3 rounded-md text-white my-2"
             >
-              create
+              {isloading ? (
+                <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />
+              ) : (
+                "create"
+              )}
             </button>
           </div>
         </form>

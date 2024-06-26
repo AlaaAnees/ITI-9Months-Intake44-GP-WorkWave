@@ -11,11 +11,11 @@ const upload = async (file) => {
       }
     );
     const dataUrl = await res.json();
-    console.log(dataUrl, "cloud");
+    // console.log(dataUrl, "cloud");
 
     return dataUrl.secure_url;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return null;
   }
 };

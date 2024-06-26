@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router";
 import { ConversationContext } from "../../Context/ConversationContext";
 
 const Contact = ({ IDs }) => {
-  console.log("Inside contact", IDs);
+  // console.log("Inside contact", IDs);
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const {
@@ -28,9 +28,9 @@ const Contact = ({ IDs }) => {
       // console.log("Afterrrr clickkkkkkkk:", res);
       navigate(`/message/${res.id}`);
     } catch (err) {
-      console.log("I am here", err);
+      // console.log("I am here", err);
       const res = createConversation(currentUser.seller ? buyerId : sellerId);
-      console.log("Afterrrr clickkkkkkkk To createee:", res);
+      // console.log("Afterrrr clickkkkkkkk To createee:", res);
       navigate(`/message/${res.id}`);
     }
   };

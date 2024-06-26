@@ -1,11 +1,8 @@
-import {
-  useContext,
-  useEffect,
-} from 'react';
+import { useContext, useEffect } from "react";
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import { AuthContext } from '../../Context/authContext';
+import { AuthContext } from "../../Context/authContext";
 
 function ProtectedRoute({ children }) {
   const { token } = useContext(AuthContext);
@@ -15,7 +12,7 @@ function ProtectedRoute({ children }) {
       navigate("/login");
     }
   }, [token, navigate]);
-  console.log(token);
+  // console.log(token);
 
   return token ? children : null;
 }

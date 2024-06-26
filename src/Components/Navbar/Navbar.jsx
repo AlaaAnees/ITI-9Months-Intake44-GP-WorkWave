@@ -3,8 +3,9 @@ import { FaHeart } from "react-icons/fa";
 
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
+
 import { IoSearchOutline } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../Context/authContext";
 
@@ -21,6 +22,7 @@ function Navbar() {
 
   const dropdownRef = useRef(null);
   const searchRef = useRef(null);
+  const navigate = useNavigate();
 
   const fetching = async (searchInput, controller) => {
     try {
@@ -75,6 +77,11 @@ function Navbar() {
       setDropDownVisibility(false);
     }
   };
+  const handleSearchNavigation = (item) => {
+    navigate(`/singlegig/${item._id}`);
+    setSearchInput("");
+    setFiltered([]);
+  };
 
   useEffect(() => {
     document.addEventListener("click", handleDropDown);
@@ -85,6 +92,8 @@ function Navbar() {
 
   console.log(userData);
 
+  document.addEventListener("click", handleDropDown);
+  // console.log(userData);
   document.addEventListener("click", handleDropDown);
   // console.log(userData);
   return (
@@ -167,9 +176,10 @@ function Navbar() {
                 <div
                   key={item.id}
                   className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
+                  onClick={() => handleSearchNavigation(item)}
                 >
                   <img src={item.cover} alt="category img" className="w-1/6" />
-                  <Link className="sub-font-2 font-medium">{item.title}</Link>
+                  <p className="sub-font-2 font-medium">{item.title}</p>
                 </div>
               ))}
             </div>
@@ -206,7 +216,7 @@ function Navbar() {
             >
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/profile"}
+                to={`/profile/${userData._id}`}
               >
                 <CgProfile />
                 Profile
@@ -309,13 +319,19 @@ function Navbar() {
                 >
                   Categories
                 </NavLink>
+                <NavLink
+                  to="/categories"
+                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
+                >
+                  Categories
+                </NavLink>
                 <div className="-mx-3">
                   {/* 'Product' sub-menu, show/hide based on menu state. */}
                 </div>
                 {userData && (
                   <NavLink
                     className="-mx-3 flex flex-col items-center rounded-lg justify-center it px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/profile"
+                    to={`/profile/${userData._id}`}
                     onClick={() => setIsMobile(false)}
                   >
                     <img
@@ -332,8 +348,26 @@ function Navbar() {
                     type="text"
                     placeholder="Anything"
                     className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
+                    onChange={handleSearch}
+                    value={searchInput}
                   />
                   <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
+                  <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
+                    {filtered.map((item) => (
+                      <div
+                        key={item.id}
+                        className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
+                        onClick={() => handleSearchNavigation(item)}
+                      >
+                        <img
+                          src={item.cover}
+                          alt="category img"
+                          className="w-1/6"
+                        />
+                        <p className="sub-font-2 font-medium">{item.title}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* {userData && (

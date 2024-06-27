@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { useState } from 'react';
+
+import { FaStar } from 'react-icons/fa';
+import ReactStars from 'react-rating-stars-component';
+
 const baseURL = "https://workwave-vq08.onrender.com/api";
 function Review({ gig }) {
   const { reviews } = gig;
   const [newReview, setNewReview] = useState("");
   const [desc, setDesc] = useState("");
   const [star, setStars] = useState(0);
+  const [rating, setRating] = useState(0);
+
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+  };
   async function handlePostReview() {
     setNewReview("");
     const token = JSON.parse(localStorage.getItem("token"));
@@ -105,29 +113,34 @@ function Review({ gig }) {
           </div>
         </div>
       )}
-      <div className="add-review mt-8 flex flex-col gap-4">
+      <div className="add-review mt-8 flex flex-col gap-4 md:w-1/2">
         <textarea
-          className="resize-none p-4 rounded-md"
+          rows="4"
+          className="w-full  p-2"
           placeholder="Review"
           name="desc"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
-        <input
-          className="p-2 rounded-md"
-          type="number"
-          name="star"
-          min={0}
-          max={5}
-          value={star}
-          onChange={(e) => setStars(e.target.value)}
-        />
-        <button
-          className="bg-blue-500 rounded py-2 px-4 text-white"
-          onClick={handlePostReview}
-        >
-          Submit Review
-        </button>
+        <div className="self-end flex flex-col items-center">
+          <ReactStars
+            count={5}
+            onChange={ratingChanged}
+            size={28}
+            isHalf={false}
+            emptyIcon={<i className="far fa-star"></i>}
+            halfIcon={<i className="fa fa-star-half-alt"></i>}
+            fullIcon={<i className="fa fa-star"></i>}
+            activeColor="#FFB340"
+            classNames="mx-auto"
+          />
+          <button
+            className="bg-blue-500   rounded py-2 px-4 text-white block ms-auto hover:bg-blue-600 transition-all self-end"
+            onClick={handlePostReview}
+          >
+            Submit Review
+          </button>
+        </div>
       </div>
     </div>
   );

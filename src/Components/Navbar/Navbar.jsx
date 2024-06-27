@@ -15,10 +15,6 @@ function Navbar() {
   const [searchInput, setSearchInput] = useState("");
   const [filtered, setFiltered] = useState([]);
 
-  console.log("pppppppppppppppppppp", userData);
-
-  // const { token } = useContext(AuthContext);
-
   const dropdownRef = useRef(null);
   const searchRef = useRef(null);
 
@@ -29,7 +25,6 @@ function Navbar() {
       });
       const data = await res.json();
       setFiltered(data.filter((item) => item.title.includes(searchInput)));
-      console.log(data);
     } catch (error) {
       if (error.name === "AbortError") {
         console.log("Fetch aborted");
@@ -60,7 +55,6 @@ function Navbar() {
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleLogOut = () => {
@@ -83,10 +77,8 @@ function Navbar() {
     };
   }, []);
 
-  console.log(userData);
-
   document.addEventListener("click", handleDropDown);
-  // console.log(userData);
+
   return (
     <header className="bg-white">
       <nav
@@ -206,7 +198,7 @@ function Navbar() {
             >
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/profile"}
+                to={`/profile/${userData._id}`}
               >
                 <CgProfile />
                 Profile
@@ -315,7 +307,7 @@ function Navbar() {
                 {userData && (
                   <NavLink
                     className="-mx-3 flex flex-col items-center rounded-lg justify-center it px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/profile"
+                    to={`/profile/${userData._id}`}
                     onClick={() => setIsMobile(false)}
                   >
                     <img
@@ -335,17 +327,6 @@ function Navbar() {
                   />
                   <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
                 </div>
-
-                {/* {userData && (
-                  <NavLink
-                    className="-mx-3 flex items-center gap-1 rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/wishlist"
-                    onClick={handleLogOut}
-                  >
-                    wishlist
-                    <FaHeart className="text-red-600 text-sm"></FaHeart>
-                  </NavLink>
-                )} */}
 
                 {userData && (
                   <NavLink
@@ -368,7 +349,7 @@ function Navbar() {
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/order"
+                    to="/orders"
                     onClick={() => setIsMobile(false)}
                   >
                     Orders

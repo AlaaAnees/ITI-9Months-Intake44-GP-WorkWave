@@ -14,7 +14,6 @@ function GigsContainer({ minPrice, maxPrice }) {
   const isadmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
   const token = JSON.parse(localStorage.getItem("token"));
   async function handleDeleteGig(id) {
-    console.log("hi");
     const res = await fetch(
       `https://workwave-vq08.onrender.com/api/gigs/delete/${id}`,
       {

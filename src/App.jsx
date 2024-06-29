@@ -28,6 +28,7 @@ import Payment from "./Components/Payment/Payment";
 import Order from "./Pages/Orders/Order";
 import WishListCom from "./Components/Wishlist/WishListCom";
 import IsAdmin from "./Components/ProtectRoute/IsAdmin";
+import BecomeAseller from "./Components/BecomeASeller/BecomeAseller";
 // import { WishProvider } from "./WishListContext";
 // const queryClient = new QueryClient();
 const routes = createBrowserRouter([
@@ -122,6 +123,10 @@ const routes = createBrowserRouter([
             </IsAdmin>
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/become",
+        element: <BecomeAseller />,
       },
     ],
   },

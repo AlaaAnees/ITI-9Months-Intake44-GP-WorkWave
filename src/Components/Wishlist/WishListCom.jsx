@@ -21,8 +21,6 @@ function WishListCom() {
     const data = await res.json();
     setfav(data.data.userFavorites);
     setisloading(false);
-
-    console.log("eman eman eman", data.data.userFavorites);
   }
 
   async function handleRemoveFav(gig) {
@@ -36,7 +34,7 @@ function WishListCom() {
       }
     );
     const fav = await res.json();
-    setfav(fav.data.userFavorites);
+    setfav(fav.data?.userFavorites);
   }
   useEffect(() => {
     getUserFav();

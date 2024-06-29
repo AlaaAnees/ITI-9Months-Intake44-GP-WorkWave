@@ -140,17 +140,19 @@ function Navbar() {
               )}
             </div>
             <NavLink
-              to="/explore"
+              to={"/categories"}
               className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
             >
-              Explore
+              Categories
             </NavLink>
-            <NavLink
-              to="become-seller"
-              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
-            >
-              Become a seller
-            </NavLink>
+            {!userData?.isAdmin && !userData?.isSeller ? (
+              <NavLink
+                to="/become"
+                className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+              >
+                Become a seller
+              </NavLink>
+            ) : null}
           </div>
           <div className="hidden relative lg:block">
             <input
@@ -206,19 +208,6 @@ function Navbar() {
             >
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={`/profile/${userData._id}`}
-              >
-                <CgProfile />
-                Profile
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/categories"}
-              >
-                Gigs
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/newGig"}
               >
                 Add New Gigs
@@ -231,13 +220,15 @@ function Navbar() {
                 <CgProfile />
                 Profile
               </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/wishlist"}
-              >
-                <FaHeart className="text-red-600"></FaHeart>
-                Wishlist
-              </Link>
+              {!userData?.isAdmin && !userData?.isSeller ? (
+                <Link
+                  className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                  to={"/wishlist"}
+                >
+                  <FaHeart className="text-red-600"></FaHeart>
+                  Wishlist
+                </Link>
+              ) : null}
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/orders"}
@@ -303,18 +294,6 @@ function Navbar() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <NavLink
-                  to="/categories"
-                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
-                >
-                  Categories
-                </NavLink>
-                <NavLink
-                  to="/categories"
-                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
-                >
-                  Categories
-                </NavLink>
                 <div className="-mx-3">
                   {/* 'Product' sub-menu, show/hide based on menu state. */}
                 </div>
@@ -380,6 +359,15 @@ function Navbar() {
                 )}
                 {userData && (
                   <NavLink
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10 flex gap-1 items-center"
+                    to={`/profile/${userData._id}`}
+                  >
+                    <CgProfile />
+                    Profile
+                  </NavLink>
+                )}
+                {userData && (
+                  <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
                     to="/orders"
                     onClick={() => setIsMobile(false)}
@@ -388,14 +376,15 @@ function Navbar() {
                   </NavLink>
                 )}
 
-                {userData && (
-                  <Link
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to={"/wishlist"}
-                  >
-                    Wishlist
-                  </Link>
-                )}
+                {userData &&
+                  (!userData?.isAdmin && !userData?.isSeller ? (
+                    <Link
+                      className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                      to={"/wishlist"}
+                    >
+                      Wishlist
+                    </Link>
+                  ) : null)}
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
@@ -406,17 +395,19 @@ function Navbar() {
                   </NavLink>
                 )}
                 <NavLink
-                  to="/explore"
+                  to={"/categories"}
                   className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
                 >
-                  Explore
+                  categories
                 </NavLink>
-                <NavLink
-                  to="/become-seller"
-                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
-                >
-                  Become a seller
-                </NavLink>
+                {!userData?.isAdmin && !userData?.isSeller ? (
+                  <NavLink
+                    to="/become"
+                    className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+                  >
+                    Become a seller
+                  </NavLink>
+                ) : null}
               </div>
               {!userData ? (
                 <div className="py-6">
@@ -435,19 +426,6 @@ function Navbar() {
                 </div>
               ) : (
                 <div className="py-6">
-                  <NavLink
-                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
-                    to={"/profile"}
-                  >
-                    <CgProfile />
-                    Profile
-                  </NavLink>
-                  <NavLink
-                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
-                    to={"/categories"}
-                  >
-                    Gigs
-                  </NavLink>
                   <NavLink
                     className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
                     onClick={handleLogOut}

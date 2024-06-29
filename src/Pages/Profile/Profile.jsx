@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { FaStar } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdCall } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,6 +14,7 @@ import { AuthContext } from "../../Context/authContext";
 
 function Profile() {
   const [isloading, setisloading] = useState(false);
+  const [sellerGigs, setSellerGigs] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
   const { userData, setUserData } = useContext(AuthContext);
   const { setToken } = useContext(AuthContext);
@@ -46,6 +47,24 @@ function Profile() {
     handleLogOut();
     navigate("/");
   }
+  useEffect(() => {
+    async function GetALLSellerGigs() {
+      if (userData.isSeller) {
+        const res = await fetch(
+          `https://workwave-vq08.onrender.com/api/gigs/${userData._id}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setSellerGigs(data.data.gigs);
+      }
+    }
+    GetALLSellerGigs();
+  }, []);
+
   return (
     <div className="bg-blue-50 px-16 py-8">
       <p className="text-[#595959] text-right">
@@ -138,8 +157,22 @@ function Profile() {
           </p>
         </div>
       </div>
-      <Gigs />
-      <ProfileReviews />
+
+      {sellerGigs.length > 0 ? (
+        <Gigs sellerGigs={sellerGigs} />
+      ) : (
+        userData.isSeller && (
+          <div className="text-center mt-16">
+            <Link
+              to={"/newGig"}
+              className="bg-[#60A5FA] p-3 rounded-md text-white my-2"
+            >
+              Create new gig
+            </Link>
+          </div>
+        )
+      )}
+      {/* <ProfileReviews /> */}
     </div>
   );
 }

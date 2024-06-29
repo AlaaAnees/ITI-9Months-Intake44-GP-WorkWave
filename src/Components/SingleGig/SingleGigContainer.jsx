@@ -24,7 +24,6 @@ function SingleGigContainer({ gig }) {
     console.log(data);
     setIsloading(false);
   }
-  // console.log("aaaaaaaaaaaaaaaaaaa", gig);
   useEffect(() => {
     async function fetchOwnerInfo() {
       try {
@@ -221,7 +220,7 @@ function SingleGigContainer({ gig }) {
             <img
               src={gig.cover}
               alt=""
-              className="object-cover h-48 w-full rounded-lg shadow-lg"
+              className="object-cover h-80 w-full rounded-lg shadow-lg"
             />
           </div>
           <div className="my-5">

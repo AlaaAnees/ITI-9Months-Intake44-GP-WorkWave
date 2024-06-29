@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import ReactStars from "react-rating-stars-component";
+import ReactStars from 'react-rating-stars-component';
 
 const AddReview = () => {
   const [rating, setRating] = useState(0);
@@ -15,7 +15,7 @@ const AddReview = () => {
         className="w-full  p-2"
         placeholder="Review"
       ></textarea>
-      <div className="align-self-end">
+      <div className="self-end">
         <ReactStars
           count={5}
           onChange={ratingChanged}
@@ -27,7 +27,7 @@ const AddReview = () => {
           activeColor="#FFB340"
         />
         <button
-          className="bg-blue-400 hover:bg-blue-500 transition-all duration-300 font-semibold text-white rounded-md sub-font-3 w-full py-1"
+          className="bg-blue-400 hover:bg-blue-500 transition-all duration-300 font-semibold text-white rounded-md sub-font-3 self-end w-32 py-3"
           // onClick={() => console.log(rating)}
         >
           Send

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import { FaStar } from "react-icons/fa";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 function SingleGigContainer({ gig }) {
   const { userId, images, features } = gig;
   const [ownerData, setOwnerData] = useState("");
@@ -188,8 +191,8 @@ function SingleGigContainer({ gig }) {
   return (
     <div className="container mx-auto p-8 bg-gray-50">
       <div className="grid sm:grid-cols-2 gap-8">
-        <div>
-          <div className="font-bold text-2xl my-5 text-blue-400">
+        <div className="md:ps-20">
+          <div className="font-bold sub-font text-2xl my-5 text-blue-400">
             {gig.title}
           </div>
           <div className="flex items-center gap-8 my-4">
@@ -197,9 +200,11 @@ function SingleGigContainer({ gig }) {
               <img
                 src={ownerData.img}
                 alt={ownerData.username}
-                className="w-10 rounded-full me-3"
+                className="w-10  rounded-full me-3"
               />
-              <div>{ownerData.username}</div>
+              <div className="main-font font-semibold">
+                {ownerData.username}
+              </div>
             </div>
             <div>
               {!isNaN(gig.totalStars / gig.starNumber) && (
@@ -220,24 +225,26 @@ function SingleGigContainer({ gig }) {
             <img
               src={gig.cover}
               alt=""
-              className="object-cover h-80 w-full rounded-lg shadow-lg"
+              className="object-cover h-48 w-full md:w-1/2 rounded-lg shadow-lg"
             />
           </div>
           <div className="my-5">
-            <h4 className="font-semibold text-lg text-blue-400">
+            <h4 className="font-semibold text-lg text-blue-400 sub-font-2">
               About This Gig
             </h4>
-            <p className="font-light text-sm text-gray-700">{gig.desc}</p>
+            <p className="font-light text-sm text-gray-700 mx-4 sub-font-3">
+              {gig.desc}
+            </p>
           </div>
           <div className="my-5">
-            <h4 className="font-semibold text-lg text-blue-400">
+            <h4 className="font-semibold text-lg text-blue-400 sub-font-2">
               Package Includes
             </h4>
             <ul className="flex flex-wrap gap-4 mt-2">
               {features.map((feature, index) => (
                 <li
                   key={index}
-                  className="border border-blue-400 text-xs py-1 px-3 rounded-full text-blue-400 text-center"
+                  className="border border-blue-400 text-xs mx-4 py-1 px-3 rounded-full text-blue-400 text-center sub-font-3"
                 >
                   {feature}
                 </li>
@@ -245,7 +252,7 @@ function SingleGigContainer({ gig }) {
             </ul>
           </div>
           <button
-            className="bg-blue-500 rounded py-2 px-4 text-white my-10 me-10 block ms-auto hover:bg-blue-600 transition"
+            className="bg-blue-500 rounded py-2 px-4 text-white mt-10  block hover:bg-blue-600 transition"
             onClick={handleAddtoOrder}
           >
             {isloading ? (
@@ -255,7 +262,7 @@ function SingleGigContainer({ gig }) {
             )}
           </button>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-start justify-center mt-10">
           <div className="bg-white rounded-md p-7 flex items-center gap-5 shadow-lg">
             <img
               src={ownerData.img}

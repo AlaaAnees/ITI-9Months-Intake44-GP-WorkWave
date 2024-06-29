@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState } from "react";
+
 import { useParams } from "react-router";
-import SingleGigContainer from "../../Components/SingleGig/SingleGigContainer";
+
 import Review from "../../Components/Reviews/Review";
+import SingleGigContainer from "../../Components/SingleGig/SingleGigContainer";
+
 import { AuthContext } from "../../Context/authContext";
 const baseURL = "https://workwave-vq08.onrender.com";
 function SingleGig() {

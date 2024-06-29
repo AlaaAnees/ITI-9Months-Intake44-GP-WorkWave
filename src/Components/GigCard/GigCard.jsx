@@ -4,7 +4,9 @@ import AddToWishlist from "../Wishlist/AddToWishlist";
 import Rating from "../Rating/Rating";
 
 function GigCard({ gig, display }) {
-  const isadmin = JSON.parse(localStorage.getItem("user")).isAdmin;
+  const isadmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
+  const isSeller = JSON.parse(localStorage.getItem("user"))?.isSeller;
+  const token = JSON.parse(localStorage.getItem("token"));
 
   return (
     <li key={gig._id} className="rounded-xl shadow-md bg-white  ">
@@ -35,7 +37,9 @@ function GigCard({ gig, display }) {
               $ {gig.price}
             </span>
 
-            {display && !isadmin && <AddToWishlist gig={gig}></AddToWishlist>}
+            {display && !isadmin && token && !isSeller && (
+              <AddToWishlist gig={gig}></AddToWishlist>
+            )}
           </div>
         </div>
       </Link>

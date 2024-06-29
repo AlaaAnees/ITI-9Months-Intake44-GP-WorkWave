@@ -51,7 +51,7 @@ function AddToWishlist({ gig }) {
 
       setisloading(false);
 
-      const foundGig = data.data.userFavorites.find((gigitem) => {
+      const foundGig = data.data?.userFavorites.find((gigitem) => {
         return gigitem._id === gig._id;
       });
 
@@ -64,7 +64,7 @@ function AddToWishlist({ gig }) {
 
   return (
     <div>
-      {isloading ? (
+      {isloading && !token ? (
         ""
       ) : (
         <FaHeart

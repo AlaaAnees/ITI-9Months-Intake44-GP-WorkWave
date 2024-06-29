@@ -147,7 +147,7 @@ function Navbar() {
             </NavLink>
             {!userData?.isAdmin && !userData?.isSeller ? (
               <NavLink
-                to="become"
+                to="/become"
                 className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
               >
                 Become a seller
@@ -220,13 +220,15 @@ function Navbar() {
                 <CgProfile />
                 Profile
               </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/wishlist"}
-              >
-                <FaHeart className="text-red-600"></FaHeart>
-                Wishlist
-              </Link>
+              {!userData?.isAdmin && !userData?.isSeller ? (
+                <Link
+                  className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                  to={"/wishlist"}
+                >
+                  <FaHeart className="text-red-600"></FaHeart>
+                  Wishlist
+                </Link>
+              ) : null}
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/orders"}
@@ -374,14 +376,15 @@ function Navbar() {
                   </NavLink>
                 )}
 
-                {userData && (
-                  <Link
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to={"/wishlist"}
-                  >
-                    Wishlist
-                  </Link>
-                )}
+                {userData &&
+                  (!userData?.isAdmin && !userData?.isSeller ? (
+                    <Link
+                      className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                      to={"/wishlist"}
+                    >
+                      Wishlist
+                    </Link>
+                  ) : null)}
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
@@ -391,15 +394,15 @@ function Navbar() {
                     Messages
                   </NavLink>
                 )}
-                {/* <NavLink
+                <NavLink
                   to={"/categories"}
                   className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
                 >
-                  Explore
-                </NavLink> */}
+                  categories
+                </NavLink>
                 {!userData?.isAdmin && !userData?.isSeller ? (
                   <NavLink
-                    to="become"
+                    to="/become"
                     className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
                   >
                     Become a seller

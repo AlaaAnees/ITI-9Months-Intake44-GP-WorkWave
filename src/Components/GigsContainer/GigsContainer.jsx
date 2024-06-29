@@ -11,7 +11,7 @@ function GigsContainer({ minPrice, maxPrice }) {
   const [gigs, setGigs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isdelete, setisdeleted] = useState(false);
-  const isadmin = JSON.parse(localStorage.getItem("user")).isAdmin;
+  const isadmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
   const token = JSON.parse(localStorage.getItem("token"));
   async function handleDeleteGig(id) {
     console.log("hi");

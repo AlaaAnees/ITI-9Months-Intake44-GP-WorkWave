@@ -22,11 +22,15 @@ const Contact = ({ IDs }) => {
   const checkConversation = useCallback(async () => {
     try {
       const conversation = await fetchSingleConversation(id);
+      console.log(
+        "------------------------------------------------------->from conversationnnnnnnn",
+        conversation
+      );
       if (conversation) {
         setConversationExists(true);
         setConversationId(conversation.id);
       } else {
-        setConversationExists(false);
+        await setConversationExists(false);
       }
     } catch (error) {
       console.error("Error checking conversation:", error);
@@ -40,14 +44,15 @@ const Contact = ({ IDs }) => {
 
   const handleContact = async () => {
     if (conversationExists) {
-      navigate(`/message/${conversationId}`);
+      await navigate(`/message/${conversationId}`);
+      console.log(conversationId);
     } else {
       try {
         const newConversation = await createConversation(
           currentUser.isSeller ? IDs.buyerId : IDs.sellerId
         );
         if (newConversation) {
-          navigate(`/message/${newConversation.id}`);
+          navigate(`/message/${newConversation.data.savedConversation.id}`);
         } else {
           console.error("Error creating conversation: No response data");
         }

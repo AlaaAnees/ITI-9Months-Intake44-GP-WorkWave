@@ -1,33 +1,38 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'aos/dist/aos.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "aos/dist/aos.css";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import AOS from 'aos';
-import { NavLink } from 'react-router-dom';
-import Slider from 'react-slick';
+import AOS from "aos";
+import { NavLink } from "react-router-dom";
+import Slider from "react-slick";
 
 const popularServicesData = [
   {
     title: "Logo Design",
     imgUrl: "/assets/imgs/unsplash_gxGtqG5ul2g.png",
+    id: "667b36e91e91bc64375450c5",
   },
   {
     title: "WordPress",
     imgUrl: "/assets/imgs/2.png",
+    id: "667b37721e91bc6437547383",
   },
   {
     title: "Graphic Design",
     imgUrl: "/assets/imgs/3.png",
+    id: "667b4b0f01d8783dddf05303",
   },
   {
-    title: "Voice Over",
+    title: "Programming",
     imgUrl: "/assets/imgs/4.png",
+    id: "667b4b6f01d8783dddf0535a",
   },
   {
-    title: "Video Explainer",
+    title: "Digital Marketing",
     imgUrl: "/assets/imgs/5.png",
+    id: "667b45b001d8783dddf02f46",
   },
 ];
 
@@ -76,7 +81,7 @@ const PopularServices = () => {
         <Slider {...settings}>
           {popularServicesData.map((service, index) => (
             <div key={index}>
-              <NavLink to={"/any"} data-aos="zoom-in-up">
+              <NavLink to={`/singlegig/${service.id}`} data-aos="zoom-in-up">
                 <div className="relative text-white hover:text-blue-400 transition-all duration-300">
                   <img
                     src={service.imgUrl}

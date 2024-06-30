@@ -1,5 +1,5 @@
 // import { createContext, useContext, useEffect, useReducer } from "react";
-// const BASE_URL = "https://workwave-vq08.onrender.com";
+// const BASE_URL = "https://gp-workwave-production.up.railway.app";
 // const GigContext = createContext();
 // const initalstate = {
 //   gigs: [],
@@ -82,7 +82,7 @@
 // }
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-const BASE_URL = "https://workwave-vq08.onrender.com";
+const BASE_URL = "https://gp-workwave-production.up.railway.app";
 const GigContext = createContext();
 
 const initialState = {

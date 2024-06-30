@@ -3,8 +3,10 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 
 import AOS from 'aos';
+import { useNavigate } from 'react-router';
 
 const JoinWorkWave = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
       offset: 200,
@@ -22,15 +24,18 @@ const JoinWorkWave = () => {
             Your go-to for freelance talent,
             <br /> just a tap away!
           </h2>
-          <button className="sub-font-3 bg-white py-2 px-3 text-[20px] font-bold rounded-lg text-blue-950 hover:bg-blue-950 hover:border border-white hover:text-white transition-all duration-300">
+          <button
+            onClick={() => navigate("/register")}
+            className="sub-font-3 bg-white py-2 px-3 text-[20px] font-bold rounded-lg text-blue-950 hover:bg-blue-950 hover:border border-white hover:text-white transition-all duration-300"
+          >
             Join WorkWave
           </button>
         </div>
         <div className="hidden lg:block">
           <div className=" md:flex gap-1 ">
-            <img src="/assets/imgs/Shapes.png" alt="" />
-            <img src="/assets/imgs/Shapes.png" alt="" />
-            <img src="/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="shape" />
+            <img src="/assets/imgs/Shapes.png" alt="shape" />
+            <img src="/assets/imgs/Shapes.png" alt="shape" />
           </div>
           <div className="my-5">
             <img
@@ -39,9 +44,9 @@ const JoinWorkWave = () => {
             />
           </div>
           <div className=" md:flex gap-1">
-            <img src="/assets/imgs/Shapes.png" alt="" />
-            <img src="/assets/imgs/Shapes.png" alt="" />
-            <img src="/assets/imgs/Shapes.png" alt="" />
+            <img src="/assets/imgs/Shapes.png" alt="shape" />
+            <img src="/assets/imgs/Shapes.png" alt="shape" />
+            <img src="/assets/imgs/Shapes.png" alt="shape" />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ function AddToWishlist({ gig }) {
     e.preventDefault();
     if (colored == false) {
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/favorites/${gigid}`,
+        `https://gp-workwave-production.up.railway.app/api/favorites/${gigid}`,
         {
           method: "POST",
           headers: {
@@ -23,7 +23,7 @@ function AddToWishlist({ gig }) {
       console.log("add", fav);
     } else if (colored == true) {
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/favorites/${gigid}`,
+        `https://gp-workwave-production.up.railway.app/api/favorites/${gigid}`,
         {
           method: "DELETE",
           headers: {
@@ -39,7 +39,7 @@ function AddToWishlist({ gig }) {
     async function fetchWishlist() {
       setisloading(true);
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/favorites`,
+        `https://gp-workwave-production.up.railway.app/api/favorites`,
         {
           method: "GET",
           headers: {
@@ -51,7 +51,7 @@ function AddToWishlist({ gig }) {
 
       setisloading(false);
 
-      const foundGig = data.data.userFavorites.find((gigitem) => {
+      const foundGig = data.data?.userFavorites.find((gigitem) => {
         return gigitem._id === gig._id;
       });
 
@@ -64,7 +64,7 @@ function AddToWishlist({ gig }) {
 
   return (
     <div>
-      {isloading ? (
+      {isloading && !token ? (
         ""
       ) : (
         <FaHeart

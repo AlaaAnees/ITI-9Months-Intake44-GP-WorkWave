@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../Pages/Loading/Loading";
 import { useSearchParams } from "react-router-dom";
 import GigCard from "../GigCard/GigCard";
-const BASE_URL = "https://workwave-vq08.onrender.com";
+const BASE_URL = "https://gp-workwave-production.up.railway.app";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,12 +11,11 @@ function GigsContainer({ minPrice, maxPrice }) {
   const [gigs, setGigs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isdelete, setisdeleted] = useState(false);
-  const isadmin = JSON.parse(localStorage.getItem("user")).isAdmin;
+  const isadmin = JSON.parse(localStorage.getItem("user"))?.isAdmin;
   const token = JSON.parse(localStorage.getItem("token"));
   async function handleDeleteGig(id) {
-    console.log("hi");
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/gigs/delete/${id}`,
+      `https://gp-workwave-production.up.railway.app/api/gigs/delete/${id}`,
       {
         method: "Delete",
         headers: {

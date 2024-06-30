@@ -10,7 +10,7 @@ function WishListCom() {
   async function getUserFav() {
     setisloading(true);
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/favorites`,
+      `https://gp-workwave-production.up.railway.app/api/favorites`,
       {
         method: "GET",
         headers: {
@@ -21,13 +21,11 @@ function WishListCom() {
     const data = await res.json();
     setfav(data.data.userFavorites);
     setisloading(false);
-
-    console.log("eman eman eman", data.data.userFavorites);
   }
 
   async function handleRemoveFav(gig) {
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/favorites/${gig._id}`,
+      `https://gp-workwave-production.up.railway.app/api/favorites/${gig._id}`,
       {
         method: "DELETE",
         headers: {
@@ -36,7 +34,7 @@ function WishListCom() {
       }
     );
     const fav = await res.json();
-    setfav(fav.data.userFavorites);
+    setfav(fav.data?.userFavorites);
   }
   useEffect(() => {
     getUserFav();

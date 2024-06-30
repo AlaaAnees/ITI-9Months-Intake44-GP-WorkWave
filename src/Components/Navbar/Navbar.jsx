@@ -3,8 +3,9 @@ import { FaHeart } from "react-icons/fa";
 
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
+
 import { IoSearchOutline } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../Context/authContext";
 
@@ -15,21 +16,20 @@ function Navbar() {
   const [searchInput, setSearchInput] = useState("");
   const [filtered, setFiltered] = useState([]);
 
-  console.log("pppppppppppppppppppp", userData);
-
-  // const { token } = useContext(AuthContext);
-
   const dropdownRef = useRef(null);
   const searchRef = useRef(null);
+  const navigate = useNavigate();
 
   const fetching = async (searchInput, controller) => {
     try {
-      const res = await fetch("https://workwave-vq08.onrender.com/api/gigs", {
-        signal: controller.signal,
-      });
+      const res = await fetch(
+        "https://gp-workwave-production.up.railway.app/api/gigs",
+        {
+          signal: controller.signal,
+        }
+      );
       const data = await res.json();
       setFiltered(data.filter((item) => item.title.includes(searchInput)));
-      console.log(data);
     } catch (error) {
       if (error.name === "AbortError") {
         console.log("Fetch aborted");
@@ -60,7 +60,6 @@ function Navbar() {
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleLogOut = () => {
@@ -75,6 +74,11 @@ function Navbar() {
       setDropDownVisibility(false);
     }
   };
+  const handleSearchNavigation = (item) => {
+    navigate(`/singlegig/${item._id}`);
+    setSearchInput("");
+    setFiltered([]);
+  };
 
   useEffect(() => {
     document.addEventListener("click", handleDropDown);
@@ -83,10 +87,8 @@ function Navbar() {
     };
   }, []);
 
-  console.log(userData);
-
   document.addEventListener("click", handleDropDown);
-  // console.log(userData);
+
   return (
     <header className="bg-white z-30">
       <nav
@@ -141,17 +143,19 @@ function Navbar() {
               )}
             </div>
             <NavLink
-              to="/explore"
+              to={"/categories"}
               className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
             >
-              Explore
+              Categories
             </NavLink>
-            <NavLink
-              to="become-seller"
-              className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
-            >
-              Become a seller
-            </NavLink>
+            {!userData?.isAdmin && !userData?.isSeller ? (
+              <NavLink
+                to="/become"
+                className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+              >
+                Become a seller
+              </NavLink>
+            ) : null}
           </div>
           <div className="hidden relative lg:block">
             <input
@@ -167,9 +171,10 @@ function Navbar() {
                 <div
                   key={item.id}
                   className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
+                  onClick={() => handleSearchNavigation(item)}
                 >
                   <img src={item.cover} alt="category img" className="w-1/6" />
-                  <Link className="sub-font-2 font-medium">{item.title}</Link>
+                  <p className="sub-font-2 font-medium">{item.title}</p>
                 </div>
               ))}
             </div>
@@ -204,25 +209,14 @@ function Navbar() {
                 dropDownVisibility ? "" : "hidden"
               }`}
             >
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/profile"}
-              >
-                <CgProfile />
-                Profile
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/categories"}
-              >
-                Gigs
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/newGig"}
-              >
-                Add New Gigs
-              </Link>
+              {!userData?.isAdmin && userData?.isSeller ? (
+                <Link
+                  className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                  to={"/newGig"}
+                >
+                  Add New Gigs
+                </Link>
+              ) : null}
 
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
@@ -231,19 +225,23 @@ function Navbar() {
                 <CgProfile />
                 Profile
               </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/wishlist"}
-              >
-                <FaHeart className="text-red-600"></FaHeart>
-                Wishlist
-              </Link>
-              <Link
-                className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
-                to={"/orders"}
-              >
-                Orderes
-              </Link>
+              {!userData?.isAdmin && !userData?.isSeller ? (
+                <Link
+                  className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                  to={"/wishlist"}
+                >
+                  <FaHeart className="text-red-600"></FaHeart>
+                  Wishlist
+                </Link>
+              ) : null}
+              {!userData.isAdmin ? (
+                <Link
+                  className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
+                  to={"/orders"}
+                >
+                  Orderes
+                </Link>
+              ) : null}
               <Link
                 className="hover:bg-[#eee] flex items-center gap-1 hover:text-blue-500 transition-all duration-300 sub-font-3 font-semibold rounded-md p-2"
                 to={"/messages"}
@@ -303,19 +301,13 @@ function Navbar() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <NavLink
-                  to="/categories"
-                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
-                >
-                  Categories
-                </NavLink>
                 <div className="-mx-3">
                   {/* 'Product' sub-menu, show/hide based on menu state. */}
                 </div>
                 {userData && (
                   <NavLink
                     className="-mx-3 flex flex-col items-center rounded-lg justify-center it px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/profile"
+                    to={`/profile/${userData._id}`}
                     onClick={() => setIsMobile(false)}
                   >
                     <img
@@ -332,20 +324,27 @@ function Navbar() {
                     type="text"
                     placeholder="Anything"
                     className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px]"
+                    onChange={handleSearch}
+                    value={searchInput}
                   />
                   <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
+                  <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
+                    {filtered.map((item) => (
+                      <div
+                        key={item.id}
+                        className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
+                        onClick={() => handleSearchNavigation(item)}
+                      >
+                        <img
+                          src={item.cover}
+                          alt="category img"
+                          className="w-1/6"
+                        />
+                        <p className="sub-font-2 font-medium">{item.title}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-
-                {/* {userData && (
-                  <NavLink
-                    className="-mx-3 flex items-center gap-1 rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/wishlist"
-                    onClick={handleLogOut}
-                  >
-                    wishlist
-                    <FaHeart className="text-red-600 text-sm"></FaHeart>
-                  </NavLink>
-                )} */}
 
                 {userData && (
                   <NavLink
@@ -353,36 +352,48 @@ function Navbar() {
                     to="/categories"
                     onClick={() => setIsMobile(false)}
                   >
-                    Gigs
+                    Categories
                   </NavLink>
                 )}
+                {userData &&
+                  (!userData?.isAdmin && userData?.isSeller ? (
+                    <NavLink
+                      className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                      to="/newGig"
+                      onClick={() => setIsMobile(false)}
+                    >
+                      Add New Gigs
+                    </NavLink>
+                  ) : null)}
                 {userData && (
                   <NavLink
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/newGig"
-                    onClick={() => setIsMobile(false)}
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10 flex gap-1 items-center"
+                    to={`/profile/${userData._id}`}
                   >
-                    Add New Gigs
+                    <CgProfile />
+                    Profile
                   </NavLink>
                 )}
-                {userData && (
-                  <NavLink
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to="/order"
-                    onClick={() => setIsMobile(false)}
-                  >
-                    Orders
-                  </NavLink>
-                )}
+                {userData &&
+                  (!userData?.isAdmin ? (
+                    <NavLink
+                      className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                      to="/orders"
+                      onClick={() => setIsMobile(false)}
+                    >
+                      Orders
+                    </NavLink>
+                  ) : null)}
 
-                {userData && (
-                  <Link
-                    className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
-                    to={"/wishlist"}
-                  >
-                    Wishlist
-                  </Link>
-                )}
+                {userData &&
+                  (!userData?.isAdmin && !userData?.isSeller ? (
+                    <Link
+                      className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
+                      to={"/wishlist"}
+                    >
+                      Wishlist
+                    </Link>
+                  ) : null)}
                 {userData && (
                   <NavLink
                     className="-mx-3 block rounded-lg px-3 py-2 text-decoration-none text-base font-semibold leading-7 text-[#595959] hover:text-blue-400 transition-all duration-300 hover:bg-gray-50"
@@ -392,18 +403,15 @@ function Navbar() {
                     Messages
                   </NavLink>
                 )}
-                <NavLink
-                  to="/explore"
-                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
-                >
-                  Explore
-                </NavLink>
-                <NavLink
-                  to="/become-seller"
-                  className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 hover:bg-gray-400/10"
-                >
-                  Become a seller
-                </NavLink>
+
+                {!userData?.isAdmin && !userData?.isSeller ? (
+                  <NavLink
+                    to="/become"
+                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
+                  >
+                    Become a seller
+                  </NavLink>
+                ) : null}
               </div>
               {!userData ? (
                 <div className="py-6">
@@ -422,19 +430,6 @@ function Navbar() {
                 </div>
               ) : (
                 <div className="py-6">
-                  <NavLink
-                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
-                    to={"/profile"}
-                  >
-                    <CgProfile />
-                    Profile
-                  </NavLink>
-                  <NavLink
-                    className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
-                    to={"/categories"}
-                  >
-                    Gigs
-                  </NavLink>
                   <NavLink
                     className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"
                     onClick={handleLogOut}

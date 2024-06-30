@@ -1,11 +1,11 @@
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import AOS from 'aos';
-import { NavLink } from 'react-router-dom';
+import AOS from "aos";
+import { NavLink } from "react-router-dom";
 
-import Loading from '../../Pages/Loading/Loading';
+import Loading from "../../Pages/Loading/Loading";
 
 const Categories = ({ categoriesData }) => {
   // const [categoriesData, setCategoriesData] = useState([]);
@@ -13,7 +13,7 @@ const Categories = ({ categoriesData }) => {
   // useEffect(() => {
   //   async function fetchCategories() {
   //     const res = await fetch(
-  //       `https://workwave-vq08.onrender.com/api/categories`
+  //       `https://gp-workwave-production.up.railway.app/api/categories`
   //     );
   //     const data = await res.json();
   //     setCategoriesData(data);

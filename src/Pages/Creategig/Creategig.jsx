@@ -6,7 +6,7 @@ import upload from "../../Utils/uploadImg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
-const BASE_URL = "https://workwave-vq08.onrender.com/api";
+const BASE_URL = "https://gp-workwave-production.up.railway.app/api";
 
 function Creategig() {
   const navigate = useNavigate();

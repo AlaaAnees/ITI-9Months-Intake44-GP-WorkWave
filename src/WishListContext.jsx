@@ -9,7 +9,7 @@ function WishProvider({ children }) {
   useEffect(() => {
     async function getUserFav() {
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/favorites`,
+        `https://gp-workwave-production.up.railway.app/api/favorites`,
         {
           method: "GET",
           headers: {
@@ -18,8 +18,7 @@ function WishProvider({ children }) {
         }
       );
       const data = await res.json();
-      setFavoriteList(data.data.userFavorites);
-      // console.log("eman eman eman contexts", data.data.userFavorites);
+      setFavoriteList(data.data?.userFavorites);
     }
     getUserFav();
   }, [token]);

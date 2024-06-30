@@ -204,8 +204,6 @@ function Chat() {
 
         {loading ? (
           <Loading />
-        ) : error ? (
-          <Error />
         ) : (
           <div
             className="chats flex flex-col my-3 gap-2 p-8 h-[450px] scrollbar-thin overflow-y-scroll"

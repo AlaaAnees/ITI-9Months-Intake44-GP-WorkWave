@@ -11,6 +11,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import SuccessModal from "../../Components/registration-modal/RegModal";
 import { AuthContext } from "../../Context/authContext";
 import FacebookAuthComponent from "../Login/FaceBook";
+import upload from "../../Utils/uploadImg";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -36,6 +37,7 @@ function Register() {
   const [regSuccess, setRegSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [userImage, setUserImage] = useState(null);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
     useState(false);
   const matchPassword = useCallback(() => {
@@ -55,13 +57,16 @@ function Register() {
     matchPassword();
   }, [confirmPassword, matchPassword]);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    setSelectedPic(file);
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setPreviewUrl(imageUrl);
-    }
+    const coverUrl = await upload(file);
+    setUserImage(coverUrl);
+    //#########333333333333
+    // setSelectedPic(file);
+    // if (file) {
+    //   const imageUrl = URL.createObjectURL(file);
+    //   setPreviewUrl(imageUrl);
+    // }
     // console.log(selectedPic);
   };
   const validateInputs = () => {
@@ -147,7 +152,7 @@ function Register() {
     };
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/register",
+        "https://gp-workwave-production.up.railway.app/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -195,7 +200,7 @@ function Register() {
     };
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/register",
+        "https://gp-workwave-production.up.railway.app/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -247,7 +252,7 @@ function Register() {
       country,
       phone: phoneNumber,
       desc: description,
-      img: previewUrl,
+      img: userImage,
       isSeller,
       skills,
     };
@@ -255,7 +260,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/register",
+        "https://gp-workwave-production.up.railway.app/api/auth/register",
         {
           method: "POST",
           headers: {

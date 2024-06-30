@@ -60,6 +60,7 @@ function Register() {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     const coverUrl = await upload(file);
+    setSelectedPic(coverUrl);
     setUserImage(coverUrl);
     //#########333333333333
     // setSelectedPic(file);

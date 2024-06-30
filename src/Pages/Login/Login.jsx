@@ -1,24 +1,15 @@
-import {
-  useContext,
-  useState,
-} from 'react';
+import { useContext, useState } from "react";
 
-import { jwtDecode } from 'jwt-decode';
-import {
-  FaEye,
-  FaEyeSlash,
-} from 'react-icons/fa';
-import { MdErrorOutline } from 'react-icons/md';
-import {
-  NavLink,
-  useNavigate,
-} from 'react-router-dom';
-import { SyncLoader } from 'react-spinners';
+import { jwtDecode } from "jwt-decode";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdErrorOutline } from "react-icons/md";
+import { NavLink, useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from "@react-oauth/google";
 
-import { AuthContext } from '../../Context/authContext';
-import FacebookAuthComponent from './FaceBook';
+import { AuthContext } from "../../Context/authContext";
+import FacebookAuthComponent from "./FaceBook";
 
 function Login() {
   const navigate = useNavigate();
@@ -62,7 +53,7 @@ function Login() {
     };
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/login",
+        "https://gp-workwave-production.up.railway.app/api/auth/login",
         {
           method: "POST",
           headers: {
@@ -104,7 +95,7 @@ function Login() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/login",
+        "https://gp-workwave-production.up.railway.app/api/auth/login",
         {
           method: "POST",
           headers: {
@@ -158,7 +149,7 @@ function Login() {
     };
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/login",
+        "https://gp-workwave-production.up.railway.app/api/auth/login",
         {
           method: "POST",
           headers: {

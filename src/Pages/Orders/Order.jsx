@@ -9,7 +9,7 @@ function Order() {
 
   const fetchOrder = useCallback(async () => {
     try {
-      const res = await fetch(`https://workwave-vq08.onrender.com/api/orders`, {
+      const res = await fetch(`https://gp-workwave-production.up.railway.app/api/orders`, {
         headers: {
           authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function Order() {
   const deleteOrder = async (orderId) => {
     try {
       await fetch(
-        `https://workwave-vq08.onrender.com/api/orders/delete/${orderId}`,
+        `https://gp-workwave-production.up.railway.app/api/orders/delete/${orderId}`,
         {
           method: "DELETE",
           headers: {
@@ -120,7 +120,7 @@ function Order() {
 
   const fetchOrder = useCallback(async () => {
     try {
-      const res = await fetch(`https://workwave-vq08.onrender.com/api/orders`, {
+      const res = await fetch(`https://gp-workwave-production.up.railway.app/api/orders`, {
         headers: {
           authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -149,7 +149,7 @@ function Order() {
   const deleteOrder = async (orderId) => {
     try {
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/orders/delete/${orderId}`,
+        `https://gp-workwave-production.up.railway.app/api/orders/delete/${orderId}`,
         {
           method: "DELETE",
           headers: {
@@ -232,12 +232,15 @@ function Order() {
 
   const fetchOrder = useCallback(async () => {
     try {
-      const res = await fetch(`https://workwave-vq08.onrender.com/api/orders`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `https://gp-workwave-production.up.railway.app/api/orders`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!res.ok) {
         throw new Error("Network response was not ok");
@@ -264,7 +267,7 @@ function Order() {
   const deleteOrder = async (orderId) => {
     try {
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/orders/delete/${orderId}`,
+        `https://gp-workwave-production.up.railway.app/api/orders/delete/${orderId}`,
         {
           method: "DELETE",
           headers: {

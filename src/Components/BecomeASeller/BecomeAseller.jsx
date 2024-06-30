@@ -20,15 +20,18 @@ function BecomeAseller() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("https://workwave-vq08.onrender.com/api/users", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://gp-workwave-production.up.railway.app/api/users",
+        {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+          headers: {
+            "Content-Type": "application/json",
 
-          authorization: `Bearer ${token}`,
-        },
-      });
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const data = await res.json();
 

@@ -152,7 +152,7 @@ function Register() {
     };
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/register",
+        "https://gp-workwave-production.up.railway.app/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -200,7 +200,7 @@ function Register() {
     };
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/register",
+        "https://gp-workwave-production.up.railway.app/api/auth/register",
         {
           method: "POST",
           headers: {
@@ -260,7 +260,7 @@ function Register() {
 
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/auth/register",
+        "https://gp-workwave-production.up.railway.app/api/auth/register",
         {
           method: "POST",
           headers: {

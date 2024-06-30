@@ -1,16 +1,12 @@
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from "react";
 
-import BestPart from '../../Components/Home-page-components/BestPart';
-import Categories from '../../Components/Home-page-components/Categories';
-import Cover from '../../Components/Home-page-components/Cover';
-import Inspring from '../../Components/Home-page-components/Inspring';
-import JoinWorkWave from '../../Components/Home-page-components/JoinWorkWave';
-import PopularServices
-  from '../../Components/Home-page-components/PopularServices';
-import Loading from '../Loading/Loading';
+import BestPart from "../../Components/Home-page-components/BestPart";
+import Categories from "../../Components/Home-page-components/Categories";
+import Cover from "../../Components/Home-page-components/Cover";
+import Inspring from "../../Components/Home-page-components/Inspring";
+import JoinWorkWave from "../../Components/Home-page-components/JoinWorkWave";
+import PopularServices from "../../Components/Home-page-components/PopularServices";
+import Loading from "../Loading/Loading";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +15,7 @@ function Home() {
   useEffect(() => {
     async function fetchCategories() {
       const res = await fetch(
-        `https://workwave-vq08.onrender.com/api/categories`
+        `https://gp-workwave-production.up.railway.app/api/categories`
       );
       const data = await res.json();
       setCategoriesData(data);

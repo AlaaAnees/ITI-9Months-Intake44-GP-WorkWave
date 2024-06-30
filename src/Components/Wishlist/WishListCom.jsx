@@ -10,7 +10,7 @@ function WishListCom() {
   async function getUserFav() {
     setisloading(true);
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/favorites`,
+      `https://gp-workwave-production.up.railway.app/api/favorites`,
       {
         method: "GET",
         headers: {
@@ -25,7 +25,7 @@ function WishListCom() {
 
   async function handleRemoveFav(gig) {
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/favorites/${gig._id}`,
+      `https://gp-workwave-production.up.railway.app/api/favorites/${gig._id}`,
       {
         method: "DELETE",
         headers: {

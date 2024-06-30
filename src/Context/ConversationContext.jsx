@@ -17,7 +17,7 @@
 //     try {
 //       // Send POST request to create conversation
 //       const response = await fetch(
-//         "https://workwave-vq08.onrender.com/api/conversation",
+//         "https://gp-workwave-production.up.railway.app/api/conversation",
 //         {
 //           method: "POST",
 //           headers: {
@@ -45,7 +45,7 @@
 //     try {
 //       // Fetch data from the conversation endpoint with the token included in the headers
 //       const response = await fetch(
-//         "https://workwave-vq08.onrender.com/api/conversation",
+//         "https://gp-workwave-production.up.railway.app/api/conversation",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -79,7 +79,7 @@
 //     try {
 //       // Fetch data from the single conversation endpoint with the token included in the headers
 //       const response = await fetch(
-//         `https://workwave-vq08.onrender.com/api/conversation/single/${conversationId}`,
+//         `https://gp-workwave-production.up.railway.app/api/conversation/single/${conversationId}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -111,7 +111,7 @@
 //       // Send PUT request to update conversation
 
 //       const response = await fetch(
-//         `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
+//         `https://gp-workwave-production.up.railway.app/api/conversation/${conversationId}`,
 //         {
 //           method: "PUT",
 //           headers: {
@@ -184,7 +184,7 @@ const ConversationContextProvider = (props) => {
   const createConversation = async (to) => {
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/conversation",
+        "https://gp-workwave-production.up.railway.app/api/conversation",
         {
           method: "POST",
           headers: {
@@ -208,7 +208,7 @@ const ConversationContextProvider = (props) => {
   const fetchConversations = useCallback(async () => {
     try {
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/conversation",
+        "https://gp-workwave-production.up.railway.app/api/conversation",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -235,7 +235,7 @@ const ConversationContextProvider = (props) => {
     async (conversationId) => {
       try {
         const response = await fetch(
-          `https://workwave-vq08.onrender.com/api/conversation/single/${conversationId}`,
+          `https://gp-workwave-production.up.railway.app/api/conversation/single/${conversationId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -265,7 +265,7 @@ const ConversationContextProvider = (props) => {
     async (conversationId) => {
       try {
         const response = await fetch(
-          `https://workwave-vq08.onrender.com/api/conversation/${conversationId}`,
+          `https://gp-workwave-production.up.railway.app/api/conversation/${conversationId}`,
           {
             method: "PUT",
             headers: {

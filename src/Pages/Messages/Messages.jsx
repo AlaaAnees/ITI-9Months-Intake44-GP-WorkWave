@@ -28,18 +28,11 @@ export default function Messages() {
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [usersOrder, setUsersOrder] = useState([]);
+  // const [empty, setEmpty] = useState("You have no orders yet");
 
   useEffect(() => {
     setIsSmallScreen(window.innerWidth < 640);
   }, []);
-
-  // useEffect(() => {
-  //   fetchConversations();
-  //   const intervalId = setInterval(() => {
-  //     fetchConversations();
-  //   }, 30000);
-  //   return () => clearInterval(intervalId);
-  // }, [fetchConversations]);
 
   const isSeller = useCallback(() => {
     return currentUser.isSeller;
@@ -57,7 +50,7 @@ export default function Messages() {
   const prevUserIdsRef = useRef(userIds);
 
   useEffect(() => {
-    if (!userIds || userIds.length === 0) {
+    if (!userIds) {
       console.error("User IDs are undefined or empty");
       setUsersOrder([]);
       return;
@@ -85,8 +78,12 @@ export default function Messages() {
         setUsersOrder([]);
       }
     }
-    fetchUsersData();
-  }, [userIds, token, location]);
+
+    // Ensure conversationData and userIds are available
+    if (conversationData.length > 0 && userIds.length > 0) {
+      fetchUsersData();
+    }
+  }, [conversationData, userIds, token, location]);
 
   const queryClient = useQueryClient();
 

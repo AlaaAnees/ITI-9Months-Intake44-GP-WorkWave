@@ -1,51 +1,56 @@
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import AOS from 'aos';
-import { NavLink } from 'react-router-dom';
-import Slider from 'react-slick';
+import AOS from "aos";
+import { NavLink } from "react-router-dom";
+import Slider from "react-slick";
 
 const inspringData = [
   {
     tilte: "Web & Mobile Design",
     imgUrl: "./assets/imgs/original-e2afaa7e849dc5b57dc3a299942ddcaf.png",
-    creator: "Akram",
+    creator: "Aisha",
     creatorAvatar: "/assets/imgs/Ellipse 6 (1).png",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",
     creatorBg: "bg-[#3859BF]",
+    id: "667b4c3001d8783dddf054b3",
   },
   {
     tilte: "Logo Design",
     imgUrl: "./assets/imgs/61f024b62c3343182aa3917e_Logo Design.jpeg",
-    creator: "Ebrahim",
+    creator: "AlaaSeller15",
     creatorAvatar: "./assets/imgs/Ellipse 6.png",
     bg: "bg-gradient-to-b from-[#1F1F1F] to-[#292929]",
     creatorBg: "bg-[#373737]",
+    id: "6681e02f7b080c7bf0f9e674",
   },
   {
-    tilte: "Social Media Design",
+    tilte: "Writing & Translation",
     imgUrl: "./assets/imgs/dfa773100969187.5f14a5d4581fe.jpg",
     creator: "Mahmoud",
     creatorAvatar: "./assets/imgs/Ellipse 6 (2).png",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",
     creatorBg: "bg-[#3859BF]",
+    id: "667b464a01d8783dddf0382d",
   },
   {
-    tilte: "Animated GIFs",
+    tilte: "Photography",
     imgUrl: "./assets/imgs/19.jpeg",
-    creator: "Alaa",
+    creator: "Aisha",
     creatorAvatar: "./assets/imgs/Ellipse 6 (3).png",
     bg: "bg-gradient-to-b from-[#1F1F1F] to-[#292929]",
     creatorBg: "bg-[#373737]",
+    id: "667b57b701d8783dddf063f5",
   },
   {
     tilte: "Graphic Design",
     imgUrl: "/assets/imgs/jpeg-optimizer_14-1.jpg",
-    creator: "Eman",
+    creator: "Ezz",
     creatorAvatar: "./assets/imgs/Ellipse 6 (3).png",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",
     creatorBg: "bg-[#3859BF]",
+    id: "667b50f301d8783dddf05dba",
   },
 ];
 const Inspring = () => {
@@ -88,7 +93,7 @@ const Inspring = () => {
         <Slider {...settings}>
           {inspringData.map((item, index) => (
             <NavLink
-              to={"/any"}
+              to={`/singlegig/${item.id}`}
               key={index}
               className={`${item.bg} rounded-xl flex  flex-col justify-center  hover:-translate-y-1 transition-all duration-300`}
             >

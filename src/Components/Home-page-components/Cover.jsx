@@ -1,10 +1,10 @@
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import AOS from 'aos';
-import { IoSearchOutline } from 'react-icons/io5';
-import { NavLink } from 'react-router-dom';
+import AOS from "aos";
+import { IoSearchOutline } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 
 const Cover = () => {
   useEffect(() => {
@@ -25,35 +25,35 @@ const Cover = () => {
         <h2 className="sub-font text-white text-3xl md:text-4xl lg:text-5xl text-center mb-10">
           Start your “freelance” journey with instant access to top talent
         </h2>
-        <div className="relative w-fit">
+        {/* <div className="relative w-fit">
           <input
             type="text"
             placeholder="search freelance work"
             className="block outline-none py-[8px] w-[280px] md:py-[13px] md:w-[300px] lg:py-[17px] ps-4 lg:w-[400px] rounded-xl sm:text-lg mx-auto"
           />
           <IoSearchOutline className="absolute top-2 md:top-3 right-3 text-white text-9xl bg-blue-400 rounded-full w-7 h-7 md:w-9 md:h-9 p-2" />
-        </div>
+        </div> */}
         <div className="flex flex-wrap justify-center w-[300px] gap-3 mx-auto my-[30px]">
           <NavLink
-            to={"/any"}
+            to={"/categories?cat=writingtranslation"}
             className="border border-white  sub-font-2 text-xs py-1 block rounded-full w-[133px] text-center transition-all duration-300 text-white hover:bg-white hover:text-blue-400"
           >
-            AI services
+            Writing & Translation
           </NavLink>
           <NavLink
-            to={"/any"}
+            to={"/categories?cat=design"}
             className="border border-white text-white sub-font-2 text-xs py-1 block  rounded-full w-[133px] text-center hover:bg-white hover:text-blue-400 transition-all duration-300"
           >
             Web Design
           </NavLink>
           <NavLink
-            to={"/any"}
+            to={"/categories?cat=digitalmarketing"}
             className="border border-white text-white sub-font-2 text-xs py-1 block  rounded-full w-[133px] text-center hover:bg-white hover:text-blue-400 transition-all duration-300"
           >
             Sales & Mraketing
           </NavLink>
           <NavLink
-            to={"/any"}
+            to={"/categories?cat=programming"}
             className="border border-white text-white sub-font-2 text-xs py-1 block  rounded-full w-[133px] text-center hover:bg-white hover:text-blue-400 transition-all duration-300"
           >
             Development & IT

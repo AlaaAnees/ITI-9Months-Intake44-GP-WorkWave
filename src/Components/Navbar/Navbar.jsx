@@ -88,7 +88,7 @@ function Navbar() {
   document.addEventListener("click", handleDropDown);
   // console.log(userData);
   return (
-    <header className="bg-white">
+    <header className="bg-white z-30">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"

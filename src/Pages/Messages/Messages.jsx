@@ -49,6 +49,38 @@ export default function Messages() {
   const userIds = useMemo(() => getBuyerIds(), [getBuyerIds]);
   const prevUserIdsRef = useRef(userIds);
 
+  // useEffect(() => {
+  //   if (!userIds) {
+  //     console.error("User IDs are undefined or empty");
+  //     return;
+  //   }
+  //   async function fetchUsersData() {
+  //     try {
+  //       const fetchPromises = userIds.map((id) =>
+  //         fetch(`https://workwave-vq08.onrender.com/api/users/${id}`, {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }).then((response) => {
+  //           if (!response.ok) {
+  //             throw new Error(`HTTP error! status: ${response.status}`);
+  //           }
+  //           return response.json();
+  //         })
+  //       );
+  //       const results = await Promise.all(fetchPromises);
+  //       const allUsersData = results.map((result) => result.data.user);
+  //       setUsersOrder(allUsersData);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //       setUsersOrder([]);
+  //     }
+  //   }
+  //   fetchUsersData();
+  // }, [userIds, token, location]);
+
+  // Inside useEffect where you fetch user data
   useEffect(() => {
     if (!userIds) {
       console.error("User IDs are undefined or empty");

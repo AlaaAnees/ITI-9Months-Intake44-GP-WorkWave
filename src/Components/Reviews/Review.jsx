@@ -149,8 +149,11 @@ function Review({ gig }) {
 export default Review;
  */
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../Context/authContext";
 
 const baseURL = "https://gp-workwave-production.up.railway.app/api";
 
@@ -159,6 +162,8 @@ function Review({ gig }) {
   const [newReview, setNewReview] = useState("");
   const [desc, setDesc] = useState("");
   const [star, setStars] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const { userData } = useContext(AuthContext);
 
   async function handlePostReview() {
     setNewReview("");
@@ -168,6 +173,7 @@ function Review({ gig }) {
       desc,
       star: parseInt(star),
     };
+    setIsLoading(true);
     const res = await fetch(`${baseURL}/reviews`, {
       method: "POST",
       body: JSON.stringify(reviewData),
@@ -177,6 +183,7 @@ function Review({ gig }) {
       },
     });
     const data = await res.json();
+    setIsLoading(false);
     // console.log("dataaaaaaaaa", data);
     setNewReview(data.data?.savedReview);
   }
@@ -257,30 +264,36 @@ function Review({ gig }) {
           </div>
         </div>
       )}
-      <div className="add-review mt-8 flex flex-col gap-4">
-        <textarea
-          className="resize-none p-4 rounded-md"
-          placeholder="Review"
-          name="desc"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
-        <input
-          className="p-2 rounded-md"
-          type="number"
-          name="star"
-          min={0}
-          max={5}
-          value={star}
-          onChange={(e) => setStars(e.target.value)}
-        />
-        <button
-          className="bg-blue-500 rounded py-2 px-4 text-white"
-          onClick={handlePostReview}
-        >
-          Submit Review
-        </button>
-      </div>
+      {!userData.isAdmin && !userData.isSeller && (
+        <div className="add-review mt-8 flex flex-col gap-4">
+          <textarea
+            className="resize-none p-4 rounded-md"
+            placeholder="Review"
+            name="desc"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          <input
+            className="p-2 rounded-md"
+            type="number"
+            name="star"
+            min={0}
+            max={5}
+            value={star}
+            onChange={(e) => setStars(e.target.value)}
+          />
+          <button
+            className="bg-blue-500 rounded py-2 px-4 text-white"
+            onClick={handlePostReview}
+          >
+            {isLoading ? (
+              <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />
+            ) : (
+              "Submit Review"
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

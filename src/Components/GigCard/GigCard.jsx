@@ -9,7 +9,7 @@ function GigCard({ gig, display }) {
   const token = JSON.parse(localStorage.getItem("token"));
 
   return (
-    <li key={gig._id} className="rounded-xl shadow-md bg-white  ">
+    <div key={gig._id} className="rounded-xl shadow-md bg-white  ">
       <Link to={`/singlegig/${gig._id}`}>
         <img src={gig.cover} alt={gig.title} className="w-full h-72" />
         {/* second line */}
@@ -43,7 +43,7 @@ function GigCard({ gig, display }) {
           </div>
         </div>
       </Link>
-    </li>
+    </div>
   );
 }
 

@@ -5,10 +5,8 @@ import { useParams } from "react-router";
 import Review from "../../Components/Reviews/Review";
 import SingleGigContainer from "../../Components/SingleGig/SingleGigContainer";
 
-import { AuthContext } from "../../Context/authContext";
 const baseURL = "https://gp-workwave-production.up.railway.app";
 function SingleGig() {
-  const { userData } = useContext(AuthContext);
   const { id } = useParams();
   const [singleGigData, setSingleGig] = useState("");
 
@@ -32,7 +30,7 @@ function SingleGig() {
       {singleGigData ? (
         <>
           <SingleGigContainer gig={singleGigData} />
-          {!userData?.isSeller && <Review gig={singleGigData} id={id} />}
+          <Review gig={singleGigData} id={id} />
         </>
       ) : (
         <p>Loading single gig...</p>

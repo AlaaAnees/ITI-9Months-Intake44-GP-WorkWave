@@ -135,7 +135,7 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className="hidden md:block  bg-white shadow-md rounded-lg h-fit p-4">
+        {/* <div className="hidden md:block  bg-white shadow-md rounded-lg h-fit p-4">
           <div className="flex items-center gap-3">
             <img
               src={`${userData.img}`}
@@ -155,7 +155,7 @@ function Profile() {
             <MdCall />
             Contact Me
           </p>
-        </div>
+        </div> */}
       </div>
 
       {sellerGigs.length > 0 ? (

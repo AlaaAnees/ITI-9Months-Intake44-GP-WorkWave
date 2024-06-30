@@ -60,7 +60,7 @@ function Order() {
   return (
     <>
       <div className="parent min-h-screen">
-        <div className="container mx-auto px-4">
+        <div className="r mx-auto px-4">
           {orderList.map((order) => (
             <div
               key={order._id}

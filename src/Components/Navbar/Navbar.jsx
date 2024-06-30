@@ -148,7 +148,7 @@ function Navbar() {
             >
               Categories
             </NavLink>
-            {!userData?.isAdmin && !userData?.isSeller ? (
+            {userData && !userData?.isAdmin && !userData?.isSeller ? (
               <NavLink
                 to="/become"
                 className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
@@ -404,7 +404,7 @@ function Navbar() {
                   </NavLink>
                 )}
 
-                {!userData?.isAdmin && !userData?.isSeller ? (
+                {userData && !userData?.isAdmin && !userData?.isSeller ? (
                   <NavLink
                     to="/become"
                     className="text-[#595959] text-[20px] main-font -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 hover:bg-gray-400/10"

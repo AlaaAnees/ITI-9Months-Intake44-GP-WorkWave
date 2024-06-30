@@ -169,7 +169,7 @@ function Review({ gig }) {
     setNewReview("");
     const token = JSON.parse(localStorage.getItem("token"));
     const reviewData = {
-      gigId: gig._id,
+      gigId: gig?._id,
       desc,
       star: parseInt(star),
     };
@@ -264,7 +264,7 @@ function Review({ gig }) {
           </div>
         </div>
       )}
-      {!userData.isAdmin && !userData.isSeller && (
+      {userData && !userData?.isAdmin && !userData.isSeller && (
         <div className="add-review mt-8 flex flex-col gap-4">
           <textarea
             className="resize-none p-4 rounded-md"

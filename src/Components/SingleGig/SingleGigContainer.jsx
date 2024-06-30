@@ -116,16 +116,18 @@ function SingleGigContainer({ gig }) {
               ))}
             </ul>
           </div>
-          <button
-            className="bg-blue-500 rounded py-2 px-4 text-white mt-10  block hover:bg-blue-600 transition"
-            onClick={handleAddtoOrder}
-          >
-            {isloading ? (
-              <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />
-            ) : (
-              "Add to Cart"
-            )}
-          </button>
+          {userData && (
+            <button
+              className="bg-blue-500 rounded py-2 px-4 text-white mt-10  block hover:bg-blue-600 transition"
+              onClick={handleAddtoOrder}
+            >
+              {isloading ? (
+                <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />
+              ) : (
+                "Add to Cart"
+              )}
+            </button>
+          )}
         </div>
         <div className="flex items-start justify-center mt-10">
           <div className="bg-white rounded-md p-7 flex items-center gap-5 shadow-lg">
@@ -152,12 +154,14 @@ function SingleGigContainer({ gig }) {
                   </div>
                 )}
               </div>
-              <Link
-                to={`/message/${userId}${userData._id}`}
-                className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition"
-              >
-                Contact Me
-              </Link>
+              {userData && (
+                <Link
+                  to={`/message/${userId}${userData?._id}`}
+                  className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition"
+                >
+                  Contact Me
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -28,18 +28,11 @@ export default function Messages() {
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [usersOrder, setUsersOrder] = useState([]);
+  // const [empty, setEmpty] = useState("You have no orders yet");
 
   useEffect(() => {
     setIsSmallScreen(window.innerWidth < 640);
   }, []);
-
-  // useEffect(() => {
-  //   fetchConversations();
-  //   const intervalId = setInterval(() => {
-  //     fetchConversations();
-  //   }, 30000);
-  //   return () => clearInterval(intervalId);
-  // }, [fetchConversations]);
 
   const isSeller = useCallback(() => {
     return currentUser.isSeller;
@@ -56,8 +49,40 @@ export default function Messages() {
   const userIds = useMemo(() => getBuyerIds(), [getBuyerIds]);
   const prevUserIdsRef = useRef(userIds);
 
+  // useEffect(() => {
+  //   if (!userIds) {
+  //     console.error("User IDs are undefined or empty");
+  //     return;
+  //   }
+  //   async function fetchUsersData() {
+  //     try {
+  //       const fetchPromises = userIds.map((id) =>
+  //         fetch(`https://workwave-vq08.onrender.com/api/users/${id}`, {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }).then((response) => {
+  //           if (!response.ok) {
+  //             throw new Error(`HTTP error! status: ${response.status}`);
+  //           }
+  //           return response.json();
+  //         })
+  //       );
+  //       const results = await Promise.all(fetchPromises);
+  //       const allUsersData = results.map((result) => result.data.user);
+  //       setUsersOrder(allUsersData);
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //       setUsersOrder([]);
+  //     }
+  //   }
+  //   fetchUsersData();
+  // }, [userIds, token, location]);
+
+  // Inside useEffect where you fetch user data
   useEffect(() => {
-    if (!userIds || userIds.length === 0) {
+    if (!userIds) {
       console.error("User IDs are undefined or empty");
       setUsersOrder([]);
       return;
@@ -85,8 +110,12 @@ export default function Messages() {
         setUsersOrder([]);
       }
     }
-    fetchUsersData();
-  }, [userIds, token, location]);
+
+    // Ensure conversationData and userIds are available
+    if (conversationData.length > 0 && userIds.length > 0) {
+      fetchUsersData();
+    }
+  }, [conversationData, userIds, token, location]);
 
   const queryClient = useQueryClient();
 

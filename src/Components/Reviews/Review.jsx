@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
-const baseURL = "https://workwave-vq08.onrender.com/api";
+const baseURL = "https://gp-workwave-production.up.railway.app/api";
 function Review({ gig }) {
   const { reviews } = gig;
   const [newReview, setNewReview] = useState("");

@@ -17,7 +17,7 @@ export const MessageContextProvider = ({ children }) => {
     try {
       setLoading(true); //......
       const response = await fetch(
-        "https://workwave-vq08.onrender.com/api/messages",
+        "https://gp-workwave-production.up.railway.app/api/messages",
         {
           method: "POST",
           headers: {
@@ -49,7 +49,7 @@ export const MessageContextProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://workwave-vq08.onrender.com/api/messages/${conversationId}`,
+        `https://gp-workwave-production.up.railway.app/api/messages/${conversationId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

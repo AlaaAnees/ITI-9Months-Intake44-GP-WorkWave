@@ -6,7 +6,7 @@ const ProfileGigs = ({ sellerGigs }) => {
   const token = JSON.parse(localStorage.getItem("token"));
   async function handleDeleteGig(id) {
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/gigs/delete/${id}`,
+      `https://gp-workwave-production.up.railway.app/api/gigs/delete/${id}`,
       {
         method: "Delete",
         headers: {

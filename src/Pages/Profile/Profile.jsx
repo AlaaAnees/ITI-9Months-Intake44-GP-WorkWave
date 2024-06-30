@@ -33,7 +33,7 @@ function Profile() {
   async function handleDeleteaccount() {
     setisloading(true);
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/users/delete/${userData._id}`,
+      `https://gp-workwave-production.up.railway.app/api/users/delete/${userData._id}`,
       {
         method: "DELETE",
         headers: {
@@ -51,7 +51,7 @@ function Profile() {
     async function GetALLSellerGigs() {
       if (userData.isSeller) {
         const res = await fetch(
-          `https://workwave-vq08.onrender.com/api/gigs/${userData._id}`,
+          `https://gp-workwave-production.up.railway.app/api/gigs/${userData._id}`,
           {
             headers: {
               authorization: `Bearer ${token}`,

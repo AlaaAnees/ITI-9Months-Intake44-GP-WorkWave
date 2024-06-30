@@ -12,7 +12,7 @@ function Area() {
   const fetchOrderData = async () => {
     try {
       const response = await fetch(
-        `https://workwave-vq08.onrender.com/api/orders/getallOrders`,
+        `https://gp-workwave-production.up.railway.app/api/orders/getallOrders`,
         {
           headers: {
             Authorization:

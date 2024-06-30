@@ -22,9 +22,12 @@ function Navbar() {
 
   const fetching = async (searchInput, controller) => {
     try {
-      const res = await fetch("https://workwave-vq08.onrender.com/api/gigs", {
-        signal: controller.signal,
-      });
+      const res = await fetch(
+        "https://gp-workwave-production.up.railway.app/api/gigs",
+        {
+          signal: controller.signal,
+        }
+      );
       const data = await res.json();
       setFiltered(data.filter((item) => item.title.includes(searchInput)));
     } catch (error) {

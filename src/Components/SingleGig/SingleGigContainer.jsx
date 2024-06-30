@@ -10,7 +10,7 @@ function SingleGigContainer({ gig }) {
   async function handleAddtoOrder() {
     setIsloading(true);
     const res = await fetch(
-      `https://workwave-vq08.onrender.com/api/orders/${gig._id}`,
+      `https://gp-workwave-production.up.railway.app/api/orders/${gig._id}`,
       {
         method: "POST",
         body: JSON.stringify(gig),
@@ -28,7 +28,7 @@ function SingleGigContainer({ gig }) {
     async function fetchOwnerInfo() {
       try {
         const res = await fetch(
-          `https://workwave-vq08.onrender.com/api/users/${userId}`,
+          `https://gp-workwave-production.up.railway.app/api/users/${userId}`,
           {
             headers: {
               authorization: `Bearer ${token}`,

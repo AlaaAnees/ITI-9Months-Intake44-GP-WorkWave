@@ -11,7 +11,7 @@ function Bar() {
 
   const fetchCategoryData = async () => {
     try {
-      const BASE_URL = "https://workwave-vq08.onrender.com";
+      const BASE_URL = "https://gp-workwave-production.up.railway.app";
       const response = await fetch(`${BASE_URL}/api/gigs`);
       const gigsData = await response.json();
 

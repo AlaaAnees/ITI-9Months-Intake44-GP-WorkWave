@@ -57,7 +57,7 @@ export default function Messages() {
   //   async function fetchUsersData() {
   //     try {
   //       const fetchPromises = userIds.map((id) =>
-  //         fetch(`https://workwave-vq08.onrender.com/api/users/${id}`, {
+  //         fetch(`https://gp-workwave-production.up.railway.app/api/users/${id}`, {
   //           headers: {
   //             "Content-Type": "application/json",
   //             Authorization: `Bearer ${token}`,
@@ -90,12 +90,15 @@ export default function Messages() {
     async function fetchUsersData() {
       try {
         const fetchPromises = userIds.map((id) =>
-          fetch(`https://workwave-vq08.onrender.com/api/users/${id}`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }).then((response) => {
+          fetch(
+            `https://gp-workwave-production.up.railway.app/api/users/${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          ).then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -104,15 +107,16 @@ export default function Messages() {
         );
         const results = await Promise.all(fetchPromises);
         const allUsersData = results.map((result) => result.data.user);
+        console.log("all------->", allUsersData);
         setUsersOrder(allUsersData);
       } catch (error) {
         console.error("Error fetching user data:", error);
-        setUsersOrder([]);
       }
     }
 
     // Ensure conversationData and userIds are available
     if (conversationData.length > 0 && userIds.length > 0) {
+      console.log("test");
       fetchUsersData();
     }
   }, [conversationData, userIds, token, location]);

@@ -29,7 +29,11 @@ function Navbar() {
         }
       );
       const data = await res.json();
-      setFiltered(data.filter((item) => item.title.includes(searchInput)));
+      setFiltered(
+        data.filter((item) =>
+          item.title.toLowerCase().includes(searchInput.toLowerCase())
+        )
+      );
     } catch (error) {
       if (error.name === "AbortError") {
         console.log("Fetch aborted");
@@ -169,7 +173,7 @@ function Navbar() {
             <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
               {filtered.map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
                   onClick={() => handleSearchNavigation(item)}
                 >
@@ -331,7 +335,7 @@ function Navbar() {
                   <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
                     {filtered.map((item) => (
                       <div
-                        key={item.id}
+                        key={item._id}
                         className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
                         onClick={() => handleSearchNavigation(item)}
                       >

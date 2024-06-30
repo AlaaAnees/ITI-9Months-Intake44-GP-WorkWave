@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 
 import Review from '../../Components/Reviews/Review';
 import SingleGigContainer from '../../Components/SingleGig/SingleGigContainer';
+import Loading from '../Loading/Loading';
 
 const baseURL = "https://workwave-vq08.onrender.com";
 function SingleGig() {
@@ -36,7 +37,7 @@ function SingleGig() {
           <Review gig={singleGigData} id={id} />
         </>
       ) : (
-        <p>Loading single gig...</p>
+        <Loading></Loading>
       )}
     </>
   );

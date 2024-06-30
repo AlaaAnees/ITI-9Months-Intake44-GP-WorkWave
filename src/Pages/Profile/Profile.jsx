@@ -4,9 +4,10 @@ import { FaStar } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdCall } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Gigs from "../../Components/Profile-page-components/ProfileGigs";
 import ProfileReviews from "../../Components/Profile-page-components/ProfileReviews";
@@ -94,25 +95,33 @@ function Profile() {
           <div className="mt-10">
             <h2 className="font-bold sub-font-3 text-xl">About me</h2>
             <p className="text-[#595959] mt-3 font-medium sub-font-3">
-              {/* {userData.desc ||
-                userData.username + " not added any description"} */}
-              You have come to the right place. With a problem-solving mindset,
+              {userData.desc ||
+                userData.username + " not added any description"}
+              {/* You have come to the right place. With a problem-solving mindset,
               I help my clients to create designs that are aesthetically
               pleasing, technically refined, and easy to use. I had worked with
               big Real Estate Companies, E-commerce, Beauty, Fashion, Food
               Delivery, Medical, Appointment booking, Shipping companies, and
-              other service-providing companies.
+              other service-providing companies. */}
             </p>
           </div>
           <div className="mt-10">
             <h2 className="font-bold sub-font-3 text-xl">Skills</h2>
             <div className="flex gap-2">
-              <span className="border-[#424242] text-[#424242] border-2 px-3 rounded-full">
-                Html
-              </span>
-              <span className="border-[#424242] text-[#424242] border-2 px-3 rounded-full">
-                CSS
-              </span>
+              {userData.skills && userData.skills.length > 0 ? (
+                userData.skills.map((skill) => (
+                  <span
+                    className="border-[#424242] text-[#424242] border-2 px-3 rounded-full"
+                    key={skill}
+                  >
+                    {skill}
+                  </span>
+                ))
+              ) : (
+                <span className="text-lg text-[#424242]  px-3">
+                  No skills added yet.
+                </span>
+              )}
             </div>
           </div>
         </div>

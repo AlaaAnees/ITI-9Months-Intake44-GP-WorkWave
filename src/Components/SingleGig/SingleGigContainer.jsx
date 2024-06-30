@@ -1,12 +1,9 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import { FaStar } from 'react-icons/fa';
+import { FaStar } from "react-icons/fa";
 
-import { faWaveSquare } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function SingleGigContainer({ gig }) {
   const { userId, images, features } = gig;
@@ -193,7 +190,7 @@ function SingleGigContainer({ gig }) {
   //   </div>
   // );
   return (
-    <div className="container mx-auto p-8 bg-gray-50">
+    <div className=" mx-auto p-8 bg-gray-50">
       <div className="grid sm:grid-cols-2 gap-8">
         <div className="md:ps-20">
           <div className="font-bold sub-font text-2xl my-5 text-blue-400">

@@ -1,10 +1,10 @@
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import AOS from 'aos';
-import { NavLink } from 'react-router-dom';
-import Slider from 'react-slick';
+import AOS from "aos";
+import { NavLink } from "react-router-dom";
+import Slider from "react-slick";
 
 const inspringData = [
   {
@@ -90,18 +90,18 @@ const Inspring = () => {
             <NavLink
               to={"/any"}
               key={index}
-              className={`${item.bg} rounded-xl flex  flex-col justify-center  hover:-translate-y-1 transition-all duration-300`}
+              className={`${item.bg} rounded-xl flex  flex-col justify-center text-center  hover:-translate-y-1 transition-all duration-300`}
             >
               <img
-                className="p-3 mb-1 w-[95%] h-[260px] object-cover rounded-3xl align-self-center"
+                className="p-3 mb-1 w-[95%] mx-auto h-[260px] object-cover rounded-3xl align-self-center"
                 src={item.imgUrl}
                 alt=""
               />
-              <p className="sub-font-3 font-bold text-white -mt-3 mb-2 align-self-center">
+              <p className="sub-font-3 font-bold text-white mx-auto  -mt-3 mb-2 align-self-center">
                 {item.tilte}
               </p>
               <img
-                className="w-10 align-self-center mb-2"
+                className="w-10 align-self-center mx-auto mb-2"
                 src={item.creatorAvatar}
                 alt=""
               />

@@ -50,13 +50,13 @@ const ProfileGigs = ({ sellerGigs }) => {
     <div className="mt-20">
       <h2 className="font-bold sub-font-3 text-xl">My Gigs</h2>
 
-      <div className="w-[90%] mx-auto mt-5">
+      <div className="w-70 mx-auto mt-5">
         <Slider {...settings}>
           {sellerGigs.map((g) => (
             <NavLink
               to={`/singlegig/${g._id}`}
               key={g._id}
-              className={`bg-white rounded-xl flex  flex-col justify-center  hover:-translate-y-1 transition-all duration-300`}
+              className={`bg-white p-6 md:w-full w-[30%] rounded-xl flex flex-col justify-center  hover:-translate-y-1 transition-all duration-300`}
             >
               <img
                 className="rounded-xl mb-5 w-[100%] h-[260px] object-cover  align-self-center "

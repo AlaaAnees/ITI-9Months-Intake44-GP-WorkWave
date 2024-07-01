@@ -77,15 +77,15 @@ const ProfileGigs = ({ sellerGigs }) => {
                 >
                   By {g.ownerName}
                 </p>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="text-red-700  p-4"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDeleteGig(g._id);
+                  }}
+                />
               </div>
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                className="text-red-700  p-4"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleDeleteGig(g._id);
-                }}
-              />
             </NavLink>
           ))}
         </Slider>

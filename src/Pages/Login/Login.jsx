@@ -187,7 +187,7 @@ function Login() {
         <h2 className="sub-font-2 font-bold text-2xl">Sign In</h2>
         <div className="flex items-center flex-col md:flex-row gap-5 md:gap-10 my-10">
           {/* <p className="flex items-center gap-3 border border-[#ccc] rounded-lg py-2 px-4 sub-font-2 text-xs font-medium"> */}
-          <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} />
+          {/* <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} /> */}
           {/* </p> */}
 
           <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />

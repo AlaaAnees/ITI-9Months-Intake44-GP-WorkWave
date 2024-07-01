@@ -10,8 +10,8 @@ import { GoogleLogin } from "@react-oauth/google";
 
 import SuccessModal from "../../Components/registration-modal/RegModal";
 import { AuthContext } from "../../Context/authContext";
-import FacebookAuthComponent from "../Login/FaceBook";
 import upload from "../../Utils/uploadImg";
+import FacebookAuthComponent from "../Login/FaceBook";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -465,6 +465,7 @@ function Register() {
               onChange={(e) => setSkillsInput(e.target.value)}
               value={skillsInput}
               className="outline-none border-b-2 w-full mt-4 p-2"
+              disabled={isSeller ? false : true}
             />
             <div className="mt-3 flex gap-2">
               {skills.map((skill) => {

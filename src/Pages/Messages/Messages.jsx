@@ -107,7 +107,7 @@ export default function Messages() {
         );
         const results = await Promise.all(fetchPromises);
         const allUsersData = results.map((result) => result.data.user);
-        console.log("all------->", allUsersData);
+        // console.log("all------->", allUsersData);
         setUsersOrder(allUsersData);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -116,7 +116,7 @@ export default function Messages() {
 
     // Ensure conversationData and userIds are available
     if (conversationData.length > 0 && userIds.length > 0) {
-      console.log("test");
+      // console.log("test");
       fetchUsersData();
     }
   }, [conversationData, userIds, token, location]);

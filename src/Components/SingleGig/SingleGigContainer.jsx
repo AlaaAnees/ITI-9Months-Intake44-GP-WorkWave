@@ -4,15 +4,20 @@ import { FaStar } from "react-icons/fa";
 
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Contact from "../Contact/Contact";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/authContext";
 
 function SingleGigContainer({ gig }) {
-  console.log(gig, "emnnnnnan");
   const { userId, images, features } = gig;
   const [ownerData, setOwnerData] = useState("");
   const [isloading, setIsloading] = useState(false);
   const token = JSON.parse(localStorage.getItem("token"));
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
+  const sellerId = ownerData._id;
+  const buyerId = currentUser._id;
+
   const { userData } = useContext(AuthContext);
 
   async function handleAddtoOrder() {
@@ -29,9 +34,10 @@ function SingleGigContainer({ gig }) {
       }
     );
     const data = await res.json();
-    console.log(data);
+    console.log("data****************", data);
     setIsloading(false);
   }
+
   useEffect(() => {
     async function fetchOwnerInfo() {
       try {
@@ -154,14 +160,17 @@ function SingleGigContainer({ gig }) {
                   </div>
                 )}
               </div>
-              {userData && (
+              <button className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition">
+                <Contact IDs={{ sellerId: sellerId, buyerId: buyerId }} />
+              </button>
+              {/*  {userData && (
                 <Link
                   to={`/message/${userId}${userData?._id}`}
                   className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition"
                 >
                   Contact Me
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
         </div>

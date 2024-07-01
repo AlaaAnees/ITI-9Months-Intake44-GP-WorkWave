@@ -11,7 +11,8 @@ const inspringData = [
     tilte: "Web & Mobile Design",
     imgUrl: "./assets/imgs/original-e2afaa7e849dc5b57dc3a299942ddcaf.png",
     creator: "Aisha",
-    creatorAvatar: "/assets/imgs/Ellipse 6 (1).png",
+    creatorAvatar:
+      "https://i.pinimg.com/originals/eb/41/35/eb4135836a3c24dc7ecdebf9dc050eb7.jpg",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",
     creatorBg: "bg-[#3859BF]",
     id: "667b4c3001d8783dddf054b3",
@@ -20,16 +21,19 @@ const inspringData = [
     tilte: "Logo Design",
     imgUrl: "./assets/imgs/61f024b62c3343182aa3917e_Logo Design.jpeg",
     creator: "AlaaSeller15",
-    creatorAvatar: "./assets/imgs/Ellipse 6.png",
+    creatorAvatar:
+      "https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?size=626&ext=jpg&ga=GA1.1.1224184972.1713916800&semt=ais",
     bg: "bg-gradient-to-b from-[#1F1F1F] to-[#292929]",
     creatorBg: "bg-[#373737]",
     id: "6681e02f7b080c7bf0f9e674",
   },
   {
-    tilte: "Writing & Translation",
-    imgUrl: "./assets/imgs/dfa773100969187.5f14a5d4581fe.jpg",
+    tilte: "Resume and Cover Letter",
+    imgUrl:
+      "https://fjwp.s3.amazonaws.com/blog/wp-content/uploads/2023/05/03053716/10-Common-Questions-About-Resumes-and-Cover-Letters-1024x512.jpg",
     creator: "Mahmoud",
-    creatorAvatar: "./assets/imgs/Ellipse 6 (2).png",
+    creatorAvatar:
+      "https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?size=626&ext=jpg&ga=GA1.1.1224184972.1713916800&semt=ais",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",
     creatorBg: "bg-[#3859BF]",
     id: "667b464a01d8783dddf0382d",
@@ -38,7 +42,8 @@ const inspringData = [
     tilte: "Photography",
     imgUrl: "./assets/imgs/19.jpeg",
     creator: "Aisha",
-    creatorAvatar: "./assets/imgs/Ellipse 6 (3).png",
+    creatorAvatar:
+      "https://i.pinimg.com/originals/eb/41/35/eb4135836a3c24dc7ecdebf9dc050eb7.jpg",
     bg: "bg-gradient-to-b from-[#1F1F1F] to-[#292929]",
     creatorBg: "bg-[#373737]",
     id: "667b57b701d8783dddf063f5",
@@ -47,7 +52,8 @@ const inspringData = [
     tilte: "Graphic Design",
     imgUrl: "/assets/imgs/jpeg-optimizer_14-1.jpg",
     creator: "Ezz",
-    creatorAvatar: "./assets/imgs/Ellipse 6 (3).png",
+    creatorAvatar:
+      "https://i.pinimg.com/originals/32/69/e0/3269e0032706c96e1b14b4984057a149.jpg",
     bg: "bg-gradient-to-b from-blue-300 to-blue-800",
     creatorBg: "bg-[#3859BF]",
     id: "667b50f301d8783dddf05dba",
@@ -106,7 +112,7 @@ const Inspring = () => {
                 {item.tilte}
               </p>
               <img
-                className="w-10 align-self-center mx-auto mb-2"
+                className="w-10 align-self-center mx-auto mb-2 rounded-full h-10"
                 src={item.creatorAvatar}
                 alt=""
               />

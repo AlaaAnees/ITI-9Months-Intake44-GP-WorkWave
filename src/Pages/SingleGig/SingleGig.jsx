@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import Review from "../../Components/Reviews/Review";
 import SingleGigContainer from "../../Components/SingleGig/SingleGigContainer";
 
+import Loading from "../Loading/Loading";
+
 const baseURL = "https://gp-workwave-production.up.railway.app";
 function SingleGig() {
   const { id } = useParams();
@@ -33,7 +35,7 @@ function SingleGig() {
           <Review gig={singleGigData} id={id} />
         </>
       ) : (
-        <p>Loading single gig...</p>
+        <Loading></Loading>
       )}
     </>
   );

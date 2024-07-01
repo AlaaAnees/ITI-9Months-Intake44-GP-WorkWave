@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { FaStar } from "react-icons/fa";
 
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Contact from "../Contact/Contact";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/authContext";
@@ -60,7 +62,7 @@ function SingleGigContainer({ gig }) {
   }, [userId]);
 
   return (
-    <div className="container mx-auto p-8 bg-gray-50">
+    <div className=" mx-auto p-8 bg-gray-50">
       <div className="grid sm:grid-cols-2 gap-8">
         <div className="md:ps-20">
           <div className="font-bold sub-font text-2xl my-5 text-blue-400">

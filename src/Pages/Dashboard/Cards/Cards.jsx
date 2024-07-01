@@ -33,7 +33,7 @@ function Cards() {
       const responses = await Promise.all([
         fetchTotal("users"),
         fetchTotal("orders/getallOrders"),
-        fetchTotal("gigs?cat=design"),
+        fetchTotal("gigs"),
       ]);
       const [users, orders, gigs] = await Promise.all(
         responses.map((response) => response.json())

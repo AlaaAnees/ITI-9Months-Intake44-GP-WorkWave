@@ -124,9 +124,10 @@ function SingleGigContainer({ gig }) {
               ))}
             </ul>
           </div>
-          {userData && (
-            <button
-              className="bg-blue-500 rounded py-2 px-4 text-white mt-10  block hover:bg-blue-600 transition"
+          {userData && !userData.isSeller && (
+            <Link
+              to={"/orders"}
+              className="bg-blue-500 rounded py-2 px-4 text-white mt-10  block hover:bg-blue-600 transition text-center"
               onClick={handleAddtoOrder}
             >
               {isloading ? (
@@ -134,7 +135,7 @@ function SingleGigContainer({ gig }) {
               ) : (
                 "Add to Cart"
               )}
-            </button>
+            </Link>
           )}
         </div>
         <div className="flex items-start justify-center mt-10">
@@ -162,17 +163,17 @@ function SingleGigContainer({ gig }) {
                   </div>
                 )}
               </div>
-              <button className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition">
+              {/* <button className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition">
                 <Contact IDs={{ sellerId: sellerId, buyerId: buyerId }} />
-              </button>
-              {/*  {userData && (
+              </button> */}
+              {userData && (
                 <Link
                   to={`/message/${userId}${userData?._id}`}
-                  className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition"
+                  className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition mt-2"
                 >
                   Contact Me
                 </Link>
-              )} */}
+              )}
             </div>
           </div>
         </div>

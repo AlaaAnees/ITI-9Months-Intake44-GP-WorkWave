@@ -62,13 +62,6 @@ function Register() {
     const coverUrl = await upload(file);
     setSelectedPic(coverUrl);
     setUserImage(coverUrl);
-    //#########333333333333
-    // setSelectedPic(file);
-    // if (file) {
-    //   const imageUrl = URL.createObjectURL(file);
-    //   setPreviewUrl(imageUrl);
-    // }
-    // console.log(selectedPic);
   };
   const validateInputs = () => {
     let isValid = true;
@@ -272,7 +265,7 @@ function Register() {
       );
 
       if (!response.ok) {
-        const errorMessage = await response.text(); // Get the error message from the response
+        const errorMessage = await response.text(); // Get the error message
 
         throw new Error(
           `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
@@ -301,7 +294,6 @@ function Register() {
         <div className="bg-white w-10/12 md:w-3/5 flex flex-col items-center justify-center py-10 rounded-3xl">
           <h2 className="sub-font-2 font-bold text-2xl">Register</h2>
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 my-10 items-center">
-            {/* <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} /> */}
             <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
           </div>
           <p className="flex gap-1 text-[#bbb]">

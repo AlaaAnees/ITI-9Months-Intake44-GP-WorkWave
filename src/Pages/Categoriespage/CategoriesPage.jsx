@@ -68,7 +68,7 @@ function CategoriesPage() {
           })}
         </ul>
       </section>
-      <section className="container mx-auto ">
+      <section className="mx-4 md:mx-16 ">
         <div className="flex flex-column mt-5 p-3  rounded-xl bg-white md:flex-row justify-around items-center gap-6">
           <span className="font-semibold text-xl text-[#172554] ">Budget</span>
           <div className="space-x-0 sm:space-x-6  text-center  space-y-2">

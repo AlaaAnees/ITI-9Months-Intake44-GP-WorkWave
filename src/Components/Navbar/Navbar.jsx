@@ -146,41 +146,47 @@ function Navbar() {
                 ""
               )}
             </div>
-            <NavLink
-              to={"/categories"}
-              className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
-            >
-              Categories
-            </NavLink>
-            {userData && !userData?.isAdmin && !userData?.isSeller ? (
+            <div className="flex gap-24 items-center">
               <NavLink
-                to="/become"
-                className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
+                to={"/categories"}
+                className="flex items-center text-[20px] text-[#595959] main-font gap-x-1 font-semibold leading-6 hover:text-blue-400 transition-all duration-300"
               >
-                Become a seller
+                Categories
               </NavLink>
-            ) : null}
-          </div>
-          <div className="hidden relative lg:block">
-            <input
-              type="text"
-              placeholder="Anything"
-              className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px] "
-              onChange={handleSearch}
-              value={searchInput}
-            />
-            <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
-            <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
-              {filtered.map((item) => (
-                <div
-                  key={item._id}
-                  className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
-                  onClick={() => handleSearchNavigation(item)}
+              {userData && !userData?.isAdmin && !userData?.isSeller ? (
+                <NavLink
+                  to="/become"
+                  className=" font-semibold text-[#595959]  text-[20px] main-font text-decoration-none leading-6 hover:text-blue-400 transition-all duration-300"
                 >
-                  <img src={item.cover} alt="category img" className="w-1/6" />
-                  <p className="sub-font-2 font-medium">{item.title}</p>
+                  Become a seller
+                </NavLink>
+              ) : null}
+              <div className="hidden relative lg:block">
+                <input
+                  type="text"
+                  placeholder="Anything"
+                  className="outline-none  border rounded-lg border-black py-[5px] shadow-md	px-2.5 w-[300px] "
+                  onChange={handleSearch}
+                  value={searchInput}
+                />
+                <IoSearchOutline className="absolute top-1 right-2 text-blue-400 text-2xl font-extrabold" />
+                <div className="absolute bg-white w-full mt-2 rounded-lg shadow-2xl z-10 max-h-72 overflow-y-auto">
+                  {filtered.map((item) => (
+                    <div
+                      key={item._id}
+                      className="border-b-2 border-stone-200 hover:bg-stone-200 cursor-pointer transition-all duration-300 p-3 hover:ps-5 flex items-center gap-3 "
+                      onClick={() => handleSearchNavigation(item)}
+                    >
+                      <img
+                        src={item.cover}
+                        alt="category img"
+                        className="w-1/6"
+                      />
+                      <p className="sub-font-2 font-medium">{item.title}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>

@@ -45,7 +45,7 @@ function GigsContainer({ minPrice, maxPrice }) {
   if (isLoading) return <Loading background="transparent"></Loading>;
   return (
     <>
-      <ul className="container grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-9   ">
+      <ul className="mx-4 md:mx-16 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-9   ">
         {gigs &&
           gigs.map((g) => (
             <li key={g._id} className="relative">

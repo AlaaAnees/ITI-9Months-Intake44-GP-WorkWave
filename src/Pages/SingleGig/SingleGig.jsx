@@ -15,10 +15,9 @@ function SingleGig() {
   useEffect(() => {
     async function fetchSingleGig() {
       try {
-        // console.log("anaa id", id);
         const res = await fetch(`${baseURL}/api/gigs/single/${id}`);
         const data = await res.json();
-        // console.log("meeen", data);
+
         setSingleGig(data);
       } catch (err) {
         return err;

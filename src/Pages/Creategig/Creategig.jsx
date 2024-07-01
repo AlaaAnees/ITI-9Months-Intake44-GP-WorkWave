@@ -91,7 +91,7 @@ function Creategig() {
   }
   return (
     <>
-      <div className="container mx-auto py-8 px-4 md:px-0 h-screen flex flex-col justify-center ">
+      <div className="mx-4 md:mx-16 py-8 px-4 md:px-0  flex flex-col justify-center ">
         <h1 className="text-3xl text-[#595959] capitalize font-semibold   ">
           Add new gig
         </h1>
@@ -184,7 +184,7 @@ function Creategig() {
                 </div>
               ) : null}
             </div>
-            <div className="flex justify-between my-2 flex-col  md:flex-row">
+            <div className="flex justify-between my-16 xl:my-2 flex-col  md:flex-row">
               <div className="flex flex-col my-2 ">
                 <label
                   htmlFor="images"
@@ -206,7 +206,7 @@ function Creategig() {
                   </div>
                 ) : null}
               </div>
-              <div className="flex flex-col my-2 ">
+              <div className="flex flex-col  ">
                 <label
                   htmlFor="cover"
                   className="text-[#959595] text-lg capitalize"
@@ -350,7 +350,7 @@ function Creategig() {
             </div>
             <button
               type="submit"
-              className="bg-[#60A5FA]  p-3 rounded-md text-white my-2"
+              className="bg-[#60A5FA] p-3 rounded-md text-white my-28 xl:my-2 "
             >
               {isloading ? (
                 <FontAwesomeIcon icon={faWaveSquare} className="fa-beat" />

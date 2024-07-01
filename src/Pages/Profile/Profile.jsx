@@ -44,7 +44,7 @@ function Profile() {
     );
     const data = await res.json();
     setisloading(false);
-    console.log(data);
+    // console.log(data);
     handleLogOut();
     navigate("/");
   }

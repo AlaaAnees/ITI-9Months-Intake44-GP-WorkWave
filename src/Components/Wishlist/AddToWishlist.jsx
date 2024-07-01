@@ -20,7 +20,7 @@ function AddToWishlist({ gig }) {
       );
       const fav = await res.json();
 
-      console.log("add", fav);
+      // console.log("add", fav);
     } else if (colored == true) {
       const res = await fetch(
         `https://gp-workwave-production.up.railway.app/api/favorites/${gigid}`,

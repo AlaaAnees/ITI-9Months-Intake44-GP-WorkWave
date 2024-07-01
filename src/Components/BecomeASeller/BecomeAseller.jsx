@@ -39,7 +39,7 @@ function BecomeAseller() {
       localStorage.setItem("user", JSON.stringify(data.data.user));
       navigate("/newGig");
       if (res.ok) {
-        console.log("Success:", data);
+        // console.log("Success:", data);
       } else {
         setFailedLogin(true);
       }

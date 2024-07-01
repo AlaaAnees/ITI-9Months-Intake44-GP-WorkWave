@@ -22,10 +22,10 @@ const Contact = ({ IDs }) => {
   const checkConversation = useCallback(async () => {
     try {
       const conversation = await fetchSingleConversation(id);
-      console.log(
-        "------------------------------------------------------->from conversationnnnnnnn",
-        conversation
-      );
+      // console.log(
+      //   "------------------------------------------------------->from conversationnnnnnnn",
+      //   conversation
+      // );
       if (conversation) {
         setConversationExists(true);
         setConversationId(conversation.id);
@@ -45,7 +45,7 @@ const Contact = ({ IDs }) => {
   const handleContact = async () => {
     if (conversationExists) {
       await navigate(`/message/${conversationId}`);
-      console.log(conversationId);
+      // console.log(conversationId);
     } else {
       try {
         const newConversation = await createConversation(

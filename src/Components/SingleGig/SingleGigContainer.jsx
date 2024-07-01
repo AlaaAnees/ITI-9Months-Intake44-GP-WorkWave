@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { FaStar } from "react-icons/fa";
 
 import { faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Contact from "../Contact/Contact";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/authContext";
+import Contact from "../Contact/Contact";
 
 function SingleGigContainer({ gig }) {
   const { userId, images, features } = gig;
@@ -73,7 +71,7 @@ function SingleGigContainer({ gig }) {
               <img
                 src={ownerData.img}
                 alt={ownerData.username}
-                className="w-10  rounded-full me-3"
+                className="w-10 h-10  rounded-full me-3"
               />
               <div className="main-font font-semibold">
                 {ownerData.username}
@@ -142,7 +140,7 @@ function SingleGigContainer({ gig }) {
             <img
               src={ownerData.img}
               alt={ownerData.username}
-              className="w-16 rounded-full"
+              className="w-16 h-16 rounded-full"
             />
             <div className="space-y-2">
               <div className="text-lg font-semibold text-gray-800">

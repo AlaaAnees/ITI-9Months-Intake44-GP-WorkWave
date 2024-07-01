@@ -36,7 +36,7 @@ function SingleGigContainer({ gig }) {
       }
     );
     const data = await res.json();
-    console.log("data****************", data);
+    // console.log("data****************", data);
     setIsloading(false);
   }
 

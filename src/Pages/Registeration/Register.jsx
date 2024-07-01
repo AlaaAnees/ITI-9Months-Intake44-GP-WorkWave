@@ -11,7 +11,6 @@ import { GoogleLogin } from "@react-oauth/google";
 import SuccessModal from "../../Components/registration-modal/RegModal";
 import { AuthContext } from "../../Context/authContext";
 import upload from "../../Utils/uploadImg";
-import FacebookAuthComponent from "../Login/FaceBook";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -301,7 +300,7 @@ function Register() {
         <div className="bg-white w-10/12 md:w-3/5 flex flex-col items-center justify-center py-10 rounded-3xl">
           <h2 className="sub-font-2 font-bold text-2xl">Register</h2>
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 my-10 items-center">
-            <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} />
+            {/* <FacebookAuthComponent handleFacebookLogin={handleFacebookLogin} /> */}
             <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
           </div>
           <p className="flex gap-1 text-[#bbb]">

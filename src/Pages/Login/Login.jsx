@@ -9,7 +9,6 @@ import { SyncLoader } from "react-spinners";
 import { GoogleLogin } from "@react-oauth/google";
 
 import { AuthContext } from "../../Context/authContext";
-import FacebookAuthComponent from "./FaceBook";
 
 function Login() {
   const navigate = useNavigate();

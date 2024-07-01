@@ -25,7 +25,7 @@ function GigsContainer({ minPrice, maxPrice }) {
     );
     const data = await res.json();
     setisdeleted(!isdelete);
-    console.log(data);
+    // console.log(data);
   }
 
   useEffect(() => {

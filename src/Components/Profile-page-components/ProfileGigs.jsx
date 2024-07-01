@@ -16,7 +16,7 @@ const ProfileGigs = ({ sellerGigs }) => {
     );
     const data = await res.json();
   }
-  console.log(sellerGigs);
+  // console.log(sellerGigs);
   const settings = {
     dots: false,
     infinite: true,

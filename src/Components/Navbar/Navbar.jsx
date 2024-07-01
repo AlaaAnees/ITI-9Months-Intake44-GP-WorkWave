@@ -36,7 +36,7 @@ function Navbar() {
       );
     } catch (error) {
       if (error.name === "AbortError") {
-        console.log("Fetch aborted");
+        // console.log("Fetch aborted");
       } else {
         console.error("Error fetching data:", error);
       }

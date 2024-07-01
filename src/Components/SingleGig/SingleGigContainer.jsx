@@ -17,8 +17,8 @@ function SingleGigContainer({ gig }) {
   const token = JSON.parse(localStorage.getItem("token"));
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
-  const sellerId = ownerData._id;
-  const buyerId = currentUser._id;
+  const sellerId = ownerData?._id;
+  const buyerId = currentUser?._id;
 
   const { userData } = useContext(AuthContext);
 
@@ -138,34 +138,35 @@ function SingleGigContainer({ gig }) {
           )}
         </div>
         <div className="flex items-start justify-center mt-10">
-          <div className="bg-white rounded-md p-7 flex items-center gap-5 shadow-lg">
-            <img
-              src={ownerData.img}
-              alt={ownerData.username}
-              className="w-16 rounded-full"
-            />
-            <div className="space-y-2">
-              <div className="text-lg font-semibold text-gray-800">
-                {ownerData.username}
-              </div>
-              <div>
-                {!isNaN(gig.totalStars / gig.starNumber) && (
-                  <div className="flex items-center">
-                    {Array(Math.round(gig.totalStars / gig.starNumber))
-                      .fill()
-                      .map((_, i) => (
-                        <FaStar key={i} className="text-yellow-400" />
-                      ))}
-                    <span className="ml-1">
-                      {Math.round(gig.totalStars / gig.starNumber)}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <button className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition">
-                <Contact IDs={{ sellerId: sellerId, buyerId: buyerId }} />
-              </button>
-              {/*  {userData && (
+          {currentUser && (
+            <div className="bg-white rounded-md p-7 flex items-center gap-5 shadow-lg">
+              <img
+                src={ownerData.img}
+                alt={ownerData.username}
+                className="w-16 rounded-full"
+              />
+              <div className="space-y-2">
+                <div className="text-lg font-semibold text-gray-800">
+                  {ownerData.username}
+                </div>
+                <div>
+                  {!isNaN(gig.totalStars / gig.starNumber) && (
+                    <div className="flex items-center">
+                      {Array(Math.round(gig.totalStars / gig.starNumber))
+                        .fill()
+                        .map((_, i) => (
+                          <FaStar key={i} className="text-yellow-400" />
+                        ))}
+                      <span className="ml-1">
+                        {Math.round(gig.totalStars / gig.starNumber)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <button className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition">
+                  <Contact IDs={{ sellerId: sellerId, buyerId: buyerId }} />
+                </button>
+                {/*  {userData && (
                 <Link
                   to={`/message/${userId}${userData?._id}`}
                   className="bg-blue-500 rounded py-2 px-4 text-white hover:bg-blue-600 transition"
@@ -173,8 +174,9 @@ function SingleGigContainer({ gig }) {
                   Contact Me
                 </Link>
               )} */}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

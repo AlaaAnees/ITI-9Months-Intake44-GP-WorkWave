@@ -64,14 +64,10 @@ const Contact = ({ IDs }) => {
 
   return (
     <div
-      className="contact w-[35px] h-[35px] m-2 cursor-pointer"
+      className="contact  m-2 cursor-pointer bg-blue-500 p-2 text-white rounded-md"
       onClick={handleContact}
     >
-      <img
-        className="message w-full"
-        src="./assets/message.png"
-        alt="message icon"
-      />
+      Contact
     </div>
   );
 };
